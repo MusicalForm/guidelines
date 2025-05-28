@@ -1,0 +1,34 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Guidelines"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: wiki/What-is-form!-(Working-definition).md
+        text: Intro
+      - href: wiki/Annotation-Tool.md
+        text: TiLiA App
+      - href: wiki/Finding-the-Guidelines.md
+        text: Rules
+      - href: wiki/Vocabulary-of-formal-concepts.md
+        text: Vocabulary
+      - href: wiki/Syntax.md
+        text: Syntax
+      - href: wiki/Examples.md
+        text: Examples
+      - about.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+
+
