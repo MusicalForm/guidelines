@@ -70,6 +70,13 @@
     "text": "Aligning a score with an audio recording\n\nGenerate an aligned beat grid\nThe first step is to generate a &lt;filename&gt;.tilia.csv file containing a beat grid for the score, mapped to the corresponding timecodes in the recording.\nWhat you need:\n\na working Python environment with Python 3.10 or newer (we recommend Miniconda)\na MuseScore file of the piece in question\nan audio recording, possibly one in the public domain so that it can be shared\n\nfirst stop: IMSLP\nCreative Commons Search\nMusOpen (requires log-in)\narchive.org\nMusical Heritage Organization\n\n\nThen you can:\n\nhead to johentsch/ms3_realtime and do the first-time setup\nfollow the instructions under Deriving timelines from aligned notes\n\n\n\nImport the beatgrid into the TiLiA file\nInstructions are in the same document over there @ ms3_realtime.\n\n\nImport the score\n\nIf the score contains annotations, you first need to remove them."
   },
   {
+    "objectID": "wiki/Annotation-Tool.html#re-align-an-existing-tilia-analyses",
+    "href": "wiki/Annotation-Tool.html#re-align-an-existing-tilia-analyses",
+    "title": "Preparing a new TiLiA file for analysis",
+    "section": "Re-align an existing TiLiA analyses",
+    "text": "Re-align an existing TiLiA analyses\n\nWhat you need:\n\nthe TiLiA project exported to JSON\nthe audio file to re-align the project to\na MuseScore file corresponding to the recording (e.g. when someone does not play repeats, these repeats need to be removed from the score)"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Navigation",
@@ -116,6 +123,6 @@
     "href": "wiki/Vocabulary-of-formal-concepts.html",
     "title": "Guidelines",
     "section": "",
-    "text": "The vocabulary of formal concepts referrering to formal functions is being ordered according to their position in the formal hierarchy: from piece level down to the subthematic level. In addition, concepts referring to formal types is being introduced here.\nPiece level\nMovement level\n\nSonata form\nMinuet form\nRondo form\nConcerto form\n\nSection level\n\n1st section / 2nd section / 3rd section\nExposition\nDevelopment\nRecapitulation\nCoda\nRitornello\nRefrain\nEpisode\nCouplet\nContrasting middle\n\nTheme level\n\nMain theme / Primary theme (zone)\nSubordinate theme / Second theme (zone)\n\nSubthematic level\n\nBasic idea\nContrasting idea\nCadential idea"
+    "text": "The vocabulary of formal concepts referrering to formal functions is being ordered according to their position in the formal hierarchy: from piece level down to the subthematic level. In addition, concepts referring to formal types is being introduced here.\nPiece level\nMovement level * Sonata form * Minuet form * Rondo form * Concerto form\nSection level * 1st section / 2nd section / 3rd section * Exposition * Development * Recapitulation * Coda * Ritornello * Refrain * Episode * Couplet * Contrasting middle\nTheme level * Main theme / Primary theme (zone) * Subordinate theme / Second theme (zone)\nSubthematic level * Basic idea * Contrasting idea * Cadential idea"
   }
 ]
