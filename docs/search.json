@@ -11,14 +11,56 @@
     "href": "wiki/Examples.html",
     "title": "Examples",
     "section": "",
-    "text": "J.S. Bach – Sarabande from BWV 1007\nTiLiA file: https://github.com/MusicalForm/annotation_pilot/blob/BWV1007_04_Sarabande/TiLiA/BWV1007_04_Sarabande.tla"
+    "text": "F. Chopin - Mazurka in A-flat major, op. 24, no. 3\n\nTiLiA file: https://github.com/MusicalForm/annotation_pilot/blob/chopin_model/chopin_model/chopin_24-3_example.tla\nRecording in the same folder (by Edward Neeman, downloaded from IMSLPby)\n\nNote: You must first change the path to the recording in the header of the .tla file to your own local path.\n\n\nJ.S. Bach – Sarabande from BWV 1007\n\nTiLiA file: https://github.com/MusicalForm/annotation_pilot/blob/BWV1007_04_Sarabande/TiLiA/BWV1007_04_Sarabande.tla"
   },
   {
     "objectID": "wiki/Syntax.html",
     "href": "wiki/Syntax.html",
     "title": "Syntax",
     "section": "",
-    "text": "In TiLiA, each element in a hierarchy timeline can be given a label. The use of labels should follow a syntax, which extends that of Gotham and Ireland (2019) in several important ways:\n\nIn annotation via MuseScore, a typical first label of a sonata form movement can look like this:\n\n0: mvt1|sonata.type1, 1: exp, 2: 1st zone, 3: 1st|sent, 4: pres, 5: bi\nWhen Using TiLiA, the position within the hierarchical structure no longer has to be specified by an integer, since it is captured within the hierarchy timeline.\n\nIt is possible to clarify the formal types (e.g., the type of sonata) used to realise a particular formal function (such as a first movement, or exposition) by using the pipe symbol (|). In the case above, in level 0 we are dealing with a so-called type 1 sonata-form movement (Hepokoski & Darcy, 2006b), whereas the 1st theme (level 3) is realised as a Caplinian sentence.\nWe include a higher level 0 that accounts for the whole movement–—or work—, in this case the 1st movement of a piece. Therefore, we suggest using this level 0 to indicate the position of the piece (or movement) in its context and the overall form type(s) which function(s) as the root of the overarching form tree.\nFor easier annotation, we have implemented a series of abbreviations for the most frequent terms in formal analysis (see Table A1 in the Supplementary materials). When extracted and converted into a tree-like representation, all tokens that correspond to a standardised (and custom) abbreviation are spelled out.\nFormal functions and types: Our standard distinguishes between formal functions and types (Caplin, 1998). For both, the categories and abbreviations listed in Table A1 can be used. Formal subtypes, such as the five types of sonata form as proposed by sonata theory, appear after the corresponding formal (super)type separated by a dot, usually on levels 0 or 1. Realisations of formal functions, such as periods and sentences, are appended to the relevant token using a pipe symbol (|). Label 2 above makes use of both syntactical elements with the label component 0: mvt1|sonata.type1 to be read as ‘first movement, realised as sonata form type 1’. In a cyclic form, the same label could be specified as 0: sonata, 1: mvt1|sonata form.type1, … (4) where movement level is level 1.\nMaterial content: Despite the standard’s focus on form, we allow for the annotation of material content and its use. For the repetition of materials we propose marking adjacent repetitions with an exclamation mark (!) appended to the relevant token. The number of exclamation marks stands for the number of adjacent repetitions (for instance, 5: bi!! for the second adjacent repetition of a basic idea). An asterisk () appended to any label indicates that the re-occurrence of the relevant function is partial; when converging with a repetition, the asterisk must be annotated before the exclamation mark, e.g., 5: pres!, standing for an immediate, yet abridged, repetition of the presentation function. Distant repeats can be annotated using square brackets indicating the material that is repeated. For instance, 3: 2nd zone, 4: 2nd [1st*] (5) would indicate a partial repeat of 1st-theme material in the secondary-theme zone, characteristic of the so-called monothematic expositions.\nFormal transformation: ‘Form-functional transformation’ (Dahlhaus, 1987; Schmalfeldt, 2011) is ex-pressed in our standard by separating the two functional tokens with greater-than (&gt;) or a less-than (&lt;) symbols, or both (&lt;&gt;); see Figure 4. When the transformation occurs within a single formal level, the three symbols stand for the three possible directions: &gt; for forward transformation (Horton, 2017), &lt; for retrospective transformation (Martin & Vande Moortele, 2014), and &lt;&gt; for bidirectional transformation (Vande Moortele, 2013).\n\n\n\n\ngrafik"
+    "text": "In TiLiA, each element in a hierarchy timeline should be given a label. The use of labels should follow a syntax, which extends that of Gotham & Ireland (2019). This page outlines the most important features of this syntax."
+  },
+  {
+    "objectID": "wiki/Syntax.html#hierarchical-levels",
+    "href": "wiki/Syntax.html#hierarchical-levels",
+    "title": "Syntax",
+    "section": "Hierarchical Levels",
+    "text": "Hierarchical Levels\nThe syntax can be applied on different annotation apps, though some aspects differ in usuage. In annotation in MuseScore, a typical first label of a sonata form movement can look like this:\n0: mvt1|sonata.type1, 1: exp, 2: 1st zone, 3: theme|sent, 4: pres, 5: bi\nWhen Using TiLiA, the position within the hierarchical structure does not have to be specified by an integer, since it is captured within the hierarchy timeline. One would simply write mvt1|sonata.type1 in the highest component. However, we still reference the integer levels in this guide in order to make the underlying logic clear."
+  },
+  {
+    "objectID": "wiki/Syntax.html#types-and-functions",
+    "href": "wiki/Syntax.html#types-and-functions",
+    "title": "Syntax",
+    "section": "Types and functions",
+    "text": "Types and functions\nOur standard distinguishes between formal functions and types (Caplin, 1998). Realisations of formal functions, such as periods and sentences, are appended to the relevant token using a pipe symbol (|). The label component 0: mvt1|sonata.type1 is to be read as ‘first movement, realised as sonata form type 1’, while the component 3: theme|sent tells us that the theme within the 1st zone is realized as a Caplinian sentence.\nTiLiA does have fields for types and function, but for now we recommend writing them into the “label” field in the inspector."
+  },
+  {
+    "objectID": "wiki/Syntax.html#vocabulary-and-abbreviations",
+    "href": "wiki/Syntax.html#vocabulary-and-abbreviations",
+    "title": "Syntax",
+    "section": "Vocabulary and abbreviations",
+    "text": "Vocabulary and abbreviations\nFor easier annotation, we have implemented a series of abbreviations for the most frequent terms in formal analysis. See the Vocabulary page for reference. In any case where you do not see a fitting label for a segment, you can use the neutral label unit."
+  },
+  {
+    "objectID": "wiki/Syntax.html#material-content-and-repetition",
+    "href": "wiki/Syntax.html#material-content-and-repetition",
+    "title": "Syntax",
+    "section": "Material content and repetition",
+    "text": "Material content and repetition\nDespite the standard’s focus on form, we allow for the annotation of material content and its use. For the repetition of materials we propose marking adjacent repetitions with an exclamation mark (!) appended to the relevant token. The number of exclamation marks stands for the number of adjacent repetitions (for instance, 5: bi!! for the second adjacent repetition of a basic idea). An asterisk appended to any label indicates that the re-occurrence of the relevant function is partial. Distant repeats can be annotated using square brackets indicating the material that is repeated. For instance, 3: 2nd zone, 4: 2nd [1st*] would indicate a partial repeat of 1st-theme material in the secondary-theme zone, characteristic of the so-called monothematic expositions.\nTo avoid ambiguous references, it is possible to assign unique custom names to components that you wish to reference in other places, for example main_theme: theme|sent, means that we call this theme (realised as a sentence) “main_theme”, so if we later write coda [main_theme] it is clear that the coda is repeating that particular theme, not another."
+  },
+  {
+    "objectID": "wiki/Syntax.html#formal-transformation",
+    "href": "wiki/Syntax.html#formal-transformation",
+    "title": "Syntax",
+    "section": "Formal transformation:",
+    "text": "Formal transformation:\n*‘Form-functional transformation’ (Dahlhaus, 1987; Schmalfeldt, 2011) is expressed in our standard by separating the two functional tokens with greater-than (&gt;) or a less-than (&lt;) symbols, or both (&lt;&gt;). When the transformation occurs within a single formal level, the three symbols stand for the three possible directions: &gt; for forward transformation (Horton, 2017), &lt; for retrospective transformation (Martin & Vande Moortele, 2014), and &lt;&gt; for bidirectional transformation (Vande Moortele, 2013)."
+  },
+  {
+    "objectID": "wiki/Syntax.html#ambiguity-diverging-interpretations-or-multi-dimensional-forms",
+    "href": "wiki/Syntax.html#ambiguity-diverging-interpretations-or-multi-dimensional-forms",
+    "title": "Syntax",
+    "section": "Ambiguity, diverging interpretations or multi-dimensional forms",
+    "text": "Ambiguity, diverging interpretations or multi-dimensional forms\nUncertain labels can be highlighted using a question mark. There are also cases where the form can be understood in several different ways, which are either mutually exclusive analytical perspectives, or different formal models being used at the same time. One example of “multidimensional form” could be the main theme zone of a sonata form being structured as a fugue, which invites two different modes of decoding the form at the same time. In both cases, one should open a seperate hierarchy timeline and use it as an addition to add the other layer for the relevant passage."
   },
   {
     "objectID": "wiki/Vocabulary.html",
@@ -53,35 +95,49 @@
     "href": "wiki/Principles.html",
     "title": "Principles",
     "section": "",
-    "text": "This section uses Frédéric Chopin: Mazurka in A-flat major, op. 24, 3 (1835) to explain the use of TiLiA for creating form annotations."
+    "text": "This section uses Frédéric Chopin: Mazurka in A-flat major, op. 24, 3 (1835) (see: Examples) to explain the use of TiLiA for creating form annotations."
   },
   {
-    "objectID": "wiki/Principles.html#rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted.",
-    "href": "wiki/Principles.html#rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted.",
+    "objectID": "wiki/Principles.html#rule-top-level-for-the-entire-piece",
+    "href": "wiki/Principles.html#rule-top-level-for-the-entire-piece",
     "title": "Principles",
-    "section": "Rule 1: Every hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.",
-    "text": "Rule 1: Every hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.\nThis analysis looks complete on the surface, but is missing the unifying label:\n\n\n\nChopin_no_top\n\n\nShould become as seen above.\nThe part before the pipe symbol may be used to identify the music in the larger context, e.g. as a first movement of a sonata cycle. While the par after the symbol indicates what kind of form the piece is realised as. If the piece is understood to be independent of any larger context, you can use generic names such as “piece”, “track”, “song” etc. The Chopin example was titled in this way, which indicates the interpretation that opus 24 is a rather loosely connected set of individual pieces, rather than a cycle expected to be heard in sequence.\nOther Examples: * mov2|minuet_and_trio - The third movement of a sonata cycle, realized as a minuet with trio. * track04|strophic - The fourth track in a rock album, which happens to be written in a strophic form (no chorus). * exp|continuous - here the analysis only deals with the exposition section of a movement, so that is the head level. The exposition is continuous because it does not have a medial caesura or clear secondary theme zone."
+    "section": "Rule: Top-Level for the entire piece",
+    "text": "Rule: Top-Level for the entire piece\nEvery hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.\nThis analysis looks complete on the surface, but is missing the unifying label:\n\n\n\nChopin_no_top\n\n\nThese segments should be grouped up one more time, as above.\nLabeling of the top level: The part before the pipe symbol may be used to identify the music in a larger context, e.g. as a first movement of a sonata cycle. While the part after the symbol indicates what kind of form the piece as a whole has. If the piece is understood to be independent of any larger context, you can use generic names such as “piece”, “track”, “song” etc. The Chopin example was titled in this way, which indicates the interpretation that opus 24 is a rather loosely connected set of individual pieces, rather than a cycle expected to be heard in sequence.\nOther Examples: * mov2|minuet_and_trio - The third movement of a sonata cycle, realized as a minuet with trio. * track04|strophic - The fourth track in a rock album, which happens to be written in a strophic form (no chorus). * exp|continuous - here the analysis only deals with the exposition section of a movement, so that is the head level. The exposition is continuous because it does not have a medial caesura or clear secondary theme zone."
   },
   {
-    "objectID": "wiki/Principles.html#rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplinian-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-etc",
-    "href": "wiki/Principles.html#rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplinian-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-etc",
+    "objectID": "wiki/Principles.html#rule-bottom-level-for-ideassub-phrases",
+    "href": "wiki/Principles.html#rule-bottom-level-for-ideassub-phrases",
     "title": "Principles",
-    "section": "Rule 2: The lowest level of the hierarchy should correspond to individual musical ideas. For example in a Caplinian Style: bi (basic idea), ci (contrasting idea), cad (cadential), mod (model of a sequence), etc…",
-    "text": "Rule 2: The lowest level of the hierarchy should correspond to individual musical ideas. For example in a Caplinian Style: bi (basic idea), ci (contrasting idea), cad (cadential), mod (model of a sequence), etc…\nMost pieces in the pilot corpus can be well described with Caplin-esque terms as the ones mentioned. In this Mazurka, the entire A section is a sentence with two continuation phrases.\n\n\n\ngrafik"
+    "section": "Rule: Bottom-Level for ideas/sub-phrases…",
+    "text": "Rule: Bottom-Level for ideas/sub-phrases…\nThe lowest level of the hierarchy should correspond to individual musical ideas. For example in a Caplinian Style: bi (basic idea), ci (contrasting idea), cad (cadential), mod (model of a sequence), etc… \nMost pieces in the pilot corpus can be well described with Caplin-esque terms as the ones mentioned. In this Mazurka, the entire A section is a sentence with two continuation phrases.\n\n\n\nChopin_A"
   },
   {
-    "objectID": "wiki/Principles.html#rule-3-labeling-should-be-consistent-and-follow-the-syntax-and-label-system",
-    "href": "wiki/Principles.html#rule-3-labeling-should-be-consistent-and-follow-the-syntax-and-label-system",
+    "objectID": "wiki/Principles.html#rule-consistent-labeling",
+    "href": "wiki/Principles.html#rule-consistent-labeling",
     "title": "Principles",
-    "section": "Rule 3: Labeling should be consistent and follow the syntax and label system",
-    "text": "Rule 3: Labeling should be consistent and follow the syntax and label system\nThe figure above also illustrates the labeling syntax. The logic introduced at the highest level, where one label indicates the function of the segment, and the other the type that it has been realized as, is followed through to the bottom.\nIt must be understood that labels like “bi” are related only to their local context. Repetions and variations of immediately preceding timespans on the same level can be indicated using % for larger sections, or the suffixes ! or ' for exact and varied repetition of an idea, respectively. If you wishes to indicate a non-adjacent repetition, you can assign a label using this syntax:\n\"main_theme\": theme|sent\nIn the example, the segment arbitrarily called x, which is originally a part of the presentation phrase, has been reused as part of the cadential idea."
+    "section": "Rule: Consistent labeling",
+    "text": "Rule: Consistent labeling\nLabeling should be consistent and follow the label syntax and vocabulary.\nThe figure above also illustrates the labeling syntax. The logic introduced at the highest level, where one label indicates the function of the segment, and the other the type that it has been realized as, is followed through to the bottom.\nIt must be understood that labels such as bi are related only to their local context. Repetions and variations of immediately preceding timespans on the same level can be indicated using % for larger sections, or the suffixes ! or ' for exact and varied repetition of an idea, respectively. If you wishes to indicate a non-adjacent repetition, you may assign a label using this syntax:\nx: theme|sent\nIn the example, the segment arbitrarily named x, which is originally a part of the presentation phrase, has been reused as part of the cadential idea."
   },
   {
     "objectID": "wiki/Annotation-Tool.html",
     "href": "wiki/Annotation-Tool.html",
     "title": "TiLiA",
     "section": "",
-    "text": "As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA). For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.\nThe newest version of the TiLiA app can be downloaded here or built from source using PyInstaller.\nBasic information about how to install and use TiLiA can be found at\n\nTiLiA Website\nTiLiA Youtube Channel\nTiLiA GitHub"
+    "text": "As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA), a GUI for producing and displaying complex annotations with video and audio files. For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.\nThe newest version of the TiLiA app can be downloaded here or built from source using PyInstaller. Please reference the installation guide to troubleshoot common installation issues, such as safety settings blocking installation.\n\n\n\nBasic information about how to use TiLiA and its different features can be found at:\n\nTiLiA Website\nTiLiA Youtube Channel\nTiLiA GitHub\n\nMiscellaneous Workflow Advice: * Make sure that the file is saved in a non-temporary folder. * The saved .tla files cannot be opened by simply clicking on them. This means you always have to open the app first and then the file from the app. * Save your file regularly to avoid losing progress. You may also track changes via git to better remedy file corruption. * If the app crashes while you have not saved for a long time, you can check whether a file has been saved in the ‘Autosaves’ folder (File =&gt; Open Autosaves Folder =&gt; Copy path; then File =&gt; Open =&gt; Select path to Autosaves folder and open the last saved version) * Depending on what you find easier for the music, you may either proceed from larger sections to smaller ones in a top-down way (=&gt; create child, then split the child, shortcut: s), or identify small formal units and group them upwards (shortcut: g).\nPlease refer to the Principles page for more detailed guidance on how to use the app in the context of this project."
+  },
+  {
+    "objectID": "wiki/Annotation-Tool.html#installing-tilia",
+    "href": "wiki/Annotation-Tool.html#installing-tilia",
+    "title": "TiLiA",
+    "section": "",
+    "text": "As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA), a GUI for producing and displaying complex annotations with video and audio files. For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.\nThe newest version of the TiLiA app can be downloaded here or built from source using PyInstaller. Please reference the installation guide to troubleshoot common installation issues, such as safety settings blocking installation."
+  },
+  {
+    "objectID": "wiki/Annotation-Tool.html#ressources-for-learning-tilia",
+    "href": "wiki/Annotation-Tool.html#ressources-for-learning-tilia",
+    "title": "TiLiA",
+    "section": "",
+    "text": "Basic information about how to use TiLiA and its different features can be found at:\n\nTiLiA Website\nTiLiA Youtube Channel\nTiLiA GitHub\n\nMiscellaneous Workflow Advice: * Make sure that the file is saved in a non-temporary folder. * The saved .tla files cannot be opened by simply clicking on them. This means you always have to open the app first and then the file from the app. * Save your file regularly to avoid losing progress. You may also track changes via git to better remedy file corruption. * If the app crashes while you have not saved for a long time, you can check whether a file has been saved in the ‘Autosaves’ folder (File =&gt; Open Autosaves Folder =&gt; Copy path; then File =&gt; Open =&gt; Select path to Autosaves folder and open the last saved version) * Depending on what you find easier for the music, you may either proceed from larger sections to smaller ones in a top-down way (=&gt; create child, then split the child, shortcut: s), or identify small formal units and group them upwards (shortcut: g).\nPlease refer to the Principles page for more detailed guidance on how to use the app in the context of this project."
   },
   {
     "objectID": "wiki/Annotation-Tool.html#preparing-a-new-tilia-file-for-analysis",

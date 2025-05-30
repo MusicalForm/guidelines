@@ -140,9 +140,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#tilia-layout" id="toc-tilia-layout" class="nav-link active" data-scroll-target="#tilia-layout">TiLiA Layout</a></li>
   <li><a href="#using-hierarchy-timelines-to-encode-a-form-analysis" id="toc-using-hierarchy-timelines-to-encode-a-form-analysis" class="nav-link" data-scroll-target="#using-hierarchy-timelines-to-encode-a-form-analysis">Using Hierarchy Timelines to encode a form analysis</a>
   <ul class="collapse">
-  <li><a href="#rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted." id="toc-rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted." class="nav-link" data-scroll-target="#rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted.">Rule 1: Every hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.</a></li>
-  <li><a href="#rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplinian-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-etc" id="toc-rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplinian-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-etc" class="nav-link" data-scroll-target="#rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplinian-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-etc">Rule 2: The lowest level of the hierarchy should correspond to <em>individual musical ideas</em>. For example in a Caplinian Style: <code>bi</code> (basic idea), <code>ci</code> (contrasting idea), <code>cad</code> (cadential), <code>mod</code> (model of a sequence), etc…</a></li>
-  <li><a href="#rule-3-labeling-should-be-consistent-and-follow-the-syntax-and-label-system" id="toc-rule-3-labeling-should-be-consistent-and-follow-the-syntax-and-label-system" class="nav-link" data-scroll-target="#rule-3-labeling-should-be-consistent-and-follow-the-syntax-and-label-system">Rule 3: Labeling should be consistent and follow the syntax and label system</a></li>
+  <li><a href="#rule-top-level-for-the-entire-piece" id="toc-rule-top-level-for-the-entire-piece" class="nav-link" data-scroll-target="#rule-top-level-for-the-entire-piece">Rule: Top-Level for the entire piece</a></li>
+  <li><a href="#rule-bottom-level-for-ideassub-phrases" id="toc-rule-bottom-level-for-ideassub-phrases" class="nav-link" data-scroll-target="#rule-bottom-level-for-ideassub-phrases">Rule: Bottom-Level for ideas/sub-phrases…</a></li>
+  <li><a href="#rule-consistent-labeling" id="toc-rule-consistent-labeling" class="nav-link" data-scroll-target="#rule-consistent-labeling">Rule: Consistent labeling</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -169,12 +169,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This section uses Frédéric Chopin: Mazurka in A-flat major, op. 24, 3 (1835) to explain the use of TiLiA for creating form annotations.</p>
+<p>This section uses Frédéric Chopin: Mazurka in A-flat major, op. 24, 3 (1835) (see: <a href="https://musicalform.github.io/guidelines/wiki/Examples.html">Examples</a>) to explain the use of TiLiA for creating form annotations.</p>
 <section id="tilia-layout" class="level1">
 <h1>TiLiA Layout</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/user-attachments/assets/db9e1001-f3f2-4b8a-8ce2-df059e1a803f.png" class="img-fluid figure-img"></p>
+<p><img src="figs/Chopin_Overview.png" class="img-fluid figure-img"></p>
 <figcaption>Chopin_Overview</figcaption>
 </figure>
 </div>
@@ -183,35 +183,38 @@ ul.task-list li input[type="checkbox"] {
 <section id="using-hierarchy-timelines-to-encode-a-form-analysis" class="level1">
 <h1>Using Hierarchy Timelines to encode a form analysis</h1>
 <p>The hierarchy timeline is the most important part of the analysis, as it represents the relationships between different timespans of the music. The following is a minimal ruleset that ensures consistency between annotations.</p>
-<section id="rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted." class="level2">
-<h2 class="anchored" data-anchor-id="rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted.">Rule 1: Every hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.</h2>
+<section id="rule-top-level-for-the-entire-piece" class="level2">
+<h2 class="anchored" data-anchor-id="rule-top-level-for-the-entire-piece">Rule: Top-Level for the entire piece</h2>
+<p><em>Every hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.</em></p>
 <p>This analysis looks complete on the surface, but is missing the unifying label:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/user-attachments/assets/97e7eaa4-c9a6-4378-8232-58c5b19ca4a0.png" class="img-fluid figure-img"></p>
+<p><img src="figs/Chopin_no_top.png" class="img-fluid figure-img"></p>
 <figcaption>Chopin_no_top</figcaption>
 </figure>
 </div>
-<p>Should become as seen above.</p>
-<p>The part before the pipe symbol may be used to identify the music in the larger context, e.g.&nbsp;as a first movement of a sonata cycle. While the par after the symbol indicates what kind of form the piece is <em>realised</em> as. If the piece is understood to be independent of any larger context, you can use generic names such as “piece”, “track”, “song” etc. The Chopin example was titled in this way, which indicates the interpretation that opus 24 is a rather loosely connected set of individual pieces, rather than a cycle expected to be heard in sequence.</p>
+<p>These segments should be grouped up one more time, as above.</p>
+<p>Labeling of the top level: The part before the pipe symbol may be used to identify the music in a larger context, e.g.&nbsp;as a first movement of a sonata cycle. While the part after the symbol indicates what kind of form the piece as a whole has. If the piece is understood to be independent of any larger context, you can use generic names such as “piece”, “track”, “song” etc. The Chopin example was titled in this way, which indicates the interpretation that opus 24 is a rather loosely connected set of individual pieces, rather than a cycle expected to be heard in sequence.</p>
 <p><strong>Other Examples</strong>: * <code>mov2|minuet_and_trio</code> - The third movement of a sonata cycle, realized as a minuet with trio. * <code>track04|strophic</code> - The fourth track in a rock album, which happens to be written in a strophic form (no chorus). * <code>exp|continuous</code> - here the analysis only deals with the exposition section of a movement, so that is the head level. The exposition is continuous because it does not have a medial caesura or clear secondary theme zone.</p>
 </section>
-<section id="rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplinian-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-etc" class="level2">
-<h2 class="anchored" data-anchor-id="rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplinian-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-etc">Rule 2: The lowest level of the hierarchy should correspond to <em>individual musical ideas</em>. For example in a Caplinian Style: <code>bi</code> (basic idea), <code>ci</code> (contrasting idea), <code>cad</code> (cadential), <code>mod</code> (model of a sequence), etc…</h2>
+<section id="rule-bottom-level-for-ideassub-phrases" class="level2">
+<h2 class="anchored" data-anchor-id="rule-bottom-level-for-ideassub-phrases">Rule: Bottom-Level for ideas/sub-phrases…</h2>
+<p><em>The lowest level of the hierarchy should correspond to <em>individual musical ideas</em>. For example in a Caplinian Style: <code>bi</code> (basic idea), <code>ci</code> (contrasting idea), <code>cad</code> (cadential), <code>mod</code> (model of a sequence), etc… </em></p>
 <p>Most pieces in the pilot corpus can be well described with Caplin-esque terms as the ones mentioned. In this Mazurka, the entire A section is a sentence with two continuation phrases.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://github.com/user-attachments/assets/95720809-36fa-48bd-987e-75939ae17090.png" class="img-fluid figure-img"></p>
-<figcaption>grafik</figcaption>
+<p><img src="figs/Chopin_A.png" class="img-fluid figure-img"></p>
+<figcaption>Chopin_A</figcaption>
 </figure>
 </div>
 </section>
-<section id="rule-3-labeling-should-be-consistent-and-follow-the-syntax-and-label-system" class="level2">
-<h2 class="anchored" data-anchor-id="rule-3-labeling-should-be-consistent-and-follow-the-syntax-and-label-system">Rule 3: Labeling should be consistent and follow the syntax and label system</h2>
+<section id="rule-consistent-labeling" class="level2">
+<h2 class="anchored" data-anchor-id="rule-consistent-labeling">Rule: Consistent labeling</h2>
+<p><em>Labeling should be consistent and follow the label <a href="https://musicalform.github.io/guidelines/wiki/Syntax.html">syntax</a> and <a href="https://musicalform.github.io/guidelines/Vocabulary.html">vocabulary</a>.</em></p>
 <p>The figure above also illustrates the labeling syntax. The logic introduced at the highest level, where one label indicates the function of the segment, and the other the type that it has been realized as, is followed through to the bottom.</p>
-<p>It must be understood that labels like “bi” are related only to their local context. Repetions and variations of immediately preceding timespans on the same level can be indicated using <code>%</code> for larger sections, or the suffixes <code>!</code> or <code>'</code> for exact and varied repetition of an idea, respectively. If you wishes to indicate a non-adjacent repetition, you can assign a label using this syntax:</p>
-<p><code>"main_theme": theme|sent</code></p>
-<p>In the example, the segment arbitrarily called x, which is originally a part of the presentation phrase, has been reused as part of the cadential idea.</p>
+<p>It must be understood that labels such as <code>bi</code> are related only to their local context. Repetions and variations of immediately preceding timespans on the same level can be indicated using <code>%</code> for larger sections, or the suffixes <code>!</code> or <code>'</code> for exact and varied repetition of an idea, respectively. If you wishes to indicate a non-adjacent repetition, you may assign a label using this syntax:</p>
+<p><code>x: theme|sent</code></p>
+<p>In the example, the segment arbitrarily named <code>x</code>, which is originally a part of the presentation phrase, has been reused as part of the cadential idea.</p>
 
 
 </section>

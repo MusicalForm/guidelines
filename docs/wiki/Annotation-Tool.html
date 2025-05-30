@@ -137,7 +137,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#for-annotators" id="toc-for-annotators" class="nav-link active" data-scroll-target="#for-annotators">For annotators</a></li>
+  <li><a href="#for-annotators" id="toc-for-annotators" class="nav-link active" data-scroll-target="#for-annotators">For annotators</a>
+  <ul class="collapse">
+  <li><a href="#installing-tilia" id="toc-installing-tilia" class="nav-link" data-scroll-target="#installing-tilia">Installing TiLiA</a></li>
+  <li><a href="#ressources-for-learning-tilia" id="toc-ressources-for-learning-tilia" class="nav-link" data-scroll-target="#ressources-for-learning-tilia">Ressources for learning TiLiA</a></li>
+  </ul></li>
   <li><a href="#for-curators" id="toc-for-curators" class="nav-link" data-scroll-target="#for-curators">For curators</a>
   <ul class="collapse">
   <li><a href="#preparing-a-new-tilia-file-for-analysis" id="toc-preparing-a-new-tilia-file-for-analysis" class="nav-link" data-scroll-target="#preparing-a-new-tilia-file-for-analysis">Preparing a new TiLiA file for analysis</a>
@@ -173,14 +177,22 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="for-annotators" class="level1">
 <h1>For annotators</h1>
-<p>As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA). For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.</p>
-<p>The newest version of the TiLiA app can be downloaded <a href="https://tilia-ad98d.web.app/downloads">here</a> or <a href="https://github.com/TimeLineAnnotator/desktop?tab=readme-ov-file#build-from-source">built from source</a> using <a href="https://pyinstaller.org/en/stable/">PyInstaller</a>.</p>
-<p>Basic information about how to install and use TiLiA can be found at</p>
+<section id="installing-tilia" class="level2">
+<h2 class="anchored" data-anchor-id="installing-tilia">Installing TiLiA</h2>
+<p>As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA), a GUI for producing and displaying complex annotations with video and audio files. For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.</p>
+<p>The newest version of the TiLiA app can be downloaded <a href="https://tilia-ad98d.web.app/downloads">here</a> or <a href="https://github.com/TimeLineAnnotator/desktop?tab=readme-ov-file#build-from-source">built from source</a> using <a href="https://pyinstaller.org/en/stable/">PyInstaller</a>. Please reference the <a href="https://tilia-app.com/help/installation/">installation guide</a> to troubleshoot common installation issues, such as safety settings blocking installation.</p>
+</section>
+<section id="ressources-for-learning-tilia" class="level2">
+<h2 class="anchored" data-anchor-id="ressources-for-learning-tilia">Ressources for learning TiLiA</h2>
+<p>Basic information about how to use TiLiA and its different features can be found at:</p>
 <ul>
 <li><a href="https://tilia-ad98d.web.app/help">TiLiA Website</a></li>
 <li><a href="https://www.youtube.com/@tilia-app">TiLiA Youtube Channel</a></li>
 <li><a href="https://github.com/TimeLineAnnotator/desktop">TiLiA GitHub</a></li>
 </ul>
+<p>Miscellaneous Workflow Advice: * Make sure that the file is saved in a non-temporary folder. * The saved .tla files cannot be opened by simply clicking on them. This means you always have to open the app first and then the file from the app. * Save your file regularly to avoid losing progress. You may also track changes via git to better remedy file corruption. * If the app crashes while you have not saved for a long time, you can check whether a file has been saved in the ‘Autosaves’ folder (File =&gt; Open Autosaves Folder =&gt; Copy path; then File =&gt; Open =&gt; Select path to Autosaves folder and open the last saved version) * Depending on what you find easier for the music, you may either proceed from larger sections to smaller ones in a top-down way (=&gt; create child, then split the child, shortcut: s), or identify small formal units and group them upwards (shortcut: g).</p>
+<p>Please refer to the <strong>Principles</strong> page for more detailed guidance on how to use the app in the context of this project.</p>
+</section>
 </section>
 <section id="for-curators" class="level1">
 <h1>For curators</h1>
