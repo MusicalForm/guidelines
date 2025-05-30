@@ -137,15 +137,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#preparing-a-new-tilia-file-for-analysis" id="toc-preparing-a-new-tilia-file-for-analysis" class="nav-link active" data-scroll-target="#preparing-a-new-tilia-file-for-analysis">Preparing a new TiLiA file for analysis</a>
+  <li><a href="#for-annotators" id="toc-for-annotators" class="nav-link active" data-scroll-target="#for-annotators">For annotators</a></li>
+  <li><a href="#for-curators" id="toc-for-curators" class="nav-link" data-scroll-target="#for-curators">For curators</a>
   <ul class="collapse">
-  <li><a href="#aligning-a-score-with-an-audio-recording" id="toc-aligning-a-score-with-an-audio-recording" class="nav-link" data-scroll-target="#aligning-a-score-with-an-audio-recording">Aligning a score with an audio recording</a>
+  <li><a href="#preparing-a-new-tilia-file-for-analysis" id="toc-preparing-a-new-tilia-file-for-analysis" class="nav-link" data-scroll-target="#preparing-a-new-tilia-file-for-analysis">Preparing a new TiLiA file for analysis</a>
   <ul class="collapse">
-  <li><a href="#generate-an-aligned-beat-grid" id="toc-generate-an-aligned-beat-grid" class="nav-link" data-scroll-target="#generate-an-aligned-beat-grid">Generate an aligned beat grid</a></li>
-  <li><a href="#import-the-beatgrid-into-the-tilia-file" id="toc-import-the-beatgrid-into-the-tilia-file" class="nav-link" data-scroll-target="#import-the-beatgrid-into-the-tilia-file">Import the beatgrid into the TiLiA file</a></li>
-  <li><a href="#import-the-score" id="toc-import-the-score" class="nav-link" data-scroll-target="#import-the-score">Import the score</a></li>
-  </ul></li>
+  <li><a href="#aligning-a-score-with-an-audio-recording" id="toc-aligning-a-score-with-an-audio-recording" class="nav-link" data-scroll-target="#aligning-a-score-with-an-audio-recording">Aligning a score with an audio recording</a></li>
   <li><a href="#re-align-an-existing-tilia-analyses" id="toc-re-align-an-existing-tilia-analyses" class="nav-link" data-scroll-target="#re-align-an-existing-tilia-analyses">Re-align an existing TiLiA analyses</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -172,6 +171,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="for-annotators" class="level1">
+<h1>For annotators</h1>
 <p>As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA). For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.</p>
 <p>The newest version of the TiLiA app can be downloaded <a href="https://tilia-ad98d.web.app/downloads">here</a> or <a href="https://github.com/TimeLineAnnotator/desktop?tab=readme-ov-file#build-from-source">built from source</a> using <a href="https://pyinstaller.org/en/stable/">PyInstaller</a>.</p>
 <p>Basic information about how to install and use TiLiA can be found at</p>
@@ -180,12 +181,15 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://www.youtube.com/@tilia-app">TiLiA Youtube Channel</a></li>
 <li><a href="https://github.com/TimeLineAnnotator/desktop">TiLiA GitHub</a></li>
 </ul>
-<section id="preparing-a-new-tilia-file-for-analysis" class="level1">
-<h1>Preparing a new TiLiA file for analysis</h1>
-<section id="aligning-a-score-with-an-audio-recording" class="level2">
-<h2 class="anchored" data-anchor-id="aligning-a-score-with-an-audio-recording">Aligning a score with an audio recording</h2>
-<section id="generate-an-aligned-beat-grid" class="level3">
-<h3 class="anchored" data-anchor-id="generate-an-aligned-beat-grid">Generate an aligned beat grid</h3>
+</section>
+<section id="for-curators" class="level1">
+<h1>For curators</h1>
+<section id="preparing-a-new-tilia-file-for-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-a-new-tilia-file-for-analysis">Preparing a new TiLiA file for analysis</h2>
+<section id="aligning-a-score-with-an-audio-recording" class="level3">
+<h3 class="anchored" data-anchor-id="aligning-a-score-with-an-audio-recording">Aligning a score with an audio recording</h3>
+<section id="generate-an-aligned-beat-grid" class="level4">
+<h4 class="anchored" data-anchor-id="generate-an-aligned-beat-grid">Generate an aligned beat grid</h4>
 <p>The first step is to generate a <code>&lt;filename&gt;.tilia.csv</code> file containing a beat grid for the score, mapped to the corresponding timecodes in the recording.</p>
 <p>What you need:</p>
 <ul>
@@ -206,19 +210,19 @@ ul.task-list li input[type="checkbox"] {
 <li>follow the instructions under <a href="https://github.com/johentsch/ms3_realtime/#deriving-timelines-from-aligned-notes">Deriving timelines from aligned notes</a></li>
 </ul>
 </section>
-<section id="import-the-beatgrid-into-the-tilia-file" class="level3">
-<h3 class="anchored" data-anchor-id="import-the-beatgrid-into-the-tilia-file">Import the beatgrid into the TiLiA file</h3>
+<section id="import-the-beatgrid-into-the-tilia-file" class="level4">
+<h4 class="anchored" data-anchor-id="import-the-beatgrid-into-the-tilia-file">Import the beatgrid into the TiLiA file</h4>
 <p>Instructions are in the <a href="https://github.com/johentsch/ms3_realtime/?tab=readme-ov-file#create-a-tilia-file">same document over there @ ms3_realtime</a>.</p>
 </section>
-<section id="import-the-score" class="level3">
-<h3 class="anchored" data-anchor-id="import-the-score">Import the score</h3>
+<section id="import-the-score" class="level4">
+<h4 class="anchored" data-anchor-id="import-the-score">Import the score</h4>
 <ol type="1">
 <li>If the score contains annotations, you first need to remove them.</li>
 </ol>
 </section>
 </section>
-<section id="re-align-an-existing-tilia-analyses" class="level2">
-<h2 class="anchored" data-anchor-id="re-align-an-existing-tilia-analyses">Re-align an existing TiLiA analyses</h2>
+<section id="re-align-an-existing-tilia-analyses" class="level3">
+<h3 class="anchored" data-anchor-id="re-align-an-existing-tilia-analyses">Re-align an existing TiLiA analyses</h3>
 <ol type="1">
 <li>What you need:
 <ul>
@@ -229,6 +233,7 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 
 
+</section>
 </section>
 </section>
 

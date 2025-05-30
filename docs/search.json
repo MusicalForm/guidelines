@@ -25,21 +25,14 @@
     "href": "wiki/Annotation-Tool.html",
     "title": "TiLiA",
     "section": "",
-    "text": "As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA). For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.\nThe newest version of the TiLiA app can be downloaded here or built from source using PyInstaller.\nBasic information about how to install and use TiLiA can be found at"
+    "text": "As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA). For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.\nThe newest version of the TiLiA app can be downloaded here or built from source using PyInstaller.\nBasic information about how to install and use TiLiA can be found at\n\nTiLiA Website\nTiLiA Youtube Channel\nTiLiA GitHub"
   },
   {
-    "objectID": "wiki/Annotation-Tool.html#aligning-a-score-with-an-audio-recording",
-    "href": "wiki/Annotation-Tool.html#aligning-a-score-with-an-audio-recording",
+    "objectID": "wiki/Annotation-Tool.html#preparing-a-new-tilia-file-for-analysis",
+    "href": "wiki/Annotation-Tool.html#preparing-a-new-tilia-file-for-analysis",
     "title": "TiLiA",
-    "section": "Aligning a score with an audio recording",
-    "text": "Aligning a score with an audio recording\n\nGenerate an aligned beat grid\nThe first step is to generate a &lt;filename&gt;.tilia.csv file containing a beat grid for the score, mapped to the corresponding timecodes in the recording.\nWhat you need:\n\na working Python environment with Python 3.10 or newer (we recommend Miniconda)\na MuseScore file of the piece in question\nan audio recording, possibly one in the public domain so that it can be shared\n\nfirst stop: IMSLP\nCreative Commons Search\nMusOpen (requires log-in)\narchive.org\nMusical Heritage Organization\n\n\nThen you can:\n\nhead to johentsch/ms3_realtime and do the first-time setup\nfollow the instructions under Deriving timelines from aligned notes\n\n\n\nImport the beatgrid into the TiLiA file\nInstructions are in the same document over there @ ms3_realtime.\n\n\nImport the score\n\nIf the score contains annotations, you first need to remove them."
-  },
-  {
-    "objectID": "wiki/Annotation-Tool.html#re-align-an-existing-tilia-analyses",
-    "href": "wiki/Annotation-Tool.html#re-align-an-existing-tilia-analyses",
-    "title": "TiLiA",
-    "section": "Re-align an existing TiLiA analyses",
-    "text": "Re-align an existing TiLiA analyses\n\nWhat you need:\n\nthe TiLiA project exported to JSON\nthe audio file to re-align the project to\na MuseScore file corresponding to the recording (e.g. when someone does not play repeats, these repeats need to be removed from the score)"
+    "section": "Preparing a new TiLiA file for analysis",
+    "text": "Preparing a new TiLiA file for analysis\n\nAligning a score with an audio recording\n\nGenerate an aligned beat grid\nThe first step is to generate a &lt;filename&gt;.tilia.csv file containing a beat grid for the score, mapped to the corresponding timecodes in the recording.\nWhat you need:\n\na working Python environment with Python 3.10 or newer (we recommend Miniconda)\na MuseScore file of the piece in question\nan audio recording, possibly one in the public domain so that it can be shared\n\nfirst stop: IMSLP\nCreative Commons Search\nMusOpen (requires log-in)\narchive.org\nMusical Heritage Organization\n\n\nThen you can:\n\nhead to johentsch/ms3_realtime and do the first-time setup\nfollow the instructions under Deriving timelines from aligned notes\n\n\n\nImport the beatgrid into the TiLiA file\nInstructions are in the same document over there @ ms3_realtime.\n\n\nImport the score\n\nIf the score contains annotations, you first need to remove them.\n\n\n\n\nRe-align an existing TiLiA analyses\n\nWhat you need:\n\nthe TiLiA project exported to JSON\nthe audio file to re-align the project to\na MuseScore file corresponding to the recording (e.g. when someone does not play repeats, these repeats need to be removed from the score)"
   },
   {
     "objectID": "wiki/Principles.html",
