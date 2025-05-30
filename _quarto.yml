@@ -6,20 +6,13 @@ website:
   title: "Guidelines"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - href: wiki/What-is-form!-(Working-definition).md
-        text: Intro
-      - href: wiki/Annotation-Tool.md
-        text: TiLiA App
-      - href: wiki/Finding-the-Guidelines.md
-        text: Rules
-      - href: wiki/Vocabulary-of-formal-concepts.md
-        text: Vocabulary
-      - href: wiki/Syntax.md
-        text: Syntax
-      - href: wiki/Examples.md
-        text: Examples
+      - index.qmd
+      - wiki/Intro.md
+      - wiki/Annotation-Tool.md
+      - wiki/Principles.md
+      - wiki/Vocabulary.md
+      - wiki/Syntax.md
+      - wiki/Examples.md
       - about.qmd
 
 format:

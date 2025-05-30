@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>finding-the-guidelines – Guidelines</title>
+<title>Vocabulary – Guidelines</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b19b0682875de1fcdf5bbf8c7a337c24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -94,19 +94,19 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../wiki/What-is-form!-(Working-definition).html"> 
+    <a class="nav-link" href="../wiki/Intro.html"> 
 <span class="menu-text">Intro</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../wiki/Annotation-Tool.html"> 
-<span class="menu-text">TiLiA App</span></a>
+<span class="menu-text">TiLiA</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../wiki/Finding-the-Guidelines.html" aria-current="page"> 
-<span class="menu-text">Rules</span></a>
+    <a class="nav-link" href="../wiki/Principles.html"> 
+<span class="menu-text">Principles</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../wiki/Vocabulary-of-formal-concepts.html"> 
+    <a class="nav-link active" href="../wiki/Vocabulary.html" aria-current="page"> 
 <span class="menu-text">Vocabulary</span></a>
   </li>  
   <li class="nav-item">
@@ -132,99 +132,66 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#tilia-layout" id="toc-tilia-layout" class="nav-link active" data-scroll-target="#tilia-layout">TiLiA Layout</a></li>
-  <li><a href="#using-hierarchy-timelines-to-encode-a-form-analysis" id="toc-using-hierarchy-timelines-to-encode-a-form-analysis" class="nav-link" data-scroll-target="#using-hierarchy-timelines-to-encode-a-form-analysis">Using Hierarchy Timelines to encode a form analysis</a>
-  <ul class="collapse">
-  <li><a href="#rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted." id="toc-rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted." class="nav-link" data-scroll-target="#rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted.">Rule 1: Every hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.</a></li>
-  <li><a href="#rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplin-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-seq" id="toc-rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplin-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-seq" class="nav-link" data-scroll-target="#rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplin-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-seq">Rule 2: The lowest level of the hierarchy should correspond to <em>individual musical ideas</em>. For example in a Caplin Style: <code>bi</code> (basic idea), <code>ci</code> (contrasting idea), <code>cad</code> (cadential), <code>mod</code> (model of a sequence), <code>seq</code>…</a></li>
-  <li><a href="#rule-3-labeling" id="toc-rule-3-labeling" class="nav-link" data-scroll-target="#rule-3-labeling">Rule 3: Labeling</a></li>
-  <li><a href="#rule-repeated-sections-should-be-obvious-from-the-context.-in-general-a-sign-should-imply-that-the-entire-section-to-the-left-of-the-label-on-the-same-hierarchical-level-is-repeated-verbatim." id="toc-rule-repeated-sections-should-be-obvious-from-the-context.-in-general-a-sign-should-imply-that-the-entire-section-to-the-left-of-the-label-on-the-same-hierarchical-level-is-repeated-verbatim." class="nav-link" data-scroll-target="#rule-repeated-sections-should-be-obvious-from-the-context.-in-general-a-sign-should-imply-that-the-entire-section-to-the-left-of-the-label-on-the-same-hierarchical-level-is-repeated-verbatim.">Rule: Repeated sections should be obvious from the context. In general, a % sign should imply that the entire section to the left of the label on the same hierarchical level, is repeated verbatim.</a></li>
-  <li><a href="#rule-segments-of-the-same-type-of-level-section-phrase-idea-should-be-aligned-with-each-other-even-if-it-means-skipping-a-level-for-one-of-the-elements" id="toc-rule-segments-of-the-same-type-of-level-section-phrase-idea-should-be-aligned-with-each-other-even-if-it-means-skipping-a-level-for-one-of-the-elements" class="nav-link" data-scroll-target="#rule-segments-of-the-same-type-of-level-section-phrase-idea-should-be-aligned-with-each-other-even-if-it-means-skipping-a-level-for-one-of-the-elements">Rule: Segments of the same type of level (section, phrase, idea…) should be aligned with each other, even if it means skipping a level for one of the elements:</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
-
-
-
-<section id="tilia-layout" class="level1">
-<h1>TiLiA Layout</h1>
-<p>Each TiLiA File is made up of the following timeline elements: * One or more Hierarchy Timelines for the form analysis itself * Beat Timeline * A Marker timelines (for Cadences) * optional: Harmony Timeline * optional: Marker Timeline for notes and comments * Score Time with MusicXML</p>
-</section>
-<section id="using-hierarchy-timelines-to-encode-a-form-analysis" class="level1">
-<h1>Using Hierarchy Timelines to encode a form analysis</h1>
-<section id="rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted." class="level2">
-<h2 class="anchored" data-anchor-id="rule-1-every-hierarchical-form-analysis-must-have-a-top-level-spanning-across-the-entire-annotated-section-uninterrupted.">Rule 1: Every hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/user-attachments/assets/4b82e494-f160-4f6d-a62a-8c1e00ff36fe.png" class="img-fluid figure-img"></p>
-<figcaption>grafik</figcaption>
-</figure>
-</div>
-<p>Should become:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/user-attachments/assets/5f0e0983-9e1a-4ce8-96a4-04f3b3db2645.png" class="img-fluid figure-img"></p>
-<figcaption>grafik</figcaption>
-</figure>
-</div>
-<p>The part before the pipe symbol should be used to identify the music in the context</p>
-<p><strong>Examples</strong>: * <code>mov2|minuet+trio</code> - The third movement of a sonata cycle, realized as a minuet with trio. * <code>track04|strophic</code> - The fourth track in a rock album, which happens to be written in a strophic form. * <code>exp|continuous</code> - here the analysis only deals with the exposition section of a movement, so that is the head level.</p>
-<p>If the piece is understood to be independent of any larger context, we can use generic names such as “piece”, “track”, “song” etc.</p>
-</section>
-<section id="rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplin-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-seq" class="level2">
-<h2 class="anchored" data-anchor-id="rule-2-the-lowest-level-of-the-hierarchy-should-correspond-to-individual-musical-ideas.-for-example-in-a-caplin-style-bi-basic-idea-ci-contrasting-idea-cad-cadential-mod-model-of-a-sequence-seq">Rule 2: The lowest level of the hierarchy should correspond to <em>individual musical ideas</em>. For example in a Caplin Style: <code>bi</code> (basic idea), <code>ci</code> (contrasting idea), <code>cad</code> (cadential), <code>mod</code> (model of a sequence), <code>seq</code>…</h2>
-</section>
-<section id="rule-3-labeling" class="level2">
-<h2 class="anchored" data-anchor-id="rule-3-labeling">Rule 3: Labeling</h2>
-<p><code>"main_theme": theme|sent</code></p>
-<p>main_theme: Assigned label theme: Formal function sent: Formal Type</p>
-</section>
-<section id="rule-repeated-sections-should-be-obvious-from-the-context.-in-general-a-sign-should-imply-that-the-entire-section-to-the-left-of-the-label-on-the-same-hierarchical-level-is-repeated-verbatim." class="level2">
-<h2 class="anchored" data-anchor-id="rule-repeated-sections-should-be-obvious-from-the-context.-in-general-a-sign-should-imply-that-the-entire-section-to-the-left-of-the-label-on-the-same-hierarchical-level-is-repeated-verbatim.">Rule: Repeated sections should be obvious from the context. In general, a % sign should imply that the entire section to the left of the label on the same hierarchical level, is repeated verbatim.</h2>
-<p>In this example, the first % is clearly refering to the “A” section, however, the second (marked) one is actually refering to the previous two red sections infront of it, which is only apparent to the human eye, taking into account the length:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/user-attachments/assets/5f54ccb5-8cf5-4a0d-85b7-ac75fa003e72.png" class="img-fluid figure-img"></p>
-<figcaption>grafik</figcaption>
-</figure>
-</div>
-<p>I suggest grouping the sections up in this case (both the repeated As and the BA in the second part).</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/user-attachments/assets/8969b5ba-ebea-45f1-8f3f-46e9e3087428.png" class="img-fluid figure-img"></p>
-<figcaption>grafik</figcaption>
-</figure>
-</div>
-<p>However, this solution is also inconsistent, as the repeated 2nd section is not grouped up. To align the levels, we would need to leave one level out in the first part:</p>
-</section>
-<section id="rule-segments-of-the-same-type-of-level-section-phrase-idea-should-be-aligned-with-each-other-even-if-it-means-skipping-a-level-for-one-of-the-elements" class="level2">
-<h2 class="anchored" data-anchor-id="rule-segments-of-the-same-type-of-level-section-phrase-idea-should-be-aligned-with-each-other-even-if-it-means-skipping-a-level-for-one-of-the-elements">Rule: Segments of the same type of level (section, phrase, idea…) should be aligned with each other, even if it means skipping a level for one of the elements:</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/user-attachments/assets/364f5ddb-491a-44d4-991a-cb8d4a7c2a50.png" class="img-fluid figure-img"></p>
-<figcaption>grafik</figcaption>
-</figure>
-</div>
-<p>Now there is some awkwardness regarding the naming and the pipe symbols. 2nd contains “2nd” and its repeat, so maybe it makes sense to add a “section_repeat” as a type of realisation for an overarching segment?:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://github.com/user-attachments/assets/75d24297-95c5-434e-aae7-3e9488aa78f2.png" class="img-fluid figure-img"></p>
-<figcaption>grafik</figcaption>
-</figure>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Vocabulary</h1>
 </div>
 
 
-</section>
-</section>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The vocabulary of formal concepts referrering to formal functions is being ordered according to their position in the formal hierarchy: from piece level down to the subthematic level. In addition, concepts referring to formal types is being introduced here.</p>
+<p>Piece level</p>
+<p>Movement level</p>
+<ul>
+<li>Sonata form</li>
+<li>Minuet form</li>
+<li>Rondo form</li>
+<li>Concerto form</li>
+</ul>
+<p>Section level</p>
+<ul>
+<li>1st section / 2nd section / 3rd section</li>
+<li>Exposition</li>
+<li>Development</li>
+<li>Recapitulation</li>
+<li>Coda</li>
+<li>Ritornello</li>
+<li>Refrain</li>
+<li>Episode</li>
+<li>Couplet</li>
+<li>Contrasting middle</li>
+</ul>
+<p>Theme level</p>
+<ul>
+<li>Main theme / Primary theme (zone)</li>
+<li>Subordinate theme / Second theme (zone)</li>
+</ul>
+<p>Subthematic level</p>
+<ul>
+<li>Basic idea</li>
+<li>Contrasting idea</li>
+<li>Cadential idea</li>
+</ul>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
