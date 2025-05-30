@@ -157,13 +157,13 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#hierarchical-levels" id="toc-hierarchical-levels" class="nav-link active" data-scroll-target="#hierarchical-levels">Hierarchical Levels</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#hierarchical-levels" id="toc-hierarchical-levels" class="nav-link" data-scroll-target="#hierarchical-levels">Hierarchical Levels</a></li>
   <li><a href="#types-and-functions" id="toc-types-and-functions" class="nav-link" data-scroll-target="#types-and-functions">Types and functions</a></li>
   <li><a href="#vocabulary-and-abbreviations" id="toc-vocabulary-and-abbreviations" class="nav-link" data-scroll-target="#vocabulary-and-abbreviations">Vocabulary and abbreviations</a></li>
   <li><a href="#material-content-and-repetition" id="toc-material-content-and-repetition" class="nav-link" data-scroll-target="#material-content-and-repetition">Material content and repetition</a></li>
   <li><a href="#formal-transformation" id="toc-formal-transformation" class="nav-link" data-scroll-target="#formal-transformation">Formal transformation</a></li>
   <li><a href="#ambiguity-diverging-interpretations-or-multi-dimensional-forms" id="toc-ambiguity-diverging-interpretations-or-multi-dimensional-forms" class="nav-link" data-scroll-target="#ambiguity-diverging-interpretations-or-multi-dimensional-forms">Ambiguity, diverging interpretations or multi-dimensional forms</a></li>
-  <li><a href="#tables-to-be-added" id="toc-tables-to-be-added" class="nav-link" data-scroll-target="#tables-to-be-added">Tables (to be added)</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -190,37 +190,128 @@ div.csl-indent {
 </header>
 
 
+<section id="overview" class="level1">
+<h1>Overview</h1>
 <p>In TiLiA, each element in a hierarchy timeline should be given a label. The use of labels should follow a syntax, which extends that of <span class="citation" data-cites="Gotham2019_TakingFormRepresentation">Gotham and Ireland (<a href="#ref-Gotham2019_TakingFormRepresentation" role="doc-biblioref">2019</a>)</span>. This page outlines the most important features of this syntax.</p>
-<section id="hierarchical-levels" class="level2">
-<h2 class="anchored" data-anchor-id="hierarchical-levels">Hierarchical Levels</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 35%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Symbol</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Formal types</td>
+<td>Dot (<code>.</code>)</td>
+<td><code>0: sonata form.type 2</code></td>
+</tr>
+<tr class="even">
+<td>Typological realization</td>
+<td>Pipe (<code>|</code>)</td>
+<td><code>4: antecedent | sentence</code></td>
+</tr>
+<tr class="odd">
+<td>Adjacent repetitions</td>
+<td>Exclamation mark(s) (<code>!</code>, <code>!!</code>, <code>!!!</code>)</td>
+<td><code>6: bi; 6: bi!; 6: bi!!</code></td>
+</tr>
+<tr class="even">
+<td>Partial emergences or repetitions</td>
+<td>Asterisk (<code>*</code>)</td>
+<td><code>4: 1st* or 4: 1st*!</code></td>
+</tr>
+<tr class="odd">
+<td>Specification of units within units</td>
+<td>Hyphen (<code>-</code>) + Arabic numeral</td>
+<td><code>4: 2nd-1</code></td>
+</tr>
+<tr class="even">
+<td>Distant repetitions</td>
+<td>Square brackets (<code>[]</code>)</td>
+<td><code>3: 2nd zone, 4: 2nd-1 [1st-1*]</code></td>
+</tr>
+<tr class="odd">
+<td>Alternative readings</td>
+<td>Hyphen (<code>-</code>)</td>
+<td><code>4: consequent - transition</code></td>
+</tr>
+<tr class="even">
+<td>Multivalence</td>
+<td>Lower-case Roman num. + hyphen (<code>-</code>)</td>
+<td><code>4i: consequent - ii: transition</code></td>
+</tr>
+<tr class="odd">
+<td>Overlap of formal levels</td>
+<td>And (<code>&amp;</code>)</td>
+<td><code>4ii&amp;iii: pres</code></td>
+</tr>
+<tr class="even">
+<td>Formal hybrids</td>
+<td>Lower-case letters</td>
+<td><code>0a: sonata form, 0b: rondo</code></td>
+</tr>
+<tr class="odd">
+<td>Functional transformation</td>
+<td>‘Arrows’ (<code>&lt;</code>, <code>&gt;</code>, <code>&lt;&gt;</code>)</td>
+<td><code>4: transition, 5: &lt; consequent</code></td>
+</tr>
+<tr class="even">
+<td>Uncertainty</td>
+<td>Question mark (<code>?</code>)</td>
+<td><code>5: bi?</code></td>
+</tr>
+<tr class="odd">
+<td>Overlap/ continuation</td>
+<td>Slash (<code>/</code>)</td>
+<td><code>i: /, ii:</code></td>
+</tr>
+<tr class="even">
+<td>Overlap</td>
+<td>Plus (<code>+</code>)</td>
+<td><code>1st + tr</code></td>
+</tr>
+<tr class="odd">
+<td>End of level</td>
+<td>Closing curly bracket (<code>}</code>)</td>
+<td><code>6: bi}</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="hierarchical-levels" class="level1">
+<h1>Hierarchical Levels</h1>
 <p>The syntax can be applied on different annotation apps, though some aspects differ in usuage. In annotation in MuseScore, a typical first label of a sonata form movement can look like this:</p>
 <p><code>0: mvt1|sonata.type1, 1: exp, 2: 1st zone, 3: theme|sent, 4: pres, 5: bi</code></p>
 <p>When Using TiLiA, the position within the hierarchical structure does not have to be specified by an integer, since it is captured within the hierarchy timeline. One would simply write <code>mvt1|sonata.type1</code> in the highest component. However, we still reference the integer levels in this guide in order to make the underlying logic clear.</p>
 </section>
-<section id="types-and-functions" class="level2">
-<h2 class="anchored" data-anchor-id="types-and-functions">Types and functions</h2>
+<section id="types-and-functions" class="level1">
+<h1>Types and functions</h1>
 <p>Our standard distinguishes between formal functions and types (Caplin, 1998). Realisations of formal functions, such as periods and sentences, are appended to the relevant token using a pipe symbol (<code>|</code>). The label component <code>0: mvt1|sonata.type1</code> is to be read as ‘first movement, realised as sonata form type 1’, while the component <code>3: theme|sent</code> tells us that the theme within the 1st zone is realized as a Caplinian sentence.</p>
 <p>TiLiA does have fields for types and function, but for now we recommend writing them into the “label” field in the inspector.</p>
 </section>
-<section id="vocabulary-and-abbreviations" class="level2">
-<h2 class="anchored" data-anchor-id="vocabulary-and-abbreviations">Vocabulary and abbreviations</h2>
+<section id="vocabulary-and-abbreviations" class="level1">
+<h1>Vocabulary and abbreviations</h1>
 <p>For easier annotation, we have implemented a series of abbreviations for the most frequent terms in formal analysis. See the <a href="https://musicalform.github.io/guidelines/Vocabulary.html">Vocabulary</a> page for reference. In any case where you do not see a fitting label for a segment, you can use the neutral label <code>unit</code>.</p>
 </section>
-<section id="material-content-and-repetition" class="level2">
-<h2 class="anchored" data-anchor-id="material-content-and-repetition">Material content and repetition</h2>
+<section id="material-content-and-repetition" class="level1">
+<h1>Material content and repetition</h1>
 <p>Despite the standard’s focus on form, we allow for the annotation of material content and its use. For the repetition of materials we propose marking adjacent repetitions with an exclamation mark (!) appended to the relevant token. The number of exclamation marks stands for the number of adjacent repetitions (for instance, 5: bi!! for the second adjacent repetition of a basic idea). An asterisk appended to any label indicates that the re-occurrence of the relevant function is partial. Distant repeats can be annotated using square brackets indicating the material that is repeated. For instance, <code>3: 2nd zone, 4: 2nd [1st*]</code> would indicate a partial repeat of 1st-theme material in the secondary-theme zone, characteristic of the so-called monothematic expositions.</p>
 <p>To avoid ambiguous references, it is possible to assign unique custom names to components that you wish to reference in other places, for example <code>main_theme: theme|sent</code>, means that we call this theme (realised as a sentence) “main_theme”, so if we later write <code>coda [main_theme]</code> it is clear that the coda is repeating that particular theme, not another.</p>
 </section>
-<section id="formal-transformation" class="level2">
-<h2 class="anchored" data-anchor-id="formal-transformation">Formal transformation</h2>
+<section id="formal-transformation" class="level1">
+<h1>Formal transformation</h1>
 <p>‘Form-functional transformation’ <span class="citation" data-cites="Dahlhaus1987_BeethovenUndSeine Schmalfeldt2011_ProcessBecomingAnalytic">(<a href="#ref-Dahlhaus1987_BeethovenUndSeine" role="doc-biblioref">Dahlhaus 1987</a>; <a href="#ref-Schmalfeldt2011_ProcessBecomingAnalytic" role="doc-biblioref">Schmalfeldt 2011</a>)</span> is expressed in our standard by separating the two functional tokens with greater-than (<code>&gt;</code>) or a less-than (<code>&lt;</code>) symbols, or both (<code>&lt;&gt;</code>). When the transformation occurs within a single formal level, the three symbols stand for the three possible directions: <code>&gt;</code> for forward transformation <span class="citation" data-cites="Horton2017_CriteriaTheoryNineteenthCentury">(<a href="#ref-Horton2017_CriteriaTheoryNineteenthCentury" role="doc-biblioref">Horton 2017</a>)</span>, <code>&lt;</code> for retrospective transformation <span class="citation" data-cites="Martin2014_FormalFunctionsRetrospective">(<a href="#ref-Martin2014_FormalFunctionsRetrospective" role="doc-biblioref">Martin and Vande Moortele 2014</a>)</span>, and <code>&lt;&gt;</code> for bidirectional transformation <span class="citation" data-cites="VandeMoortele2013_SearchRomanticForm">(<a href="#ref-VandeMoortele2013_SearchRomanticForm" role="doc-biblioref">Vande Moortele 2013</a>)</span>.</p>
 </section>
-<section id="ambiguity-diverging-interpretations-or-multi-dimensional-forms" class="level2">
-<h2 class="anchored" data-anchor-id="ambiguity-diverging-interpretations-or-multi-dimensional-forms">Ambiguity, diverging interpretations or multi-dimensional forms</h2>
+<section id="ambiguity-diverging-interpretations-or-multi-dimensional-forms" class="level1">
+<h1>Ambiguity, diverging interpretations or multi-dimensional forms</h1>
 <p>Uncertain labels can be highlighted using a question mark. There are also cases where the form can be understood in several different ways, which are either mutually exclusive analytical perspectives, or different formal models being used at the same time. One example of “multidimensional form” could be the main theme zone of a sonata form being structured as a fugue, which invites two different modes of decoding the form at the same time. In both cases, one should open a seperate hierarchy timeline and use it as an addition to add the other layer for the relevant passage.</p>
-</section>
-<section id="tables-to-be-added" class="level1">
-<h1>Tables (to be added)</h1>
 </section>
 <section id="references" class="level1">
 
