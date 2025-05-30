@@ -1,22 +1,14 @@
-Formal category,Annotation label,Function/type,Hierarchical level,Relation: contains,Short explanation,Open Music Theory Link,Theoretical provenance
-,,,,,,,
-,,,,,,,
+Formal category,Short label,Function/type,Hierarchical level,Relation: contains,Short explanation,Open Music Theory Link,Theoretical provenance
 sonata form,,type,Movement level,"Exposition, Development, Recapitulation",Binary or ternary form,https://openmusictheory.github.io/SonataTheory-intro.html,
 rondo form,,type,Movement level,"Refrain, Couplet",alternation of refrain and contrasting couplets/episodes,https://openmusictheory.github.io/rondo.html,
 concerto form,,type,Movement level,"Ritornello, episode","six part structure: 1) opening ritornello for orchestra, 2) a solo section, 3) subordinate-key ritornello for orchestra, 4) solo section functioning as recapitulation, 6) closing ritornello for orchestra interrupted by solo cadenza ",,Caplin
 minuet form,,type,Movement level,,"ABA’ structure, split into three parts ternary or binary",https://openmusictheory.github.io/minuet.html,
 "types 1, 2, 3, 4, 5",,subtype,,,,,
-,,hybrid type,,,,,
-,,,,,,,
 exposition,exp,Function,Section level,,Two-part or continous form/type,https://openmusictheory.github.io/SonataTheory-exposition.html,
 development section,dev,Function,Section level,,"4 modules: 1) link from exposision, 2) entry zone, 3) central-action zone, 4) retransition",https://openmusictheory.github.io/sonataDevelopment.html,
 recapitulation,,Function,Section level,,essential sonata closure and re-composition,https://openmusictheory.github.io/sonataRecap.html,
 coda,,Function,,,"different types, module after the recaptulation, framing the movement  ",https://openmusictheory.github.io/sonataFramingModules.html,
 introduction,,Function,,,"module before the exposition, framing the movement",https://openmusictheory.github.io/sonataFramingModules.html,
-,,,Zone level / subsection level,,,,
-,,,,,,,
-"
-",,,Theme level,,,,
 period,pd,Type,Phrase level,"antecedent, consequent","Two-part structure, consisting of an antecendent (HC or IAC) and a consequent (concluded by PAC)",https://elliotthauser.com/openmusictheory/period.html,
 sentence,sent,Type,Phrase level,"presentation, continuation","Two-part structure, consisting of a presentation (no cadence) and a continuation (concluded by a half or full cadence). The presentation in turn is made up  of two (less frequently one or three) basic ideas.  ",https://elliotthauser.com/openmusictheory/sentence.html,
 Hybrid 1,,Type,,,Antecedent + continuation,https://elliotthauser.com/openmusictheory/hybridThemes.html,
@@ -30,12 +22,10 @@ compound basic idea,cbi,,,,,,
 contrasting idea,ci,Function,Subphrase level,period,,,
 presentation,,Function,Subphrase level,,,,
 continuation,,Function,Subphrase level,,,,
-,,,,,,,
 primary theme,,,,"Sonata form, exposition",,,
 primary theme zone,,,,,,,
 main theme,,,,,,,
 first theme,,,,,,,
-,,,,,,,
 after-the-end,ate,,,,framing function; follows structural limits of main material,,Caplin
 anhang,ah,,,,,,Koch
 answer,ans,,,,,,
