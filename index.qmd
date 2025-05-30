@@ -5,7 +5,7 @@ title: "Home"
 * [Intro](wiki/Intro.md): What is form? A working definition
 * [TiLiA App](wiki/Annotation-Tool.md): Learn about the annotation tool
 * [Principles](wiki/Principles.md): Basic rules that should always hold
-* [Vocabulary](wiki/Vocabulary.md): Collection and explanation of possible form annotation labels
+* [Vocabulary](Vocabulary.ipynb): Collection and explanation of possible form annotation labels
 * [Syntax](wiki/Syntax.md): Syntactic rules of how labels can be combined, enhanced, and specified
 * [Examples](wiki/Examples.md): Example analysis and discussions thereof
 * [About](about.qmd): About the form project

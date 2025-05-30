@@ -10,7 +10,7 @@ website:
       - wiki/Intro.md
       - wiki/Annotation-Tool.md
       - wiki/Principles.md
-      - wiki/Vocabulary.md
+      - Vocabulary.ipynb
       - wiki/Syntax.md
       - wiki/Examples.md
       - about.qmd
@@ -23,5 +23,6 @@ format:
     css: styles.css
     toc: true
 
-
+execute:
+  cache: true
 
