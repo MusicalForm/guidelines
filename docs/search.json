@@ -1,38 +1,52 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Home",
+    "objectID": "Vocabulary.html",
+    "href": "Vocabulary.html",
+    "title": "Vocabulary",
     "section": "",
-    "text": "Intro: What is form? A working definition\nTiLiA App: Learn about the annotation tool\nPrinciples: Basic rules that should always hold\nVocabulary: Collection and explanation of possible form annotation labels\nSyntax: Syntactic rules of how labels can be combined, enhanced, and specified\nExamples: Example analysis and discussions thereof\nAbout: About the form project"
+    "text": "The vocabulary of formal concepts referrering to formal functions is being ordered according to their position in the formal hierarchy: from piece level down to the subthematic level. In addition, concepts referring to formal types is being introduced here.\n\n\n\nForm label vocabulary\n\n\n\n\n\n\n\n\n\nHierarchical level\nFunction/type\nLabel\nAnnotation label\nShort explanation\n\n\n\n\nMovement level\ntype\nminuet form\n\nABA’ structure, split into three parts ternary or binary\n\n\nMovement level\ntype\nrondo form\n\nalternation of refrain and contrasting couplets/episodes\n\n\nMovement level\ntype\nsonata form\n\nBinary or ternary form\n\n\nMovement level\ntype\n\n\nsix part structure: 1) opening ritornello for orchestra, 2) a solo section, 3) subordinate-key ritornello for orchestra, 4) solo section functioning as recapitulation, 6) closing ritornello for orchestra interrupted by solo cadenza\n\n\nPhrase level\nType\nperiod\npd\nTwo-part structure, consisting of an antecendent (HC or IAC) and a consequent (concluded by PAC)\n\n\nPhrase level\nType\nsentence\nsent\nTwo-part structure, consisting of a presentation (no cadence) and a continuation (concluded by a half or full cadence). The presentation in turn is made up of two (less frequently one or three) basic ideas.\n\n\nSection level\nFunction\ndevelopment section\ndev\n4 modules: 1) link from exposision, 2) entry zone, 3) central-action zone, 4) retransition\n\n\nSection level\nFunction\nexposition\nexp\nTwo-part or continous form/type\n\n\nSection level\nFunction\nrecapitulation\n\nessential sonata closure and re-composition\n\n\nSubphrase level\nFunction\nbasic idea\nbi\nsmallest formal unit of a theme (typically 2 bars in length)\n\n\nSubphrase level\nFunction\n\nci\n\n\n\nSubphrase level\nFunction\n\n\n\n\n\nSubphrase level\nFunction\n\n\n\n\n\nTheme level\n\n\n\n\n\n\nZone level / subsection level"
   },
   {
-    "objectID": "wiki/Annotation-Guidelines.html#classical-style",
-    "href": "wiki/Annotation-Guidelines.html#classical-style",
-    "title": "Intro",
-    "section": "Classical Style",
-    "text": "Classical Style"
-  },
-  {
-    "objectID": "wiki/Annotation-Guidelines.html#pop-rock",
-    "href": "wiki/Annotation-Guidelines.html#pop-rock",
-    "title": "Intro",
-    "section": "Pop Rock",
-    "text": "Pop Rock"
-  },
-  {
-    "objectID": "wiki/Annotation-Tool.html",
-    "href": "wiki/Annotation-Tool.html",
-    "title": "TiLiA",
+    "objectID": "wiki/Examples.html",
+    "href": "wiki/Examples.html",
+    "title": "Examples",
     "section": "",
-    "text": "As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA). For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.\nThe newest version of the TiLiA app can be downloaded here or built from source using PyInstaller.\nBasic information about how to install and use TiLiA can be found at\n\nTiLiA Website\nTiLiA Youtube Channel\nTiLiA GitHub"
+    "text": "J.S. Bach – Sarabande from BWV 1007\nTiLiA file: https://github.com/MusicalForm/annotation_pilot/blob/BWV1007_04_Sarabande/TiLiA/BWV1007_04_Sarabande.tla"
   },
   {
-    "objectID": "wiki/Annotation-Tool.html#preparing-a-new-tilia-file-for-analysis",
-    "href": "wiki/Annotation-Tool.html#preparing-a-new-tilia-file-for-analysis",
-    "title": "TiLiA",
-    "section": "Preparing a new TiLiA file for analysis",
-    "text": "Preparing a new TiLiA file for analysis\n\nAligning a score with an audio recording\n\nGenerate an aligned beat grid\nThe first step is to generate a &lt;filename&gt;.tilia.csv file containing a beat grid for the score, mapped to the corresponding timecodes in the recording.\nWhat you need:\n\na working Python environment with Python 3.10 or newer (we recommend Miniconda)\na MuseScore file of the piece in question\nan audio recording, possibly one in the public domain so that it can be shared\n\nfirst stop: IMSLP\nCreative Commons Search\nMusOpen (requires log-in)\narchive.org\nMusical Heritage Organization\n\n\nThen you can:\n\nhead to johentsch/ms3_realtime and do the first-time setup\nfollow the instructions under Deriving timelines from aligned notes\n\n\n\nImport the beatgrid into the TiLiA file\nInstructions are in the same document over there @ ms3_realtime.\n\n\nImport the score\n\nIf the score contains annotations, you first need to remove them.\n\n\n\n\nRe-align an existing TiLiA analyses\n\nWhat you need:\n\nthe TiLiA project exported to JSON\nthe audio file to re-align the project to\na MuseScore file corresponding to the recording (e.g. when someone does not play repeats, these repeats need to be removed from the score)"
+    "objectID": "wiki/Syntax.html",
+    "href": "wiki/Syntax.html",
+    "title": "Syntax",
+    "section": "",
+    "text": "In TiLiA, each element in a hierarchy timeline can be given a label. The use of labels should follow a syntax, which extends that of Gotham and Ireland (2019) in several important ways:\n\nIn annotation via MuseScore, a typical first label of a sonata form movement can look like this:\n\n0: mvt1|sonata.type1, 1: exp, 2: 1st zone, 3: 1st|sent, 4: pres, 5: bi\nWhen Using TiLiA, the position within the hierarchical structure no longer has to be specified by an integer, since it is captured within the hierarchy timeline.\n\nIt is possible to clarify the formal types (e.g., the type of sonata) used to realise a particular formal function (such as a first movement, or exposition) by using the pipe symbol (|). In the case above, in level 0 we are dealing with a so-called type 1 sonata-form movement (Hepokoski & Darcy, 2006b), whereas the 1st theme (level 3) is realised as a Caplinian sentence.\nWe include a higher level 0 that accounts for the whole movement–—or work—, in this case the 1st movement of a piece. Therefore, we suggest using this level 0 to indicate the position of the piece (or movement) in its context and the overall form type(s) which function(s) as the root of the overarching form tree.\nFor easier annotation, we have implemented a series of abbreviations for the most frequent terms in formal analysis (see Table A1 in the Supplementary materials). When extracted and converted into a tree-like representation, all tokens that correspond to a standardised (and custom) abbreviation are spelled out.\nFormal functions and types: Our standard distinguishes between formal functions and types (Caplin, 1998). For both, the categories and abbreviations listed in Table A1 can be used. Formal subtypes, such as the five types of sonata form as proposed by sonata theory, appear after the corresponding formal (super)type separated by a dot, usually on levels 0 or 1. Realisations of formal functions, such as periods and sentences, are appended to the relevant token using a pipe symbol (|). Label 2 above makes use of both syntactical elements with the label component 0: mvt1|sonata.type1 to be read as ‘first movement, realised as sonata form type 1’. In a cyclic form, the same label could be specified as 0: sonata, 1: mvt1|sonata form.type1, … (4) where movement level is level 1.\nMaterial content: Despite the standard’s focus on form, we allow for the annotation of material content and its use. For the repetition of materials we propose marking adjacent repetitions with an exclamation mark (!) appended to the relevant token. The number of exclamation marks stands for the number of adjacent repetitions (for instance, 5: bi!! for the second adjacent repetition of a basic idea). An asterisk () appended to any label indicates that the re-occurrence of the relevant function is partial; when converging with a repetition, the asterisk must be annotated before the exclamation mark, e.g., 5: pres!, standing for an immediate, yet abridged, repetition of the presentation function. Distant repeats can be annotated using square brackets indicating the material that is repeated. For instance, 3: 2nd zone, 4: 2nd [1st*] (5) would indicate a partial repeat of 1st-theme material in the secondary-theme zone, characteristic of the so-called monothematic expositions.\nFormal transformation: ‘Form-functional transformation’ (Dahlhaus, 1987; Schmalfeldt, 2011) is ex-pressed in our standard by separating the two functional tokens with greater-than (&gt;) or a less-than (&lt;) symbols, or both (&lt;&gt;); see Figure 4. When the transformation occurs within a single formal level, the three symbols stand for the three possible directions: &gt; for forward transformation (Horton, 2017), &lt; for retrospective transformation (Martin & Vande Moortele, 2014), and &lt;&gt; for bidirectional transformation (Vande Moortele, 2013).\n\n\n\n\ngrafik"
+  },
+  {
+    "objectID": "wiki/Vocabulary.html",
+    "href": "wiki/Vocabulary.html",
+    "title": "Vocabulary",
+    "section": "",
+    "text": "The vocabulary of formal concepts referrering to formal functions is being ordered according to their position in the formal hierarchy: from piece level down to the subthematic level. In addition, concepts referring to formal types is being introduced here.\nPiece level\nMovement level\n\nSonata form\nMinuet form\nRondo form\nConcerto form\n\nSection level\n\n1st section / 2nd section / 3rd section\nExposition\nDevelopment\nRecapitulation\nCoda\nRitornello\nRefrain\nEpisode\nCouplet\nContrasting middle\n\nTheme level\n\nMain theme / Primary theme (zone)\nSubordinate theme / Second theme (zone)\n\nSubthematic level\n\nBasic idea\nContrasting idea\nCadential idea"
+  },
+  {
+    "objectID": "wiki/Home.html",
+    "href": "wiki/Home.html",
+    "title": "Guidelines",
+    "section": "",
+    "text": "Welcome to the annotation_pilot wiki!\nCode to create TOC of Wiki pages: https://github.com/DCMLab/WikiTableOfContents"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "https://data.snf.ch/grants/grant/10000183"
+  },
+  {
+    "objectID": "wiki/Intro.html",
+    "href": "wiki/Intro.html",
+    "title": "Intro",
+    "section": "",
+    "text": "Although there is no universally shared understanding of musical form, we wish to propose a working definition that contains typical components of form:\n\nSegmentation: The auditory stream of events is usually subdivided (or grouped) into larger chunks of events. Segmentation may be based on a variety of factors such as gestalt principles or closing patterns such as cadences. Furthermore, adjacent groups may be disjunct or conjunct to each other (phrase overlap).\nHierarchy: Groups of events can be combined into ever larger groups, thus creating hierarchical relationships between them.\nFunctionality: Groups do not only occur at a certain temporal position within the overall structure; they can also express their form-functionality (i.e., their temporal qualities) through their intrinsic features. They may project a sense of beginning, middle, or end at different hierarchical levels.\nSimilarity: Groups may be repetitions or variations of other groups, or they express a contrast to other groups.\nFormal templates: the ordering of groups as well as the functionalities they express may be such that typical patterns emerge which we refer to as formal templates (e.g., minuet form, rondo form, sonata form, etc.). Formal designs may be the result of the combination of two (or more) formal types (e.g., a theme combining elements from a “sentence” and a “period”); this is known as hybrid form.\n\n\nReinterpretation\nWhat is not form?"
   },
   {
     "objectID": "wiki/Principles.html",
@@ -63,45 +77,38 @@
     "text": "Rule 3: Labeling should be consistent and follow the syntax and label system\nThe figure above also illustrates the labeling syntax. The logic introduced at the highest level, where one label indicates the function of the segment, and the other the type that it has been realized as, is followed through to the bottom.\nIt must be understood that labels like “bi” are related only to their local context. Repetions and variations of immediately preceding timespans on the same level can be indicated using % for larger sections, or the suffixes ! or ' for exact and varied repetition of an idea, respectively. If you wishes to indicate a non-adjacent repetition, you can assign a label using this syntax:\n\"main_theme\": theme|sent\nIn the example, the segment arbitrarily called x, which is originally a part of the presentation phrase, has been reused as part of the cadential idea."
   },
   {
-    "objectID": "wiki/Intro.html",
-    "href": "wiki/Intro.html",
+    "objectID": "wiki/Annotation-Tool.html",
+    "href": "wiki/Annotation-Tool.html",
+    "title": "TiLiA",
+    "section": "",
+    "text": "As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA). For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.\nThe newest version of the TiLiA app can be downloaded here or built from source using PyInstaller.\nBasic information about how to install and use TiLiA can be found at\n\nTiLiA Website\nTiLiA Youtube Channel\nTiLiA GitHub"
+  },
+  {
+    "objectID": "wiki/Annotation-Tool.html#preparing-a-new-tilia-file-for-analysis",
+    "href": "wiki/Annotation-Tool.html#preparing-a-new-tilia-file-for-analysis",
+    "title": "TiLiA",
+    "section": "Preparing a new TiLiA file for analysis",
+    "text": "Preparing a new TiLiA file for analysis\n\nAligning a score with an audio recording\n\nGenerate an aligned beat grid\nThe first step is to generate a &lt;filename&gt;.tilia.csv file containing a beat grid for the score, mapped to the corresponding timecodes in the recording.\nWhat you need:\n\na working Python environment with Python 3.10 or newer (we recommend Miniconda)\na MuseScore file of the piece in question\nan audio recording, possibly one in the public domain so that it can be shared\n\nfirst stop: IMSLP\nCreative Commons Search\nMusOpen (requires log-in)\narchive.org\nMusical Heritage Organization\n\n\nThen you can:\n\nhead to johentsch/ms3_realtime and do the first-time setup\nfollow the instructions under Deriving timelines from aligned notes\n\n\n\nImport the beatgrid into the TiLiA file\nInstructions are in the same document over there @ ms3_realtime.\n\n\nImport the score\n\nIf the score contains annotations, you first need to remove them.\n\n\n\n\nRe-align an existing TiLiA analyses\n\nWhat you need:\n\nthe TiLiA project exported to JSON\nthe audio file to re-align the project to\na MuseScore file corresponding to the recording (e.g. when someone does not play repeats, these repeats need to be removed from the score)"
+  },
+  {
+    "objectID": "wiki/Annotation-Guidelines.html#classical-style",
+    "href": "wiki/Annotation-Guidelines.html#classical-style",
     "title": "Intro",
-    "section": "",
-    "text": "Although there is no universally shared understanding of musical form, we wish to propose a working definition that contains typical components of form:\n\nSegmentation: The auditory stream of events is usually subdivided (or grouped) into larger chunks of events. Segmentation may be based on a variety of factors such as gestalt principles or closing patterns such as cadences. Furthermore, adjacent groups may be disjunct or conjunct to each other (phrase overlap).\nHierarchy: Groups of events can be combined into ever larger groups, thus creating hierarchical relationships between them.\nFunctionality: Groups do not only occur at a certain temporal position within the overall structure; they can also express their form-functionality (i.e., their temporal qualities) through their intrinsic features. They may project a sense of beginning, middle, or end at different hierarchical levels.\nSimilarity: Groups may be repetitions or variations of other groups, or they express a contrast to other groups.\nFormal templates: the ordering of groups as well as the functionalities they express may be such that typical patterns emerge which we refer to as formal templates (e.g., minuet form, rondo form, sonata form, etc.). Formal designs may be the result of the combination of two (or more) formal types (e.g., a theme combining elements from a “sentence” and a “period”); this is known as hybrid form.\n\n\nReinterpretation\nWhat is not form?"
+    "section": "Classical Style",
+    "text": "Classical Style"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "https://data.snf.ch/grants/grant/10000183"
+    "objectID": "wiki/Annotation-Guidelines.html#pop-rock",
+    "href": "wiki/Annotation-Guidelines.html#pop-rock",
+    "title": "Intro",
+    "section": "Pop Rock",
+    "text": "Pop Rock"
   },
   {
-    "objectID": "wiki/Home.html",
-    "href": "wiki/Home.html",
-    "title": "Guidelines",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
     "section": "",
-    "text": "Welcome to the annotation_pilot wiki!\nCode to create TOC of Wiki pages: https://github.com/DCMLab/WikiTableOfContents"
-  },
-  {
-    "objectID": "wiki/Vocabulary.html",
-    "href": "wiki/Vocabulary.html",
-    "title": "Vocabulary",
-    "section": "",
-    "text": "The vocabulary of formal concepts referrering to formal functions is being ordered according to their position in the formal hierarchy: from piece level down to the subthematic level. In addition, concepts referring to formal types is being introduced here.\nPiece level\nMovement level\n\nSonata form\nMinuet form\nRondo form\nConcerto form\n\nSection level\n\n1st section / 2nd section / 3rd section\nExposition\nDevelopment\nRecapitulation\nCoda\nRitornello\nRefrain\nEpisode\nCouplet\nContrasting middle\n\nTheme level\n\nMain theme / Primary theme (zone)\nSubordinate theme / Second theme (zone)\n\nSubthematic level\n\nBasic idea\nContrasting idea\nCadential idea"
-  },
-  {
-    "objectID": "wiki/Syntax.html",
-    "href": "wiki/Syntax.html",
-    "title": "Syntax",
-    "section": "",
-    "text": "In TiLiA, each element in a hierarchy timeline can be given a label. The use of labels should follow a syntax, which extends that of Gotham and Ireland (2019) in several important ways:\n\nIn annotation via MuseScore, a typical first label of a sonata form movement can look like this:\n\n0: mvt1|sonata.type1, 1: exp, 2: 1st zone, 3: 1st|sent, 4: pres, 5: bi\nWhen Using TiLiA, the position within the hierarchical structure no longer has to be specified by an integer, since it is captured within the hierarchy timeline.\n\nIt is possible to clarify the formal types (e.g., the type of sonata) used to realise a particular formal function (such as a first movement, or exposition) by using the pipe symbol (|). In the case above, in level 0 we are dealing with a so-called type 1 sonata-form movement (Hepokoski & Darcy, 2006b), whereas the 1st theme (level 3) is realised as a Caplinian sentence.\nWe include a higher level 0 that accounts for the whole movement–—or work—, in this case the 1st movement of a piece. Therefore, we suggest using this level 0 to indicate the position of the piece (or movement) in its context and the overall form type(s) which function(s) as the root of the overarching form tree.\nFor easier annotation, we have implemented a series of abbreviations for the most frequent terms in formal analysis (see Table A1 in the Supplementary materials). When extracted and converted into a tree-like representation, all tokens that correspond to a standardised (and custom) abbreviation are spelled out.\nFormal functions and types: Our standard distinguishes between formal functions and types (Caplin, 1998). For both, the categories and abbreviations listed in Table A1 can be used. Formal subtypes, such as the five types of sonata form as proposed by sonata theory, appear after the corresponding formal (super)type separated by a dot, usually on levels 0 or 1. Realisations of formal functions, such as periods and sentences, are appended to the relevant token using a pipe symbol (|). Label 2 above makes use of both syntactical elements with the label component 0: mvt1|sonata.type1 to be read as ‘first movement, realised as sonata form type 1’. In a cyclic form, the same label could be specified as 0: sonata, 1: mvt1|sonata form.type1, … (4) where movement level is level 1.\nMaterial content: Despite the standard’s focus on form, we allow for the annotation of material content and its use. For the repetition of materials we propose marking adjacent repetitions with an exclamation mark (!) appended to the relevant token. The number of exclamation marks stands for the number of adjacent repetitions (for instance, 5: bi!! for the second adjacent repetition of a basic idea). An asterisk () appended to any label indicates that the re-occurrence of the relevant function is partial; when converging with a repetition, the asterisk must be annotated before the exclamation mark, e.g., 5: pres!, standing for an immediate, yet abridged, repetition of the presentation function. Distant repeats can be annotated using square brackets indicating the material that is repeated. For instance, 3: 2nd zone, 4: 2nd [1st*] (5) would indicate a partial repeat of 1st-theme material in the secondary-theme zone, characteristic of the so-called monothematic expositions.\nFormal transformation: ‘Form-functional transformation’ (Dahlhaus, 1987; Schmalfeldt, 2011) is ex-pressed in our standard by separating the two functional tokens with greater-than (&gt;) or a less-than (&lt;) symbols, or both (&lt;&gt;); see Figure 4. When the transformation occurs within a single formal level, the three symbols stand for the three possible directions: &gt; for forward transformation (Horton, 2017), &lt; for retrospective transformation (Martin & Vande Moortele, 2014), and &lt;&gt; for bidirectional transformation (Vande Moortele, 2013).\n\n\n\n\ngrafik"
-  },
-  {
-    "objectID": "wiki/Examples.html",
-    "href": "wiki/Examples.html",
-    "title": "Examples",
-    "section": "",
-    "text": "J.S. Bach – Sarabande from BWV 1007\nTiLiA file: https://github.com/MusicalForm/annotation_pilot/blob/BWV1007_04_Sarabande/TiLiA/BWV1007_04_Sarabande.tla"
+    "text": "Intro: What is form? A working definition\nTiLiA App: Learn about the annotation tool\nPrinciples: Basic rules that should always hold\nVocabulary: Collection and explanation of possible form annotation labels\nSyntax: Syntactic rules of how labels can be combined, enhanced, and specified\nExamples: Example analysis and discussions thereof\nAbout: About the form project"
   }
 ]
