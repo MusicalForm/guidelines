@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -141,9 +161,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#types-and-functions" id="toc-types-and-functions" class="nav-link" data-scroll-target="#types-and-functions">Types and functions</a></li>
   <li><a href="#vocabulary-and-abbreviations" id="toc-vocabulary-and-abbreviations" class="nav-link" data-scroll-target="#vocabulary-and-abbreviations">Vocabulary and abbreviations</a></li>
   <li><a href="#material-content-and-repetition" id="toc-material-content-and-repetition" class="nav-link" data-scroll-target="#material-content-and-repetition">Material content and repetition</a></li>
-  <li><a href="#formal-transformation" id="toc-formal-transformation" class="nav-link" data-scroll-target="#formal-transformation">Formal transformation:</a></li>
+  <li><a href="#formal-transformation" id="toc-formal-transformation" class="nav-link" data-scroll-target="#formal-transformation">Formal transformation</a></li>
   <li><a href="#ambiguity-diverging-interpretations-or-multi-dimensional-forms" id="toc-ambiguity-diverging-interpretations-or-multi-dimensional-forms" class="nav-link" data-scroll-target="#ambiguity-diverging-interpretations-or-multi-dimensional-forms">Ambiguity, diverging interpretations or multi-dimensional forms</a></li>
   <li><a href="#tables-to-be-added" id="toc-tables-to-be-added" class="nav-link" data-scroll-target="#tables-to-be-added">Tables (to be added)</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -169,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>In TiLiA, each element in a hierarchy timeline should be given a label. The use of labels should follow a syntax, which extends that of <a href="https://github.com/MarkGotham/Taking-Form">Gotham &amp; Ireland (2019)</a>. This page outlines the most important features of this syntax.</p>
+<p>In TiLiA, each element in a hierarchy timeline should be given a label. The use of labels should follow a syntax, which extends that of <span class="citation" data-cites="Gotham2019_TakingFormRepresentation">Gotham and Ireland (<a href="#ref-Gotham2019_TakingFormRepresentation" role="doc-biblioref">2019</a>)</span>. This page outlines the most important features of this syntax.</p>
 <section id="hierarchical-levels" class="level2">
 <h2 class="anchored" data-anchor-id="hierarchical-levels">Hierarchical Levels</h2>
 <p>The syntax can be applied on different annotation apps, though some aspects differ in usuage. In annotation in MuseScore, a typical first label of a sonata form movement can look like this:</p>
@@ -191,8 +212,8 @@ ul.task-list li input[type="checkbox"] {
 <p>To avoid ambiguous references, it is possible to assign unique custom names to components that you wish to reference in other places, for example <code>main_theme: theme|sent</code>, means that we call this theme (realised as a sentence) “main_theme”, so if we later write <code>coda [main_theme]</code> it is clear that the coda is repeating that particular theme, not another.</p>
 </section>
 <section id="formal-transformation" class="level2">
-<h2 class="anchored" data-anchor-id="formal-transformation">Formal transformation:</h2>
-<p>*‘Form-functional transformation’ (Dahlhaus, 1987; Schmalfeldt, 2011) is expressed in our standard by separating the two functional tokens with greater-than (<code>&gt;</code>) or a less-than (<code>&lt;</code>) symbols, or both (<code>&lt;&gt;</code>). When the transformation occurs within a single formal level, the three symbols stand for the three possible directions: <code>&gt;</code> for forward transformation (Horton, 2017), <code>&lt;</code> for retrospective transformation (Martin &amp; Vande Moortele, 2014), and <code>&lt;&gt;</code> for bidirectional transformation (Vande Moortele, 2013).</p>
+<h2 class="anchored" data-anchor-id="formal-transformation">Formal transformation</h2>
+<p>‘Form-functional transformation’ <span class="citation" data-cites="Dahlhaus1987_BeethovenUndSeine Schmalfeldt2011_ProcessBecomingAnalytic">(<a href="#ref-Dahlhaus1987_BeethovenUndSeine" role="doc-biblioref">Dahlhaus 1987</a>; <a href="#ref-Schmalfeldt2011_ProcessBecomingAnalytic" role="doc-biblioref">Schmalfeldt 2011</a>)</span> is expressed in our standard by separating the two functional tokens with greater-than (<code>&gt;</code>) or a less-than (<code>&lt;</code>) symbols, or both (<code>&lt;&gt;</code>). When the transformation occurs within a single formal level, the three symbols stand for the three possible directions: <code>&gt;</code> for forward transformation <span class="citation" data-cites="Horton2017_CriteriaTheoryNineteenthCentury">(<a href="#ref-Horton2017_CriteriaTheoryNineteenthCentury" role="doc-biblioref">Horton 2017</a>)</span>, <code>&lt;</code> for retrospective transformation <span class="citation" data-cites="Martin2014_FormalFunctionsRetrospective">(<a href="#ref-Martin2014_FormalFunctionsRetrospective" role="doc-biblioref">Martin and Vande Moortele 2014</a>)</span>, and <code>&lt;&gt;</code> for bidirectional transformation <span class="citation" data-cites="VandeMoortele2013_SearchRomanticForm">(<a href="#ref-VandeMoortele2013_SearchRomanticForm" role="doc-biblioref">Vande Moortele 2013</a>)</span>.</p>
 </section>
 <section id="ambiguity-diverging-interpretations-or-multi-dimensional-forms" class="level2">
 <h2 class="anchored" data-anchor-id="ambiguity-diverging-interpretations-or-multi-dimensional-forms">Ambiguity, diverging interpretations or multi-dimensional forms</h2>
@@ -200,11 +221,34 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="tables-to-be-added" class="level1">
 <h1>Tables (to be added)</h1>
+</section>
+<section id="references" class="level1">
+
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Dahlhaus1987_BeethovenUndSeine" class="csl-entry" role="listitem">
+Dahlhaus, Carl. 1987. <em>Beethoven Und Seine <span>Zeit</span></em>. Laaber: Laaber-Verlag.
+</div>
+<div id="ref-Gotham2019_TakingFormRepresentation" class="csl-entry" role="listitem">
+Gotham, Mark, and Matthew T Ireland. 2019. <span>“Taking <span>Form</span>: A Representation Standard, Conversion Code, and Example Corpus for Recording, Visualizing and Studying Analyses of Musical Form.”</span> <em>20th International Society for Music Information Retrieval Conference, Delft</em>, 633–99.
+</div>
+<div id="ref-Horton2017_CriteriaTheoryNineteenthCentury" class="csl-entry" role="listitem">
+Horton, Julian. 2017. <span>“Criteria for a <span>Theory</span> of <span>Nineteenth-Century Sonata Form</span>.”</span> <em>Music Theory and Analysis</em> 4 (11): 147–91. <a href="https://doi.org/10.11116/MTA.4.2.1">https://doi.org/10.11116/MTA.4.2.1</a>.
+</div>
+<div id="ref-Martin2014_FormalFunctionsRetrospective" class="csl-entry" role="listitem">
+Martin, Nathan John, and Steven Vande Moortele. 2014. <span>“Formal <span>Functions</span> and <span>Retrospective Reinterpretation</span> in the <span>First Movement</span> of <span>Schubert</span>’s <span>String Quintet</span>.”</span> <em>Music Analysis</em> 33 (2): 130–55. <a href="https://doi.org/10.1111/musa.12025">https://doi.org/10.1111/musa.12025</a>.
+</div>
+<div id="ref-Schmalfeldt2011_ProcessBecomingAnalytic" class="csl-entry" role="listitem">
+Schmalfeldt, Janet. 2011. <em>In the <span>Process</span> of <span>Becoming</span>: <span>Analytic</span> and <span>Philosophical Perspectives</span> on <span>Form</span> in <span class="nocase">Early Nineteenth-century Music</span></em>. Oxford University Press.
+</div>
+<div id="ref-VandeMoortele2013_SearchRomanticForm" class="csl-entry" role="listitem">
+Vande Moortele, Steven. 2013. <span>“In <span>Search</span> of <span>Romantic Form</span>.”</span> <em>Music Analysis</em> 32 (3): 404–31. <a href="https://www.jstor.org/stable/43864519">https://www.jstor.org/stable/43864519</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

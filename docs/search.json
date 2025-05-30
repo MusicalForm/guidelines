@@ -18,7 +18,7 @@
     "href": "wiki/Syntax.html",
     "title": "Syntax",
     "section": "",
-    "text": "In TiLiA, each element in a hierarchy timeline should be given a label. The use of labels should follow a syntax, which extends that of Gotham & Ireland (2019). This page outlines the most important features of this syntax."
+    "text": "In TiLiA, each element in a hierarchy timeline should be given a label. The use of labels should follow a syntax, which extends that of Gotham and Ireland (2019). This page outlines the most important features of this syntax."
   },
   {
     "objectID": "wiki/Syntax.html#hierarchical-levels",
@@ -52,8 +52,8 @@
     "objectID": "wiki/Syntax.html#formal-transformation",
     "href": "wiki/Syntax.html#formal-transformation",
     "title": "Syntax",
-    "section": "Formal transformation:",
-    "text": "Formal transformation:\n*‘Form-functional transformation’ (Dahlhaus, 1987; Schmalfeldt, 2011) is expressed in our standard by separating the two functional tokens with greater-than (&gt;) or a less-than (&lt;) symbols, or both (&lt;&gt;). When the transformation occurs within a single formal level, the three symbols stand for the three possible directions: &gt; for forward transformation (Horton, 2017), &lt; for retrospective transformation (Martin & Vande Moortele, 2014), and &lt;&gt; for bidirectional transformation (Vande Moortele, 2013)."
+    "section": "Formal transformation",
+    "text": "Formal transformation\n‘Form-functional transformation’ (Dahlhaus 1987; Schmalfeldt 2011) is expressed in our standard by separating the two functional tokens with greater-than (&gt;) or a less-than (&lt;) symbols, or both (&lt;&gt;). When the transformation occurs within a single formal level, the three symbols stand for the three possible directions: &gt; for forward transformation (Horton 2017), &lt; for retrospective transformation (Martin and Vande Moortele 2014), and &lt;&gt; for bidirectional transformation (Vande Moortele 2013)."
   },
   {
     "objectID": "wiki/Syntax.html#ambiguity-diverging-interpretations-or-multi-dimensional-forms",
@@ -102,7 +102,7 @@
     "href": "wiki/Principles.html#rule-top-level-for-the-entire-piece",
     "title": "Principles",
     "section": "Rule: Top-Level for the entire piece",
-    "text": "Rule: Top-Level for the entire piece\nEvery hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.\nThis analysis looks complete on the surface, but is missing the unifying label:\n\n\n\nChopin_no_top\n\n\nThese segments should be grouped up one more time, as above.\nLabeling of the top level: The part before the pipe symbol may be used to identify the music in a larger context, e.g. as a first movement of a sonata cycle. While the part after the symbol indicates what kind of form the piece as a whole has. If the piece is understood to be independent of any larger context, you can use generic names such as “piece”, “track”, “song” etc. The Chopin example was titled in this way, which indicates the interpretation that opus 24 is a rather loosely connected set of individual pieces, rather than a cycle expected to be heard in sequence.\nOther Examples: * mov2|minuet_and_trio - The third movement of a sonata cycle, realized as a minuet with trio. * track04|strophic - The fourth track in a rock album, which happens to be written in a strophic form (no chorus). * exp|continuous - here the analysis only deals with the exposition section of a movement, so that is the head level. The exposition is continuous because it does not have a medial caesura or clear secondary theme zone."
+    "text": "Rule: Top-Level for the entire piece\nEvery hierarchical form analysis must have a top level, spanning across the entire annotated section uninterrupted.\nThis analysis looks complete on the surface, but is missing the unifying label:\n\n\n\nChopin_no_top\n\n\nThese segments should be grouped up one more time, as above.\nLabeling of the top level: The part before the pipe symbol may be used to identify the music in a larger context, e.g. as a first movement of a sonata cycle. While the part after the symbol indicates what kind of form the piece as a whole has. If the piece is understood to be independent of any larger context, you can use generic names such as “piece”, “track”, “song” etc. The Chopin example was titled in this way, which indicates the interpretation that opus 24 is a rather loosely connected set of individual pieces, rather than a cycle expected to be heard in sequence.\nOther Examples:\n\nmov2|minuet_and_trio - The third movement of a sonata cycle, realized as a minuet with trio.\ntrack04|strophic - The fourth track in a rock album, which happens to be written in a strophic form (no chorus).\nexp|continuous - here the analysis only deals with the exposition section of a movement, so that is the head level. The exposition is continuous because it does not have a medial caesura or clear secondary theme zone."
   },
   {
     "objectID": "wiki/Principles.html#rule-bottom-level-for-ideassub-phrases",
