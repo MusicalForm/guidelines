@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-b19b0682875de1fcdf5bbf8c7a337c24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -147,6 +147,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#preparing-a-new-tilia-file-for-analysis" id="toc-preparing-a-new-tilia-file-for-analysis" class="nav-link" data-scroll-target="#preparing-a-new-tilia-file-for-analysis">Preparing a new TiLiA file for analysis</a>
   <ul class="collapse">
   <li><a href="#aligning-a-score-with-an-audio-recording" id="toc-aligning-a-score-with-an-audio-recording" class="nav-link" data-scroll-target="#aligning-a-score-with-an-audio-recording">Aligning a score with an audio recording</a></li>
+  <li><a href="#preparing-a-repo-batch-alignment" id="toc-preparing-a-repo-batch-alignment" class="nav-link" data-scroll-target="#preparing-a-repo-batch-alignment">Preparing a repo: Batch alignment</a></li>
   <li><a href="#re-align-an-existing-tilia-analyses" id="toc-re-align-an-existing-tilia-analyses" class="nav-link" data-scroll-target="#re-align-an-existing-tilia-analyses">Re-align an existing TiLiA analyses</a></li>
   </ul></li>
   </ul></li>
@@ -232,6 +233,37 @@ ul.task-list li input[type="checkbox"] {
 <li>If the score contains annotations, you first need to remove them.</li>
 </ol>
 </section>
+</section>
+<section id="preparing-a-repo-batch-alignment" class="level3">
+<h3 class="anchored" data-anchor-id="preparing-a-repo-batch-alignment">Preparing a repo: Batch alignment</h3>
+<ol type="1">
+<li>Download public domain recordings
+<ol type="1">
+<li><p>Before anything, rename them so that they can easily be matched with the scores but without removing important identifiers. E.g. for the <code>bach_solo</code> repo, the recordings combine the piece IDs with the original IMSLP filename: <code>BWV1007_01_Prelude-IMSLP717130-PMLP164349-Casals</code>.</p></li>
+<li><p>If the original files are in WAV format, use that for alignment but add a conversion to MP3 to the repo. E.g.:</p>
+<pre><code>for f in *.wav; do ffmpeg -i "$f" -vn -ac 2 -codec:a libmp3lame -q:a 0 "${f%.wav}.mp3"; done</code></pre></li>
+</ol></li>
+<li>Make sure that the unfolded notes table match the recordings. E.g., in the case of <code>bach_solo</code> suites BWV 1007 and 1008, the two minuets came in two separate scores but in a single audio file following the “minuet 1 da capo”. Although in theory it would be conceivable to split the audio recording, the obvious solution here is to create a unified score which encodes the repeat structure of the encoding and to create the unfolded notes table from that.</li>
+<li>Create a batch CSV file mapping audio to notes TSV files.
+<ol type="1">
+<li>Create a CSV file with the columns “audio” and “notes” containing the respective file paths. Paths should use <code>/</code> separators, not <code>\</code>. Relative paths relative to the repo’s top level are advisable.</li>
+<li>For controlling the output file names, an optional “name” column can be added.</li>
+</ol></li>
+<li>Align
+<ol type="1">
+<li><code>ms3_realtime</code> approach (preferred)
+<ol type="1">
+<li>Output CSV files for TiLiA import directly (<code>-tla</code> option).</li>
+<li>Commit to the respective subfolder under <code>alignments</code>.</li>
+</ol></li>
+<li><code>beat_this</code> approach (requires <code>torch</code> which can take time to set up)
+<ol type="1">
+<li>Use <a href="https://github.com/CPJKU/beat_this/">beat_this</a> to create one <code>.beats</code> file per recording</li>
+<li>Use the <code>beats2measuregrid.py</code> script to convert the files to TiLiA’s CSV format.</li>
+</ol></li>
+</ol></li>
+<li>Create TiLiA files manually.</li>
+</ol>
 </section>
 <section id="re-align-an-existing-tilia-analyses" class="level3">
 <h3 class="anchored" data-anchor-id="re-align-an-existing-tilia-analyses">Re-align an existing TiLiA analyses</h3>
