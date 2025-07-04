@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TiLiA – Guidelines</title>
+<title>Workflow – Guidelines</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -99,7 +99,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="../wiki/Workflow.html" aria-current="page"> 
-<span class="menu-text">TiLiA</span></a>
+<span class="menu-text">Workflow</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../wiki/Principles.html"> 
@@ -137,10 +137,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#for-annotators" id="toc-for-annotators" class="nav-link active" data-scroll-target="#for-annotators">For annotators</a>
+  <li><a href="#preliminaries" id="toc-preliminaries" class="nav-link active" data-scroll-target="#preliminaries">Preliminaries</a>
   <ul class="collapse">
   <li><a href="#installing-tilia" id="toc-installing-tilia" class="nav-link" data-scroll-target="#installing-tilia">Installing TiLiA</a></li>
   <li><a href="#ressources-for-learning-tilia" id="toc-ressources-for-learning-tilia" class="nav-link" data-scroll-target="#ressources-for-learning-tilia">Ressources for learning TiLiA</a></li>
+  <li><a href="#using-git" id="toc-using-git" class="nav-link" data-scroll-target="#using-git">Using Git</a></li>
+  </ul></li>
+  <li><a href="#annotating-during-the-pilot-project" id="toc-annotating-during-the-pilot-project" class="nav-link" data-scroll-target="#annotating-during-the-pilot-project">Annotating during the pilot project</a>
+  <ul class="collapse">
+  <li><a href="#whats-in-this-repo" id="toc-whats-in-this-repo" class="nav-link" data-scroll-target="#whats-in-this-repo">What’s in this repo?</a></li>
+  <li><a href="#where-to-begin" id="toc-where-to-begin" class="nav-link" data-scroll-target="#where-to-begin">Where to begin?</a></li>
+  <li><a href="#annotating" id="toc-annotating" class="nav-link" data-scroll-target="#annotating">Annotating</a></li>
   </ul></li>
   <li><a href="#for-curators" id="toc-for-curators" class="nav-link" data-scroll-target="#for-curators">For curators</a>
   <ul class="collapse">
@@ -159,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TiLiA</h1>
+<h1 class="title">Workflow</h1>
 </div>
 
 
@@ -176,8 +183,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="for-annotators" class="level1">
-<h1>For annotators</h1>
+<section id="preliminaries" class="level1">
+<h1>Preliminaries</h1>
 <section id="installing-tilia" class="level2">
 <h2 class="anchored" data-anchor-id="installing-tilia">Installing TiLiA</h2>
 <p>As our main annotation tool, we use the TimeLineAnnotator (aka. TiLiA), a GUI for producing and displaying complex annotations with video and audio files. For each piece in the corpus, a .tla file will be provided, which includes a recording aligned with a score element (musicXML), a complete beat grid, and an empty hierarchy timeline for creating the form analysis.</p>
@@ -191,14 +198,79 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://www.youtube.com/@tilia-app">TiLiA Youtube Channel</a></li>
 <li><a href="https://github.com/TimeLineAnnotator/desktop">TiLiA GitHub</a></li>
 </ul>
-<p>Miscellaneous Workflow Advice: * Make sure that the file is saved in a non-temporary folder. * The saved .tla files cannot be opened by simply clicking on them. This means you always have to open the app first and then the file from the app. * Save your file regularly to avoid losing progress. You are advised to track changes via git to better remedy file corruption. * If the app crashes while you have not saved for a long time, you can check whether a file has been saved in the ‘Autosaves’ folder (File =&gt; Open Autosaves Folder =&gt; Copy path; then File =&gt; Open =&gt; Select path to Autosaves folder and open the last saved version) * Depending on what you find easier for the music, you may either proceed from larger sections to smaller ones in a top-down way (=&gt; create child, then split the child, shortcut: s), or identify small formal units and group them upwards (shortcut: g).</p>
+<p>Miscellaneous Workflow Advice:</p>
+<ul>
+<li>Make sure that the file is saved in a non-temporary folder.</li>
+<li>The saved .tla files cannot be opened by simply clicking on them. This means you always have to open the app first and then the file from the app.</li>
+<li>Save your file regularly to avoid losing progress. You are advised to track changes via git to better remedy file corruption.</li>
+<li>If the app crashes while you have not saved for a long time, you can check whether a file has been saved in the ‘Autosaves’ folder (File =&gt; Open Autosaves Folder =&gt; Copy path; then File =&gt; Open =&gt; Select path to Autosaves folder and open the last saved version)</li>
+<li>Depending on what you find easier for the music, you may either proceed from larger sections to smaller ones in a top-down way (=&gt; create child, then split the child, shortcut: s), or identify small formal units and group them upwards (shortcut: g).</li>
+</ul>
 <p>Please refer to the <strong>Principles</strong> page for more detailed guidance on how to use the app in the context of this project.</p>
+</section>
+<section id="using-git" class="level2">
+<h2 class="anchored" data-anchor-id="using-git">Using Git</h2>
+<p>A good understanding how git works (creating branches, committing &amp; pushing changes, merge request &amp; merge) is necessary to collaborate on our decentralised annotation project. There is plenty of learning material available online (e.g.&nbsp;<a href="https://hamwaves.com/collaboration/doc/rypress.com/index.html">Ry’s Tutorial</a>) and you can use whatever you prefer. For a very brief reference of the commands you need to know, see the <a href="https://dcmlab.github.io/standards/build/html/git/git.html">Quick Git Reference</a> from the DCML corpus initiative, a predecessor of the current project on Musical Form. This reference contains a small collection of useful config options for your local git installation which can make your life easier.</p>
+</section>
+</section>
+<section id="annotating-during-the-pilot-project" class="level1">
+<h1>Annotating during the pilot project</h1>
+<ul>
+<li>We are not using OpenProject for workpackage management during the pilot because each annotator has a fixed-size work package predetermined.</li>
+<li>We provide prepared TiLiA files for the 48 pieces in the pilot corpus. The person who is to annotate one of them will
+<ul>
+<li>create a new branch named after the file, e.g.&nbsp;<code>BWV1007_01_Prelude</code>,</li>
+<li>commit incremental changes with meaningful commit messages,</li>
+<li>and create a Pull Request (PR) once the analysis is complete.</li>
+</ul></li>
+</ul>
+<p>Before you can start, you need to request access to the <a href="https://github.com/MusicalForm/annotation_pilot/">annotation_pilot repo</a> if you don’t have it and clone it to your local machine. Cloning the repo recursively (using the command <code>git clone --recursive git@github.com:MusicalForm/annotation_pilot.git</code>) including the submodules containing the original four corpora is not necessary because the TiLiA files, recordings, etc. are included in the pilot repo, submodules remain untouched.</p>
+<section id="whats-in-this-repo" class="level2">
+<h2 class="anchored" data-anchor-id="whats-in-this-repo">What’s in this repo?</h2>
+<p>You’ll find a breakdown of what’s included in the repo in its <a href="https://github.com/MusicalForm/annotation_pilot/blob/main/README.md">README</a>.</p>
+</section>
+<section id="where-to-begin" class="level2">
+<h2 class="anchored" data-anchor-id="where-to-begin">Where to begin?</h2>
+<ol type="1">
+<li>Pick one of pieces assigned to you and create a new branch reflecting the corresponding file name, e.g.&nbsp;<code>BWV1007_01_Prelude</code>. Be sure that every new branch is created from an up-to-date main branch (in practice, you <code>git checkout main</code> and <code>git pull</code> before creating the new branch).</li>
+<li>Open TiLiA and load the corresponding <code>.tla</code> file from the <code>TiLiA</code> folder. The app will attempt to find the audio file but when it fails, you will see an error message and then be prompted to select the audio file manually. Either way, once you save the file, you should see the respective file path in the <code>.tla</code> file change (the file is in JSON format).</li>
+<li>You should be seeing the timelines listed under <a href="#sec-tilia_layout">TiLiA Layout</a>. The most important one is the empty hierarchy timeline called <code>Form</code>.</li>
+</ol>
+</section>
+<section id="annotating" class="level2">
+<h2 class="anchored" data-anchor-id="annotating">Annotating</h2>
+<ol type="1">
+<li>Create your form components and cadence markers. Save and commit every now and then.
+<ul>
+<li>If no key segments are available, create those as well (hierarchy timeline with a single level).</li>
+<li>When you end up with two alternative views that you find equally convincing, add a new hierarchy timeline and encode the alternative for the given segment only.</li>
+<li>Whenever useful, add free-text comments to your analytical elements.</li>
+<li>Comments not specifically linked with a hierarchy component, e.g.&nbsp;comments on dramaturgical observations, can be added as markers.</li>
+</ul></li>
+<li>When problems arise, please let everyone know:
+<ul>
+<li>For technical issues with our workflow, <a href="https://github.com/MusicalForm/annotation_pilot/issues">please open an issue</a> in the <code>annotation_pilot</code> repo.</li>
+<li>For anything related to the annotation standard, <a href="https://github.com/MusicalForm/annotation_pilot/discussions">please open a discussion</a> instead.</li>
+</ul></li>
+<li>When your analysis is done and all commits are pushed, create a Pull Request (PR) in the <code>annotation_pilot</code> repo. Add a small summary focusing on any problems you may have encountered. In particular, be verbose about any segments where you have encoded two alternatives or where you were considering to do so.</li>
+</ol>
 </section>
 </section>
 <section id="for-curators" class="level1">
 <h1>For curators</h1>
 <section id="preparing-a-new-tilia-file-for-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-a-new-tilia-file-for-analysis">Preparing a new TiLiA file for analysis</h2>
+<p>In terms of files you will need:</p>
+<ul>
+<li>a MusicXML file of the piece in question</li>
+<li>an unfolded <code>notes</code> TSV file as output by the <code>ms3</code> parser (<code>ms3 extract -a -N -u</code>)</li>
+<li>a public-domain audio recording or, in its absence, a synthesized rendition of the piece (we avoid YouTube renditions for reasons of data longevity)</li>
+</ul>
+<p>In terms of software you’ll need:</p>
+<ul>
+<li>TiLiA, obviously</li>
+<li><a href="https://github.com/johentsch/ms3_realtime/">ms3_realtime</a> which includes an installation of the <code>ms3</code> parser</li>
+</ul>
 <section id="aligning-a-score-with-an-audio-recording" class="level3">
 <h3 class="anchored" data-anchor-id="aligning-a-score-with-an-audio-recording">Aligning a score with an audio recording</h3>
 <section id="generate-an-aligned-beat-grid" class="level4">
