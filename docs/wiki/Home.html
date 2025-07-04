@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b19b0682875de1fcdf5bbf8c7a337c24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Intro</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../wiki/Annotation-Tool.html"> 
+    <a class="nav-link" href="../wiki/Workflow.html"> 
 <span class="menu-text">TiLiA</span></a>
   </li>  
   <li class="nav-item">
@@ -132,8 +132,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#markdown-syntax" id="toc-markdown-syntax" class="nav-link active" data-scroll-target="#markdown-syntax">Markdown syntax</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -141,10 +147,27 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>Welcome to the annotation_pilot wiki!</p>
-<p>Code to create TOC of Wiki pages: https://github.com/DCMLab/WikiTableOfContents</p>
+<p>This Wiki is a straightforward way to modify most contents of our <a href="https://musicalform.github.io/guidelines/">guidelines homepage</a>. However, the preferred way to edit the guidelines is to clone the <a href="https://github.com/MusicalForm/guidelines">guidelines repository</a> with <code>--recursive</code> option and edit, preview, build and upload the website using <a href="https://quarto.org/">Quarto</a> (see below).</p>
+<p>Pages that <strong>can</strong> be edited here in the wiki are:</p>
+<ul>
+<li><a href="../wiki/Intro.html">Intro</a>: What is form? A working definition</li>
+<li><a href="../wiki/Workflow.html">Workflow</a>: Learn about the annotation tool</li>
+<li><a href="../wiki/Principles.html">Principles</a>: Basic rules that should always hold</li>
+<li><a href="../wiki/Syntax.html">Syntax</a>: Syntactic rules of how labels can be combined, enhanced, and specified</li>
+<li><a href="../wiki/Examples.html">Examples</a>: Example analysis and discussions thereof</li>
+</ul>
+<p>Pages that <strong>cannot</strong> be edited here (only in the <a href="https://github.com/MusicalForm/guidelines">guidelines repo</a>) are:</p>
+<ul>
+<li><strong>index.qmd</strong>: Start page called “Home” on the website.</li>
+<li><strong>Vocabulary.ipynb</strong>: Collection and explanation of possible form annotation labels (the notebook renders a CSV export of <a href="https://cloud.bruckneruni.at/index.php/s/awFF9yZE3reSxoG">this spreadsheet</a>)</li>
+<li><strong>about.qmd</strong>: About the form project</li>
+</ul>
+<section id="markdown-syntax" class="level1">
+<h1>Markdown syntax</h1>
+<p>The website is rendered using <a href="https://quarto.org/">Quarto</a>. Please refer to its <a href="https://quarto.org/docs/authoring/markdown-basics.html">Markdown documentation</a> to learn about its extended Markdown syntax. Github uses its own Markdown flavour and will not correctly render some of the Quarto syntax. This does not matter: What matters is that things are correctly rendered on the website.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
