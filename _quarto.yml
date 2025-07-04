@@ -10,7 +10,7 @@ website:
     left:
       - index.qmd
       - wiki/Intro.md
-      - wiki/Annotation-Tool.md
+      - wiki/Workflow.md
       - wiki/Principles.md
       - Vocabulary.ipynb
       - wiki/Syntax.md
