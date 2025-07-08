@@ -168,6 +168,381 @@ ul.task-list li input[type="checkbox"] {
 <p>The table below is a subset of https://cloud.bruckneruni.at/index.php/s/awFF9yZE3reSxoG?dir=/&amp;openfile=true which is still work in progress. These include the most relevant labels and abbreviations for piloting the guidelines.</p>
 <p>The vocabulary of formal concepts referring to formal functions is grouped according to their position in the formal hierarchy: Movement, Section, Phrase, Subphrase levels. Each term corresponds either to a formal type or a formal function. Most labels come with an abbreviation which is the preferred way to use it.</p>
 <p>In order to learn about how labels are combined, please refer to <a href="./wiki/Syntax.html">Syntax</a>.</p>
+<div class="cell" data-execution_count="20" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2025-07-08T16:48:20.592499Z&quot;,&quot;start_time&quot;:&quot;2025-07-08T16:48:20.566463Z&quot;}}" data-tbl-cap="Form label vocabulary" data-tbl-colwidths="[0,0,20,0,0]">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="20" id="vocabulary">
+<table class="caption-top table table-sm table-striped small">
+<caption>Form label vocabulary</caption>
+<colgroup>
+<col>
+<col>
+<col style="width: 20%">
+<col>
+<col>
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Hierarchical level</th>
+<th style="text-align: left;">Function/type</th>
+<th style="text-align: left;">Label</th>
+<th style="text-align: left;">Short label</th>
+<th style="text-align: left;">Short explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Phrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/period.html">antecedent</a></td>
+<td style="text-align: left;">ant</td>
+<td style="text-align: left;">2-bar bi, 2-bar ci, ending with HC or IAC</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subphrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="none">basic idea</a></td>
+<td style="text-align: left;">bi</td>
+<td style="text-align: left;">Smallest formal unit of a theme (typically 2 bars in length)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subphrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/themeFunctions.html">cadential idea</a></td>
+<td style="text-align: left;">cad</td>
+<td style="text-align: left;">Realizes a cadential progression at the end of a theme/phrase</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/sonataThematicModules.html">closing theme</a></td>
+<td style="text-align: left;">cls</td>
+<td style="text-align: left;">follows the EEC, new melodic material or primary theme based</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://openmusictheory.github.io/sonataFramingModules.html">coda</a></td>
+<td style="text-align: left;">coda</td>
+<td style="text-align: left;">Module or section after the recapitulation, framing the movement (as an after-the-end function)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">codetta</td>
+<td style="text-align: left;">cdta</td>
+<td style="text-align: left;">closing section, various lenghts (single bar up to a larger phrase) → post-cadential</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subphrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">compound basic idea</td>
+<td style="text-align: left;">cbi</td>
+<td style="text-align: left;">Basic idea is enlarged; it consists of two distinct parts, featuring prolongational harmony (rather than ending with a cadence).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Phrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/period.html">consequent</a></td>
+<td style="text-align: left;">cons</td>
+<td style="text-align: left;">Following a first thematic phrase, there is a restatement of bi, closing with ci on PAC.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subphrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/sentence.html">continuation</a></td>
+<td style="text-align: left;">cont</td>
+<td style="text-align: left;">Second part of sentence, leads to cadence at the end (HC, IAC or PAC), unless the theme is of the dissolving type</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subphrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">continuation idea</td>
+<td style="text-align: left;">conti</td>
+<td style="text-align: left;">An idea, different from the basic idea, initiating the continuation phrase of a sentence.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subphrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">contrasting idea</td>
+<td style="text-align: left;">ci</td>
+<td style="text-align: left;">Smallest formal unit of a theme (typically 2 bars in length); is in (melodic and/or harmonic) contrast to a preceding basic idea.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://openmusictheory.github.io/sonataDevelopment.html">development section</a></td>
+<td style="text-align: left;">dev</td>
+<td style="text-align: left;">4 modules: 1) link from exposition; 2) entry zone; 3) central-action zone; 4) retransition</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">essential expositional closure</td>
+<td style="text-align: left;">eec</td>
+<td style="text-align: left;">structural close of exposition</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">essential sonata closure</td>
+<td style="text-align: left;">esc</td>
+<td style="text-align: left;">structural close of whole sonata</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://openmusictheory.github.io/SonataTheory-exposition.html">exposition</a></td>
+<td style="text-align: left;">exp</td>
+<td style="text-align: left;">Two-part or continous form/type</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">first theme</td>
+<td style="text-align: left;">1st</td>
+<td style="text-align: left;">This is the first theme occuring in a theme zone, whether the primary, the secondary or the closing theme zone.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subphrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/themeFunctions.html">fragmentation</a></td>
+<td style="text-align: left;">frag</td>
+<td style="text-align: left;">breaking melodic material and/or formal units into smaller chunks</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Phrase level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/hybridThemes.html">hybrid1</a></td>
+<td style="text-align: left;">hyb1</td>
+<td style="text-align: left;">Antecedent + continuation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Phrase level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/hybridThemes.html">hybrid2</a></td>
+<td style="text-align: left;">hyb2</td>
+<td style="text-align: left;">Antecedent + cadential progression</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Phrase level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/hybridThemes.html">hybrid3</a></td>
+<td style="text-align: left;">hyb3</td>
+<td style="text-align: left;">compound basic idea + continuation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Phrase level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/hybridThemes.html">hybrid4</a></td>
+<td style="text-align: left;">hyb4</td>
+<td style="text-align: left;">compound basic idea + consequent</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://openmusictheory.github.io/sonataFramingModules.html">introduction</a></td>
+<td style="text-align: left;">intro</td>
+<td style="text-align: left;">Module or section before the exposition, framing the movement (as a before-the-beginning function)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Phrase level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/period.html">period</a></td>
+<td style="text-align: left;">pd</td>
+<td style="text-align: left;">Two-part structure, consisting of an antecendent (HC or IAC) and a consequent (concluded by PAC)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">postcadential</td>
+<td style="text-align: left;">pcad</td>
+<td style="text-align: left;">material after the cadential arrival; after PAC → closing section / codetta, after HC → standing on V ; “Anhang” in historical terminology</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subphrase level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/sentence.html">presentation</a></td>
+<td style="text-align: left;">pres</td>
+<td style="text-align: left;">First part of sentence, containts two bi’s (rarely one or three bi’s), but does no lead to no cadence.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/sonataThematicModules.html">primary theme</a></td>
+<td style="text-align: left;">pt</td>
+<td style="text-align: left;">Establishes home key, presents primary melodic material, and/or introduces the instrumental apparatus. Also refer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/sonataThematicModules.html">primary theme zone</a></td>
+<td style="text-align: left;">ptz</td>
+<td style="text-align: left;">Establishes home key, presents primary melodic material, may contain more than one → primary themes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://openmusictheory.github.io/sonataRecap.html">recapitulation</a></td>
+<td style="text-align: left;">recap</td>
+<td style="text-align: left;">Essential sonata closure and re-composition</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/sonataThematicModules.html">retransition</a></td>
+<td style="text-align: left;">rtr</td>
+<td style="text-align: left;">More specifically, in the classial style it concerns section between formal cadence and return of a new largeV or I in preparing the repeat of the exposition</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">ritornello form</td>
+<td style="text-align: left;">ritornello</td>
+<td style="text-align: left;">Six part structure: 1) opening ritornello for orchestra, 2) a solo section, 3) subordinate-key ritornello for orchestra, 4) solo section functioning as recapitulation, 6) closing ritornello for orchestra interrupted by solo cadenza</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;"><a href="https://openmusictheory.github.io/rondo.html">rondo form</a></td>
+<td style="text-align: left;">rondo</td>
+<td style="text-align: left;">Alternation of refrain (invariably in the tonic key, or changing keys) and contrasting couplets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">rounded_binary</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">ABA’ structure, grouped such that a bipartite design emerges (also known as Minuet form).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">second theme</td>
+<td style="text-align: left;">2nd</td>
+<td style="text-align: left;">This is the second theme occuring in a theme zone, whether the primary, the secondary or the closing theme zone.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/sonataThematicModules.html">secondary theme</a></td>
+<td style="text-align: left;">st</td>
+<td style="text-align: left;">leads to PAC in subordinate key and EEC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">secondary theme zone</td>
+<td style="text-align: left;">stz</td>
+<td style="text-align: left;">leads to PAC in subordinate key and EEC, may contain more than one theme</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">section</td>
+<td style="text-align: left;">sec</td>
+<td style="text-align: left;">Generic designator of a larger-scale unit of a formal whole (e.g., exposition, development).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Phrase level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;"><a href="https://elliotthauser.com/openmusictheory/sentence.html">sentence</a></td>
+<td style="text-align: left;">sent</td>
+<td style="text-align: left;">Two-part structure, consisting of a presentation (no cadence) and a continuation (concluded by a half or full cadence). The presentation in turn is made up of two (less frequently one or three) basic ideas.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">simple_binary</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">AB or AA’</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">simple_binary.balanced</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">AB or AA’, with rhyming endings.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;"><a href="https://openmusictheory.github.io/SonataTheory-intro.html">sonata form</a></td>
+<td style="text-align: left;">sonata</td>
+<td style="text-align: left;">Blending binary and ternary components, it involves a modulation and cadential confirmation of a secondary key (first part) as well as a transposition section (recapitulated 2nd theme in the tonic key; second part)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Subtype</td>
+<td style="text-align: left;">sonata form.type1</td>
+<td style="text-align: left;">sonata.type1</td>
+<td style="text-align: left;">Sonata form without development section</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Subtype</td>
+<td style="text-align: left;">sonata form.type2</td>
+<td style="text-align: left;">sonata.type2</td>
+<td style="text-align: left;">Sonata form with second half merging development and recapitulation (typically lack of double return)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Subtype</td>
+<td style="text-align: left;">sonata form.type3</td>
+<td style="text-align: left;">sonata.type3</td>
+<td style="text-align: left;">Ternary sonata form (i.e., with main theme recapitulation)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Subtype</td>
+<td style="text-align: left;">sonata form.type4</td>
+<td style="text-align: left;">sonata.type4</td>
+<td style="text-align: left;">Rondo-sonata form / sonata-rondo form</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Subtype</td>
+<td style="text-align: left;">sonata form.type5</td>
+<td style="text-align: left;">sonata.type5</td>
+<td style="text-align: left;">Concerto sonata form</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">ternary</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Tripartite structure; if [A][BA’], it is referred to as “rounded binary”.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">ternary.da_capo</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">ABA; exact repetion of A without repeats.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">ternary.through_composed</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">ABC; tripartite structure with no repetitive relationships between the sections involved.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Section level</td>
+<td style="text-align: left;">Function</td>
+<td style="text-align: left;">transition</td>
+<td style="text-align: left;">tr</td>
+<td style="text-align: left;">Independent/new material or dissolving (primary based), move towards MC</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Movement level</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">unary form</td>
+<td style="text-align: left;">unary</td>
+<td style="text-align: left;">Structure without large-scale thematic repetition, potentially subdivided by caesurae and/or contrasting sections</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
 </section>
