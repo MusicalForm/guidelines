@@ -219,7 +219,7 @@ ul.task-list li input[type="checkbox"] {
 <li>We are not using OpenProject for workpackage management during the pilot because each annotator has a fixed-size work package predetermined.</li>
 <li>We provide prepared TiLiA files for the 48 pieces in the pilot corpus. The person who is to annotate one of them will
 <ul>
-<li>create a new branch named after the file, e.g.&nbsp;<code>BWV1007_01_Prelude</code>,</li>
+<li>create a new branch named after the file and your initials, e.g.&nbsp;<code>BWV1007_01_Prelude_jh</code>,</li>
 <li>commit incremental changes with meaningful commit messages,</li>
 <li>and create a Pull Request (PR) (including a screenshot) once the analysis is complete.</li>
 </ul></li>
@@ -232,7 +232,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="where-to-begin" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-begin">Where to begin?</h2>
 <ol type="1">
-<li>Pick one of pieces assigned to you and create a new branch reflecting the corresponding file name, e.g.&nbsp;<code>BWV1007_01_Prelude</code>. Be sure that every new branch is created from an up-to-date main branch (in practice, you <code>git checkout main</code> and <code>git pull</code> before creating the new branch).</li>
+<li>Pick one of pieces assigned to you and create a new branch reflecting the corresponding file name, followed by your initials, e.g.&nbsp;<code>BWV1007_01_Prelude_jh</code> (to avoid name conflicts for doubly assigned pieces). Be sure that every new branch is created from an up-to-date main branch (in practice, you <code>git checkout main</code> and <code>git pull</code> before creating the new branch).</li>
 <li>Open TiLiA and load the corresponding <code>.tla</code> file from the <code>TiLiA</code> folder. The app will attempt to find the audio file but when it fails, you will see an error message and then be prompted to select the audio file manually. Either way, once you save the file, you should see the respective file path in the <code>.tla</code> file change (the file is in JSON format).</li>
 <li>You should be seeing the timelines listed under <a href="#sec-tilia_layout">TiLiA Layout</a>. The most important one is the empty hierarchy timeline called <code>Form</code>.</li>
 </ol>
