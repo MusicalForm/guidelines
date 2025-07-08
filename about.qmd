@@ -3,3 +3,175 @@ title: "About"
 ---
 
 [https://data.snf.ch/grants/grant/10000183](https://data.snf.ch/grants/grant/10000183)
+
+![](image1.tex)
+
+
+
+```{r include=FALSE}
+# Necessary for using dvisvgm on macOS
+# See https://www.andrewheiss.com/blog/2021/08/27/tikz-knitr-html-svg-fun/
+Sys.setenv(LIBGS = "/usr/local/share/ghostscript/9.53.3/lib/libgs.dylib.9.53")
+font_opts <- list(dvisvgm.opts = "--font-format=woff")
+```
+
+```{tikz complete-pooling, engine.opts=font_opts}
+#| echo: false
+#| fig-cap: "Complete pooling"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+\begin{tikzpicture}[{every node/.append style}=draw]
+  \node [rectangle] (pop) at (0, 4) {Population};
+  \node [ellipse] (y1) at (-5, 2.5) {$y_1$};
+  \node [ellipse] (y2) at (-3, 2.5) {$y_2$};
+  \node [ellipse] (y3) at (-1, 2.5) {$y_3$};
+  \node [ellipse] (y4) at (1, 2.5) {$y_4$};
+  \node [ellipse, draw=white] (ydots) at (3, 2.5) {$\dots$};
+  \node [ellipse] (yn) at (5, 2.5) {$y_n$};
+  \draw [-latex] (pop) to (y1);
+  \draw [-latex] (pop) to (y2);
+  \draw [-latex] (pop) to (y3);
+  \draw [-latex] (pop) to (y4);
+  \draw [-latex, dashed] (pop) to (ydots);
+  \draw [-latex] (pop) to (yn);
+\end{tikzpicture}
+```
+
+HALLOOOO
+
+```{tikz incomplete-pooling, engine.opts=font_opts}
+#| echo: false
+#| fig-cap: "Incomplete pooling"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
+\begin{tikzpicture}[{every node/.append style}=draw]
+  \node [rectangle] (pop) at (0, 4) {Population};
+\end{tikzpicture}
+```
+
+
+
+
+```{dot}
+digraph G {
+    // Graph settings
+    graph [
+        rankdir="LR";      // Left to Right layout
+        splines=false;     // Straight lines
+    ];
+
+    // Define the start wedge
+    start_wedge [
+        shape=triangle;    // Upward-pointing triangle
+        width=0.1;         // Adjust as needed
+        height=0.5;        // Adjust as needed
+        fillcolor=black;
+        color=black;
+        style=filled;
+        pos="0,0!";        // Position at the start
+        margin=0;
+    ];
+
+    // Define the end wedge
+    end_wedge [
+        shape=triangle;    // Upward-pointing triangle
+        width=0.1;
+        height=0.5;
+        fillcolor=black;
+        color=black;
+        style=filled;
+        pos="5,0!";        // Position at the end
+        margin=0;
+    ];
+
+    // The line connecting the wedges
+    start_wedge -> end_wedge [
+        arrowhead=normal;    // No arrowhead
+        arrowtail=dot;    // No arrowtail
+        penwidth=2;
+        color=black;
+        dir=forward;
+    ];
+}
+```
+
+
+
+```{mermaid}
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+```
+
+```{mermaid}
+timeline
+    title Timeline
+    section 17th-20th century
+        Industry 1.0 : Machinery, Water power, Steam <br>power
+        Industry 2.0 : Electricity, Internal combustion engine, Mass production
+        Industry 3.0 : Electronics, Computers, Automation
+    section 21st century
+        Industry 4.0 : Internet, Robotics, Internet of Things
+        Industry 5.0 : Artificial intelligence, Big data,3D printing
+```
+
+```{mermaid}
+gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Section
+        A task          :a1, 2014-01-01, 30d
+        Another task    :after a1, 20d
+    section Another
+        Task in Another :2014-01-12, 12d
+        another task    :24d
+```
+
+```python
+#%%
+%load_ext jupyter_tikz
+#%%
+%%tikz
+
+\begin{tikzpicture}
+    \draw[help lines] grid (7, 5);
+     \filldraw [color=yellow, opacity=0.3] (2.5,2.5) circle (1.5);
+     \filldraw [color=cyan, opacity=0.3] (4.5,2.5) circle (1.5);
+\end{tikzpicture}
+#%%
+%%tikz
+
+\begin{tikzpicture}
+    \draw[help lines] grid (7, 5);
+     \filldraw [color=red, opacity=0.3] (2.5,2.5) circle (1.5);
+     \filldraw [color=green, opacity=0.3] (4.5,2.5) circle (1.5);
+\end{tikzpicture}
+#%%
+from jupyter_tikz import TexFragment
+
+# The code
+tex_template_code = r"""\begin{axis}[
+  xlabel=$x$,
+  ylabel={$f(x) = x^2 - x +4$}
+]
+\addplot {x^2 - x +4};
+\end{axis}"""
+
+# The tikz object
+tikz_picture = TexFragment(
+    tex_template_code,
+    implicit_tikzpicture=True, # If true wraps the template within a tikzpicture
+    scale=1.5,
+    tex_packages="pgfplots",
+    no_tikz=True
+)
+
+# Run LaTeX
+tikz_picture.run_latex()
+```
