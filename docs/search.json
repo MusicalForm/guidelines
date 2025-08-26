@@ -70,6 +70,13 @@
     "text": "https://data.snf.ch/grants/grant/10000183"
   },
   {
+    "objectID": "wiki/Principles.html#the-principle-of-giving-feedback",
+    "href": "wiki/Principles.html#the-principle-of-giving-feedback",
+    "title": "Principles",
+    "section": "The principle of giving feedback",
+    "text": "The principle of giving feedback\nCompleting the annotations is just one of two important goals of this pilot round, the other is to identify and improve the limitations of our current annotation system. If you encounter issues with the vocabulary, syntax or tool, please document it. For example, if you can’t express something important within the current framework or have trouble choosing an appropriate label. You can start a discussion or open an issue directly in the annotation_pilot GitHub repository. Your feedback is essential to refining the system."
+  },
+  {
     "objectID": "wiki/Home.html",
     "href": "wiki/Home.html",
     "title": "Markdown syntax",
@@ -145,6 +152,27 @@
     "title": "Intro",
     "section": "Pop Rock",
     "text": "Pop Rock"
+  },
+  {
+    "objectID": "wiki/Examples.html",
+    "href": "wiki/Examples.html",
+    "title": "Examples",
+    "section": "",
+    "text": "F. Chopin - Mazurka in A-flat major, op. 24, no. 3\n\nTiLiA file: chopin_24-3_example.tla (chopin_model branch)\nRecording in the same folder (by Edward Neeman, downloaded from IMSLP)\n\n\n\nJ.S. Bach – Sarabande from BWV 1007\n\nTiLiA file: TiLiA/BWV1007_04_Sarabande.tla (bach_model branch)\n\n\n\n\n\n\n\nFigure 1: First eight bars of IV. Sarabande from BWV 1007 with two alternative readings.\n\n\n\nThis example presents two different interpretations of this Suite movement’s first section. Whereas the second one, labeled as “Alternative”, uses our standard vocabulary, the first one is an experimental attempt to using the term Fortspinnungstypus, a staple in German-speaking Baroque theory. Here, the traditional three-part structure (Initiale, Fortspinnung, Kadenz; i.e. “beginning”, “continuation”, “cadential”) has been hierarchised into a pres + cont where the middle of the whole (Fortspinnung) is the beginning of the continuation and the cad is the ending of both the cont and the whole. This conceptualisation makes this type recognizable as a subtype of sent.\nWhereas this perspective groups the first part as [8 2 [6 2 [4 2 2] ] ], the second describes a symmetric [8 [4 2 2] [4 2 2] ] grouping (in this notation, each [ marks the parent node of a sub-branch, followed by its children and ]). Verbally, the first view sets the initial of the piece as apart and accounts for its being a relatively self-contained, chiastic open-close (or departure-arrival) motion which can stand for itself, like a motto. The second interpretation highlights the expositional character of the first four bars by grouping them under an overarching pres phrase. Contrary to the first view, the second compound basic idea is marked as a variation of the first one (cbi') because of a vague sense of return of the chiasmus. The first interpretation does not include the ' in the interest of reinforcing the sense of separation between measure 2 and 3.\nOn a minor note, the cad has been split on the lowest level to indicate the rhythmic-harmonic acceleration towards the cadence but no labels have been applied."
+  },
+  {
+    "objectID": "wiki/Intro.html",
+    "href": "wiki/Intro.html",
+    "title": "Intro",
+    "section": "",
+    "text": "Before starting to annotate musical forms, it is useful to familiarize oneself with a working definition of form. Although there is no universally shared understanding of musical form, we wish to propose a working definition that contains typical components of form:\n\nSegmentation: The auditory stream of events is usually subdivided (or grouped) into larger chunks of events. Segmentation may be based on a variety of factors such as gestalt principles or closing patterns (e.g., cadences). Furthermore, adjacent groups may be disjunct or conjunct to each other (phrase overlap).\nHierarchy: Groups of events can be combined into ever larger groups, thus creating hierarchical relationships between them. Groups located at different hierarchical are related by containment.\nFunctionality: Groups do not only occur at a certain temporal position within the overall structure; they can also express their form-functionality (i.e., their temporal qualities) through their intrinsic features (see below: interfaces with musical form). They may project a sense of beginning, middle, or end at different hierarchical levels. The formal function conveyed by a group may or may not coincide with the group’s temporal position. For instance, a larger formal unit may start with a cadential pattern (hence an ending function) or with a sequence (hence a middle function).\nRepetition structure: Groups may be repetitions or variations of other groups, or they express a contrast to other groups.\nFormal templates: the ordering of groups as well as the functionalities they express may be such that typical patterns emerge which we refer to as formal templates or designs (e.g., minuet form, rondo form, sonata form, etc.). Formal designs may also be the result of the combination of two (or more) formal types (e.g., a theme combining elements from a “sentence” and a “period”); this is known as hybrid form.\n\nAn important aspect to be included is “reinterpretation”: it is a characteristic feature of music in general that some structural hearings may not be static but depend on their temporal contextualization and the subsequent course of events during listening (which may or may not necessitate a re-evaluation of interpretation). Reinterpretation (or revision) is itself not a genuine aspect of the grammar, but a kind of effect that arises from processing during listening when the grammar allows for ambiguity. In the domain of form, this subdivides into two categories: (a) the functional reinterpretation of entire units based on later events; (b) the idea of “becoming” (i.e. gradual transformation) based on later events (e.g., a main-theme codetta turning into a transition).\nThe ways in which features (1) to (5) are analyzed depends on style-specific realizations of other structural domains (such as harmony, tonality, voice-leading, texture, instrumentation/timbre etc.) which may be understood as interfaces with musical form.\nNegative definitions of form: While it is certainly easier to come up with a list of features that, in one way or another, are associated with the concept of musical form, it is more difficult to set form apart from other concepts which may either be close to, or intersect with, the notion of form. One such related concept is “narrative” unfolding. For example, a piece of music may display the design of a “sonata form”, it may consist of functional units (such as themes, presentation phrases, and basic ideas); but whether the piece exemplifies a “per aspera ad astra” narrative trajectory (or some different narrative scheme), is to be considered distinct from the formal outline (with which it may interact, though). However, it is worth mentioning that, given the fluid boundaries of the theoretical concepts we are dealing with, the relationship between these concepts may turn out to be different at the end of our project."
+  },
+  {
+    "objectID": "wiki/Syntax.html",
+    "href": "wiki/Syntax.html",
+    "title": "Syntax",
+    "section": "",
+    "text": "Intro: What is form? A working definition\nWorkflow: Learn about the annotation tool\nPrinciples: Basic rules that should always hold\nVocabulary: Collection and explanation of possible form annotation labels\nSyntax: Syntactic rules of how labels can be combined, enhanced, and specified\nExamples: Example analysis and discussions thereof\nAbout: About the form project"
   },
   {
     "objectID": "index.html",
