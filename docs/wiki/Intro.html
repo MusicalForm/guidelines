@@ -132,8 +132,15 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#our-conception-of-musical-form" id="toc-our-conception-of-musical-form" class="nav-link active" data-scroll-target="#our-conception-of-musical-form">Our conception of musical form</a></li>
+  <li><a href="#annotating-musical-form" id="toc-annotating-musical-form" class="nav-link" data-scroll-target="#annotating-musical-form">Annotating musical form</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -157,6 +164,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="our-conception-of-musical-form" class="level1">
+<h1>Our conception of musical form</h1>
 <p>Before starting to annotate musical forms, it is useful to familiarize oneself with a working definition of form. Although there is no universally shared understanding of musical form, we wish to propose a working definition that contains typical components of form:</p>
 <ol type="1">
 <li><p><strong>Segmentation</strong>: The auditory stream of events is usually subdivided (or grouped) into larger chunks of events. Segmentation may be based on a variety of factors such as gestalt principles or closing patterns (e.g., cadences). Furthermore, adjacent groups may be disjunct or conjunct to each other (phrase overlap).</p></li>
@@ -168,8 +177,16 @@ ul.task-list li input[type="checkbox"] {
 <p>An important aspect to be included is <strong>“reinterpretation”</strong>: it is a characteristic feature of music in general that some structural hearings may not be static but depend on their temporal contextualization and the subsequent course of events during listening (which may or may not necessitate a re-evaluation of interpretation). Reinterpretation (or revision) is itself not a genuine aspect of the grammar, but a kind of effect that arises from processing during listening when the grammar allows for ambiguity. In the domain of form, this subdivides into two categories: (a) the functional reinterpretation of entire units based on later events; (b) the idea of “becoming” (i.e.&nbsp;gradual transformation) based on later events (e.g., a main-theme codetta turning into a transition).</p>
 <p>The ways in which features (1) to (5) are analyzed depends on style-specific realizations of other structural domains (such as harmony, tonality, voice-leading, texture, instrumentation/timbre etc.) which may be understood as <strong>interfaces with musical form</strong>.</p>
 <p><strong>Negative definitions of form</strong>: While it is certainly easier to come up with a list of features that, in one way or another, are associated with the concept of musical form, it is more difficult to set form apart from other concepts which may either be close to, or intersect with, the notion of form. One such related concept is “narrative” unfolding. For example, a piece of music may display the design of a “sonata form”, it may consist of functional units (such as themes, presentation phrases, and basic ideas); but whether the piece exemplifies a “per aspera ad astra” narrative trajectory (or some different narrative scheme), is to be considered distinct from the formal outline (with which it may interact, though). However, it is worth mentioning that, given the fluid boundaries of the theoretical concepts we are dealing with, the relationship between these concepts may turn out to be different at the end of our project.</p>
+</section>
+<section id="annotating-musical-form" class="level1">
+<h1>Annotating musical form</h1>
+<p>As a fundamental principle we attribute <strong>formal functions</strong> to particular timespans. An annotation label consisting of a single term is interpreted as a formal function (e.g., <code>cad</code> for cadential). We aspire to design an ontology in which each function can be traced back to either a beginning, middle, or end function.</p>
+<p>In addition, we may also attribute a <strong>formal type</strong> to a timespan, separated from the function by a pipe symbol (<code>|</code>). For example, we read the label <code>1st_theme|sent</code> as “theme, realized as a sentence”.</p>
+<p>Furthermore, a timespan can be <strong>named</strong>, which is useful for referencing it in other parts of the analysis. A name always precedes the annotation label and can consist of any common printable character that is neither whitespace nor a colon, since a colon (<code>:</code>) separates the name from the label (e.g., <code>superman_theme: theme|sent</code>). Names should be unique within a single analysis so that they can be used to identify a particular timespan unambiguously. Please note that names such as <code>A</code>, <code>a</code> or <code>α</code> (alpha) evoke the expectancy of a corresponding timespan <code>B</code>, <code>b</code> or <code>β</code> (beta) on the same analytical level, probably as name of the right-adjacent timespan. Also keep in mind that the names <code>A</code> and <code>B</code> are conventionally used to name the two sections of a <code>piece|ABA</code> (piece realized as A-B-A).</p>
+<p>Names can be used to indicate <strong>distant repetitions</strong> of material, be they exact, varied, partial, or mere allusions. A label followed by a name in square brackets (<code>[]</code>) indicates an exact (or transposed) repetition of the referenced material. For example, <code>coda|sent [superman_theme]</code> signifies a coda consisting of a repetition of the material previously named <code>superman_theme</code>. A varied repetition can be marked as <code>[superman_theme']</code>, a partial repetition as <code>[superman_theme*]</code>, and a partial varied repetition as <code>[superman_theme*']</code>—although it would be avisable to reserve these symbols for shorter timespans on the sub-thematic level. In cases where a repetition of musical material entails a repetition of the analytical sub-tree, the placeholder symbol <code>% [name]</code> can be used which, in absence of a named reference, stands for an exact repetition of the immediately preceding timespan’s sub-tree.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
