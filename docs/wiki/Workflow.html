@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -153,9 +188,9 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#preparing-a-new-tilia-file-for-analysis" id="toc-preparing-a-new-tilia-file-for-analysis" class="nav-link" data-scroll-target="#preparing-a-new-tilia-file-for-analysis">Preparing a new TiLiA file for analysis</a>
   <ul class="collapse">
-  <li><a href="#aligning-a-score-with-an-audio-recording" id="toc-aligning-a-score-with-an-audio-recording" class="nav-link" data-scroll-target="#aligning-a-score-with-an-audio-recording">Aligning a score with an audio recording</a></li>
+  <li><a href="#sec-audio_score_alignment" id="toc-sec-audio_score_alignment" class="nav-link" data-scroll-target="#sec-audio_score_alignment">Aligning a score with an audio recording</a></li>
   <li><a href="#preparing-a-repo-batch-alignment" id="toc-preparing-a-repo-batch-alignment" class="nav-link" data-scroll-target="#preparing-a-repo-batch-alignment">Preparing a repo: Batch alignment</a></li>
-  <li><a href="#re-align-an-existing-tilia-analyses" id="toc-re-align-an-existing-tilia-analyses" class="nav-link" data-scroll-target="#re-align-an-existing-tilia-analyses">Re-align an existing TiLiA analyses</a></li>
+  <li><a href="#re-align-an-existing-tilia-file" id="toc-re-align-an-existing-tilia-file" class="nav-link" data-scroll-target="#re-align-an-existing-tilia-file">Re-align an existing TiLiA file</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -271,11 +306,11 @@ ul.task-list li input[type="checkbox"] {
 <li>TiLiA, obviously</li>
 <li><a href="https://github.com/johentsch/ms3_realtime/">ms3_realtime</a> which includes an installation of the <code>ms3</code> parser</li>
 </ul>
-<section id="aligning-a-score-with-an-audio-recording" class="level3">
-<h3 class="anchored" data-anchor-id="aligning-a-score-with-an-audio-recording">Aligning a score with an audio recording</h3>
+<section id="sec-audio_score_alignment" class="level3">
+<h3 class="anchored" data-anchor-id="sec-audio_score_alignment">Aligning a score with an audio recording</h3>
 <section id="generate-an-aligned-beat-grid" class="level4">
 <h4 class="anchored" data-anchor-id="generate-an-aligned-beat-grid">Generate an aligned beat grid</h4>
-<p>The first step is to generate a <code>&lt;filename&gt;.tilia.csv</code> file containing a beat grid for the score, mapped to the corresponding timecodes in the recording.</p>
+<p>The first step is to generate a <code>&lt;filename&gt;.beatgrid.csv</code> file containing a beat grid for the score, mapped to the corresponding timecodes in the recording.</p>
 <p>What you need:</p>
 <ul>
 <li>a working Python environment with Python 3.10 or newer (we recommend <a href="https://docs.anaconda.com/miniconda/">Miniconda</a>)</li>
@@ -337,15 +372,30 @@ ul.task-list li input[type="checkbox"] {
 <li>Create TiLiA files manually.</li>
 </ol>
 </section>
-<section id="re-align-an-existing-tilia-analyses" class="level3">
-<h3 class="anchored" data-anchor-id="re-align-an-existing-tilia-analyses">Re-align an existing TiLiA analyses</h3>
-<ol type="1">
-<li>What you need:
+<section id="re-align-an-existing-tilia-file" class="level3">
+<h3 class="anchored" data-anchor-id="re-align-an-existing-tilia-file">Re-align an existing TiLiA file</h3>
+<p>This documents what to do in order to re-align the timelines in an existing TiLiA file with a different recording.</p>
+<p><strong>Requirements</strong></p>
 <ul>
-<li>the TiLiA project exported to JSON</li>
-<li>the audio file to re-align the project to</li>
-<li>a MuseScore file corresponding to the recording (e.g.&nbsp;when someone does not play repeats, these repeats need to be removed from the score)</li>
-</ul></li>
+<li>A recording featuring the same flow through the score as reflected in the TiLiA file.</li>
+<li>A MuseScore file that unfolds correctly to that same file.</li>
+<li>The TiLiA file needs to have a beat grid with the correct sequence of measure numbers.</li>
+</ul>
+<p>For example, a 16-bar score in which the first 8 bars are repeated goes together with</p>
+<ul>
+<li>a recording that plays the first 8 bars twice, followed by bars 9-16,</li>
+<li>a TiLiA file with a beat grid that has measure numbers 1-8, then again 1-8, then 9-16.</li>
+</ul>
+<p><strong>Preliminaries</strong></p>
+<p>Clone https://github.com/TimeToAlign/dashboard and, in a new virtual Python environment, execute <code>pip install -r requirements.txt</code> to install the dependencies.</p>
+<p><strong>Process</strong></p>
+<ol type="1">
+<li><p>Export the TiLiA file to JSON (File =&gt; Export =&gt; JSON).</p></li>
+<li><p>Follow the procedure <a href="#sec-audio_score_alignment">above</a> to create the <code>.beatgrid.csv</code> file which aligns the score with the new recording.</p></li>
+<li><p>Activate the correct virtual environment and execute</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> processing/notebooks/tilia_warp.py path/to/tilia_export.json path/to/piece.beatgrid.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will output one CSV file per timeline in the TiLiA file with adjusted timecodes.</p></li>
+<li><p>Create a new TiLiA file, add the local recording file, and import the CSV files one by one.</p></li>
 </ol>
 
 
