@@ -55,7 +55,7 @@ postcadential,pcad,Function,Section level,,"material after the cadential arrival
 codetta,cdta,Function,Section level,,"closing section, various lenghts (single bar up to a larger phrase) →  post-cadential",,Caplin
 after-the-end,ate,Function,,,framing function; follows structural limits of main material,,Caplin
 model,mod,Function,,,the initial unit of a sequence,,Caplin
-sequence,seq,Type,,,repeating the melodic/harmonic material by consistent transposition (either “real” or “tonal”),https://elliotthauser.com/openmusictheory/themeFunctions.html,
+sequence,seq,Type/Function,Phrase level,,repeating the melodic/harmonic material by consistent transposition (either “real” or “tonal”) https://elliotthauser.com/openmusictheory/themeFunctions.html,wiki/vignettes/Sequence.md,
 essential expositional closure,eec,Function,Section level,,structural close of exposition,,Hepokoski and Darcy
 essential sonata closure,esc,Function,Section level,,structural close of whole sonata,,Hepokoski and Darcy
 ,,,,,,,
