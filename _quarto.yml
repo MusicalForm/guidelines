@@ -7,15 +7,26 @@ bibliography: wiki/references.bib
 website:
   title: "Guidelines"
   navbar:
+    search: true
     left:
-      - index.qmd
-      - wiki/Intro.md
-      - wiki/Workflow.md
-      - wiki/Principles.md
-      - Vocabulary.ipynb
-      - wiki/Syntax.md
-      - wiki/Examples.md
+      - text: "Home"
+        href: index.qmd
+      - text: "Tutorial"
+        menu:
+          - wiki/Intro.md
+          - wiki/Principles.md
+      - text: "How-To"
+        menu:
+          - wiki/Workflow.md
+      - text: "Explanations"
+        menu:
+          - wiki/Examples.md
+      - text: "Reference"
+        menu:
+          - wiki/Syntax.md
+          - Vocabulary.ipynb
       - about.qmd
+
 
 format:
   html:

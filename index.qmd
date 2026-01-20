@@ -2,10 +2,16 @@
 title: "Home"
 ---
 
-* [Intro](wiki/Intro.md): What is form? A working definition
-* [Workflow](wiki/Workflow.md): Learn about the annotation tool
-* [Principles](wiki/Principles.md): Basic rules that should always hold
-* [Vocabulary](Vocabulary.ipynb): Collection and explanation of possible form annotation labels
-* [Syntax](wiki/Syntax.md): Syntactic rules of how labels can be combined, enhanced, and specified
-* [Examples](wiki/Examples.md): Example analysis and discussions thereof
+* Tutorial
+  * [Intro](wiki/Intro.md): What is form? A working definition
+  * [Principles](wiki/Principles.md): Basic rules that should always hold
+* How-To
+  * [Workflow](wiki/Workflow.md): Learn about the annotation tool
+* Explanations
+  * [Examples](wiki/Examples.md): Example analyses and discussions thereof
+* Reference
+  * [Syntax](wiki/Syntax.md): Syntactic rules of how labels can be combined, enhanced, and specified
+  * [Vocabulary](Vocabulary.ipynb): Collection and explanation of possible form annotation labels
 * [About](about.qmd): About the form project
+
+[![This documentation adheres to the Diátaxis approach.](wiki/figs/diataxis.webp "Diátaxis schema")](https://diataxis.fr/){#fig-diataxis}
