@@ -161,7 +161,15 @@ div.csl-indent {
   <li><a href="#hierarchical-levels" id="toc-hierarchical-levels" class="nav-link" data-scroll-target="#hierarchical-levels">Hierarchical Levels</a></li>
   <li><a href="#types-and-functions" id="toc-types-and-functions" class="nav-link" data-scroll-target="#types-and-functions">Types and functions</a></li>
   <li><a href="#vocabulary-and-abbreviations" id="toc-vocabulary-and-abbreviations" class="nav-link" data-scroll-target="#vocabulary-and-abbreviations">Vocabulary and abbreviations</a></li>
-  <li><a href="#material-content-and-repetition" id="toc-material-content-and-repetition" class="nav-link" data-scroll-target="#material-content-and-repetition">Material content and repetition</a></li>
+  <li><a href="#repeating-a-subtree" id="toc-repeating-a-subtree" class="nav-link" data-scroll-target="#repeating-a-subtree">Repeating a subtree</a></li>
+  <li><a href="#sec-material_references" id="toc-sec-material_references" class="nav-link" data-scroll-target="#sec-material_references">Material content and repetition</a>
+  <ul class="collapse">
+  <li><a href="#the-default-varied-repetition" id="toc-the-default-varied-repetition" class="nav-link" data-scroll-target="#the-default-varied-repetition">The default: Varied repetition</a></li>
+  <li><a href="#shorthand-anonymous-references" id="toc-shorthand-anonymous-references" class="nav-link" data-scroll-target="#shorthand-anonymous-references">Shorthand: Anonymous references</a></li>
+  <li><a href="#near-exact-repetition" id="toc-near-exact-repetition" class="nav-link" data-scroll-target="#near-exact-repetition">(Near-)Exact repetition</a></li>
+  <li><a href="#material-relationships-on-various-levels" id="toc-material-relationships-on-various-levels" class="nav-link" data-scroll-target="#material-relationships-on-various-levels">Material relationships on various levels</a></li>
+  <li><a href="#transposition" id="toc-transposition" class="nav-link" data-scroll-target="#transposition">Transposition</a></li>
+  </ul></li>
   <li><a href="#formal-transformation" id="toc-formal-transformation" class="nav-link" data-scroll-target="#formal-transformation">Formal transformation</a></li>
   <li><a href="#ambiguity-diverging-interpretations-or-multi-dimensional-forms" id="toc-ambiguity-diverging-interpretations-or-multi-dimensional-forms" class="nav-link" data-scroll-target="#ambiguity-diverging-interpretations-or-multi-dimensional-forms">Ambiguity, diverging interpretations or multi-dimensional forms</a></li>
   <li><a href="#common-gotchas" id="toc-common-gotchas" class="nav-link" data-scroll-target="#common-gotchas">Common gotchas</a></li>
@@ -301,10 +309,101 @@ div.csl-indent {
 <h1>Vocabulary and abbreviations</h1>
 <p>For easier annotation, we have implemented a series of abbreviations for the most frequent terms in formal analysis. See the <a href="https://musicalform.github.io/guidelines/Vocabulary.html">Vocabulary</a> page for reference. In any case where you do not see a fitting label for a segment, you can use the neutral label <code>unit</code>.</p>
 </section>
-<section id="material-content-and-repetition" class="level1">
+<section id="repeating-a-subtree" class="level1">
+<h1>Repeating a subtree</h1>
+<p>It is possible to encode the form-functional return of an entire subtree using the symbol <code>%</code>. For example, when a section named <code>A</code> repeats, its immediate repetition—if we interpret to have the same form-functional subtree—can be named <code>%</code>, which is a shorthand for <code>% [A]</code>. In other words, <code>%</code> marks an immediate return of a form-functional subtree, whereas a non-immediate return at a later point will require a named reference. In both cases, all lower levels can be omitted. It is permitted to create individual sub-segments to highlight structual deviations from the repeated subtree.</p>
+<p>In most cases, the repeated subtree is due to an exact repetition of an entire section. In these cases, <code>%!</code> should be used as anonymous reference in order to highlight both. The named reference has the format <code>% [A!]</code> (see the <a href="#sec-material_references">section on material references below</a>). This precisation is, however, frequently omitted when the exact repetition of a unit is already expressed on a higher level (in particular through a label such as <code>1st_section|repeated_section</code>).</p>
+</section>
+<section id="sec-material_references" class="level1">
 <h1>Material content and repetition</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 72%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(varied) repetition</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>exact <strong>rep</strong>etition</td>
+<td>!</td>
+</tr>
+<tr class="odd">
+<td><strong>var</strong>iation</td>
+<td>$var</td>
+</tr>
+<tr class="even">
+<td><strong>orn</strong>amentation</td>
+<td>~</td>
+</tr>
+<tr class="odd">
+<td><strong>conc</strong>atenation (horizontal)</td>
+<td>,</td>
+</tr>
+<tr class="even">
+<td><strong>comb</strong>ination (vertical)</td>
+<td>&amp;</td>
+</tr>
+<tr class="odd">
+<td>local <strong>transp</strong>osition</td>
+<td>^</td>
+</tr>
+<tr class="even">
+<td><strong>adapt</strong>ation to new harmonic context</td>
+<td>°</td>
+</tr>
+<tr class="odd">
+<td><strong>part</strong>ial repetition</td>
+<td>*</td>
+</tr>
+<tr class="even">
+<td><strong>inv</strong>ersion, <strong>retr</strong>ograde, <strong>dim</strong>inution, <strong>aug</strong>mentation</td>
+<td>$inv, $retr, $dim, $aug</td>
+</tr>
+<tr class="odd">
+<td><strong>ext</strong>ension/expansion</td>
+<td>+</td>
+</tr>
+</tbody>
+</table>
 <p>Despite the standard’s focus on form, we allow for the annotation of material content and its use. * For the repetition of materials we propose marking <em>adjacent</em> repetitions with an exclamation mark (!) appended to the relevant token. The number of exclamation marks stands for the number of adjacent repetitions (for instance, 5: bi!! for the second adjacent repetition of a basic idea). * An asterisk appended to any label indicates that the re-occurrence of the relevant function is <em>partial</em>. * <em>Distant repeats</em> can be annotated using square brackets indicating the material that is repeated. For instance, <code>3: 2nd zone, 4: 2nd [1st*]</code> would indicate a partial repeat of 1st-theme material in the secondary-theme zone, characteristic of the so-called monothematic exposition.</p>
 <p>To avoid ambiguous references, it is possible to assign unique custom names to components that you wish to reference in other places, for example <code>main_theme: theme|sent</code>, means that we call this theme (realized as a sentence) “main_theme”, so if we later write <code>coda [main_theme]</code> it is clear that the coda is repeating that particular theme, not another.</p>
+<section id="the-default-varied-repetition" class="level2">
+<h2 class="anchored" data-anchor-id="the-default-varied-repetition">The default: Varied repetition</h2>
+<p>By referring to another segment without any syntactic operators, you imply that the material or parts of it are being repeated, potentially with some degree of variation including transposition. For example, <code>[a]</code> is understood to refer to a previous segment named <code>a</code>, but without specifying which parts of the material (melodic contour, rythmic-metric structure, texture, harmony, etc.) are being referenced. As a rule of thumb, such a generic reference implies that the two related segments have the same length because otherwise, one would likely use an expansion (<code>+</code>) or truncation (<code>*</code>) operator. The absence of all operators is understood as the absence of the relationships they express, meaning that the repetition is <em>not</em> ornamented, <em>not</em> expanded, etc.</p>
+</section>
+<section id="shorthand-anonymous-references" class="level2">
+<h2 class="anchored" data-anchor-id="shorthand-anonymous-references">Shorthand: Anonymous references</h2>
+<p>All non-default references are expressed as a name followed by at least one operator. For example, as explained below, <code>[a!]</code> expresses a near-exact repetition of the segment named <code>!</code>. There is, however, a shorthand that lets us omit the named reference in squared brackets in all cases where the operator relates the segment to its immediate predecessor segment: In these cases, the operator(s) can directly follow the form label. For example, an immediate, near-exact repetition of a basic idea <code>bi</code> can be expressed as <code>bi!</code>, which is a shorthand for naming the idea first (e.g., <code>name: bi</code>) and then referring to it by name (<code>bi [name!]</code>). Since no name needs to be introduced or used, we call this an anonymous reference.</p>
+</section>
+<section id="near-exact-repetition" class="level2">
+<h2 class="anchored" data-anchor-id="near-exact-repetition">(Near-)Exact repetition</h2>
+<p>A material reference followed by an exclamation mark <code>!</code> expresses a near-exact repetition of the referenced segment. For example, by <code>[a!]</code> we understand a repetition of the music in the segment named <code>a</code> regarding most structural aspects (melodic contour, rythmic-metric structure, texture, harmony, etc.). While some variation can be part of this operation, as a rule of thumb, we add <code>!</code> to express that it is closer to an exact repetition than to a varied repetition. <code>[a!]</code>, without any other operators, implies that the sub-segments will also constitute near-exact repetitions of the sub-segments of <code>a</code> (even though this does not mean that the resulting formal functions need to be identical). It is permitted to</p>
+<ul>
+<li>omit the implied material brackets on the lower levels,</li>
+<li>write them out,</li>
+<li>write out only those where additional operators are to be added, e.g.&nbsp;for ornamentation.</li>
+</ul>
+<p>In other words, exact repetition on lower levels that is implied by a single <code>!</code> on a higher level can be omitted or overridden. As soon as more operators are involved, the recommendation is to write things out.</p>
+<p>If, on the other hand, an entire form-functional subtree repeats (not implying a repetition of material, see below), the same principle holds: sub-segments are typically omitted, unless they diverge in some way.</p>
+</section>
+<section id="material-relationships-on-various-levels" class="level2">
+<h2 class="anchored" data-anchor-id="material-relationships-on-various-levels">Material relationships on various levels</h2>
+<p>As a general guideline, material relations on lower levels should never contradict those on higher levels (exception: for a lower level to specify a deviation from an exact repetition). Ideally, they tell the same story from two different perspectives. For example, when a segment has two children reffering to material from <code>[a]</code> and <code>[b]</code> respectively, then this segment should come with a concatenation operator <code>[a,b]</code>. On the other hand, this relationship is obvious from looking at the lower levels and could be omitted, in particular if the relationships on the lower levels are more intricate, including one or multiple operators.</p>
+</section>
+<section id="transposition" class="level2">
+<h2 class="anchored" data-anchor-id="transposition">Transposition</h2>
+<p>Transposition as a material relationship between timespans is ubiquitous and included in our <code>varied repeat</code> assumption (see above). There are, however, different types of transpositions, e.g.&nbsp;real vs.&nbsp;tonal, transposition along the scale over the same vs.&nbsp;a different harmony, etc. Our transposition marker <code>^</code> is reserved for cases where the entire material is being transposed (and not, for instance, only the melody) locally. We consider a transposition as local if it appears within the same phrase. In most cases, the symbol applies to immediate transposed repetitions.</p>
+<p><em>Rationale: We want to be able to retrieve cases, e.g., where the immediate repetition of basic idea is transposed. When material re-appears in a different phrase, it falls under the basic assumption that it might be varied, transposed along the scale, etc. In addition, the annotation of key is a strong indicator that repeated material has been transposed.</em></p>
+</section>
 </section>
 <section id="formal-transformation" class="level1">
 <h1>Formal transformation</h1>
