@@ -8,19 +8,19 @@ Name                ::= [a-zA-Z0-9']+
 
 Form                ::= FunctionLabel ('|' TypeExp)?
 
-FunctionLabel       ::= FunctionExp Connector
-                      | FunctionExp (Combinator FunctionExp?)?
+FunctionLabel       ::= FunctionExpr Connector
+                      | FunctionExpr (Combinator FunctionExpr?)?
 Connector           ::= '/'
 Combinator          ::= '>'
 
-FunctionExp         ::= Function Shorthand?
+FunctionExpr         ::= Function Shorthand?
 
 Function            ::= '"' FunctionName '"'
                       | FunctionName
 
 FunctionName        ::= GenericFunction | SpecificFunction
 
-GenericFunction     ::= Count? Unit
+GenericFunction     ::= (Count [~_]?)?  Unit
 
 Count               ::= '1st' | '2nd' | '3rd' | '4th' | '5th' | '6th' | '7th' | '8th' | '9th'
 
@@ -55,7 +55,6 @@ SpecificFunction    ::= 'antecedent' | 'ant'
                       | 'ritornello' | 'rit'
                       | 'retransition' | 'rtr'
                       | 'secondary theme zone' | 'secondary theme' | 'stz' | 'st'
-                      | 'section' | 'sec'
                       | 'sequence' | 'seq'
                       | 'transition' | 'tr'
 
@@ -86,10 +85,10 @@ MaterialBrackets    ::= '[' MaterialPositions ']'
 MaterialPositions   ::= ',' MaterialRef
                       | MaterialRef (',' MaterialRef?)?
 /* This is the highest level designating the "Material Brackets" as we call them.
- * If FunctionLabel takes the form (FunctionExp Combinator FunctionExp), then there
+ * If FunctionLabel takes the form (FunctionExpr Combinator FunctionExpr), then there
  * three possibilities:
- * 1) One MaterialRef followed by a comma to be attributed to the first FunctionExp
- * 2) One MaterialRef preceded by a comma to be attributed to the second FunctionExp
+ * 1) One MaterialRef followed by a comma to be attributed to the first FunctionExpr
+ * 2) One MaterialRef preceded by a comma to be attributed to the second FunctionExpr
  * 3a) A single MaterialRef describing the entire segment
  * 3b) The case where the single MaterialRef is a concatenation: then it needs to be
  *     wrapped in brackets, resulting in double MaterialBrackets: [[Concatenation]]
@@ -104,6 +103,3 @@ Concatenation       ::= Entry (',' Entry)+
 Shorthand           ::= MaterialOperators
 MaterialOperators   ::= [!*~^°+]+
 Entry               ::= ('"' Name '"' | Name) MaterialOperators?
-
-
-
