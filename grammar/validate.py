@@ -1,17 +1,48 @@
 import argparse
 import json
-from pprint import pprint, pformat
-from typing import Tuple, Optional, List, Dict, TypeAlias, Union, Iterable, Iterator
+from pprint import pprint
+from typing import Iterator, Optional, Tuple
 
-from DHParser import RootNode
 import pandas as pd
+from DHParser import RootNode
+from lcma_standardParser import compile_snippet, compile_src
 
-from lcma_standardParser import compile_src, compile_snippet
+
+# region Helper functions
+def concatenate_dict_values_recursively(specs: Iterator[str | dict]) -> str:
+    """Recursively concatenates dict values. Pass dict.values() iterator or some other iterator of
+    strings and (nested) dicts."""
+    result = ""
+    for val in specs:
+        if isinstance(val, str):
+            result += val
+        else:
+            # assumes that val is dict
+            result += concatenate_dict_values_recursively(val.values())
+    return result
+
+
+def concatenate_regex_results(name_list: list) -> str:
+    """Processes a list of regEx matches and returns the result.
+
+    Example input:
+        [[':RegExp', 'n'],
+         [':RegExp', 'a'],
+         [':RegExp', 'm'],
+         [':RegExp', 'e']]
+    """
+    return "".join(character for (_, character) in name_list)
+
+
+# endregion Helper functions
+
+
+def parse_name(name_list: list) -> str:
+    return concatenate_regex_results(name_list)
 
 
 def parse_label(form_label: dict) -> dict:
     return form_label
-
 
 
 def parse_tree(tree: dict) -> dict | list:
@@ -19,19 +50,29 @@ def parse_tree(tree: dict) -> dict | list:
         label = tree["Label"]
     except KeyError:
         raise ValueError(tree)
+    pprint(tree)
+    name = None
+    labels = []
+    if "Name" in label:
+        name = parse_name(label["Name"])
     if isinstance(label, dict):
-        return parse_label(label["FormLabel"])
-    result = []
-    for thing in label:
-        match thing:
-            case [":RegExp", sign]:
-                result.append(sign)
-            case ["OHR", OHR]:
-                result.append(parse_label(OHR))
-            case _:
-                context = pformat(tree)
-                raise ValueError(f"Encountered unknown thing: {thing!r} in:\n{context}")
-    return result
+        label_dict = label["FormLabel"]
+        labels.append(parse_label(label_dict))
+    else:
+        for thing in label:
+            match thing:
+                case ["Name", name_list]:
+                    name = parse_name(name_list)
+                case ["FormLabel", label_dict]:
+                    labels.append(parse_label(label_dict))
+                case [":Text", _] | [":Whitespace", _]:
+                    pass
+                case _:
+                    # context = pformat(tree)
+                    msg = f"Encountered unknown thing: {thing!r}"
+                    raise ValueError(msg)
+                    # warn(msg, UserWarning)
+    return {"name": name, "labels": labels}
 
 
 def parse_file(file):
