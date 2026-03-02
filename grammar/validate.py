@@ -229,6 +229,48 @@ class FunctionSpecificity(FancyStrEnum):
     generic = auto()
 
 
+class MainType(FancyStrEnum):
+    hybrid1 = auto()
+    hyb1 = hybrid1
+    hybrid2 = auto()
+    hyb2 = hybrid2
+    hybrid3 = auto()
+    hyb3 = hybrid3
+    hybrid4 = auto()
+    hyb4 = hybrid4
+    period = auto()
+    pd = period
+    ritornello_form = auto()
+    ritornello = ritornello_form
+    rondo_form = auto()
+    rondo = rondo_form
+    sentence = auto()
+    sent = sentence
+    sequence = auto()
+    seq = sequence
+    sonata_form = auto()
+    sonata = sonata_form
+    unary_form = auto()
+    unary = unary_form
+    simple_binary = auto()
+    rounded_binary = auto()
+    ternary = auto()
+
+
+class SubType(FancyStrEnum):
+    # simple_binary
+    balanced = auto()
+    # ternary
+    through_composed = auto()
+    da_capo = auto()
+
+
+MAIN_TO_SUBTYPES: dict[MainType, set[SubType]] = {
+    MainType.simple_binary: {SubType.balanced},
+    MainType.ternary: {SubType.through_composed, SubType.da_capo},
+}
+
+
 # endregion enums
 # region classes
 
@@ -311,7 +353,39 @@ class FunctionalTransformation(FormalFunction):
 
 @dataclass
 class FormalType:
-    name: str
+    main_type: MainType
+    sub_type: Optional[SubType] = None
+    notional: bool = False  # "type"
+
+    @classmethod
+    def from_parse(cls, parse: Optional[dict | list]) -> Optional[FormalType]:
+        if parse is None:
+            return None
+        if isinstance(parse, dict):
+            type_name = parse.pop("FormalType")
+            check_for_unhandled_keys(parse)
+            main, sub = parse_type_name(type_name)
+            return cls(main_type=main, sub_type=sub, notional=False)
+        main, sub = None, None
+        for thing in parse:
+            # 3 things: '"', <TypeName>, '"'
+            match thing:
+                case ["FormalType", type_name]:
+                    main, sub = parse_type_name(type_name)
+                case [":Text", '"']:
+                    pass
+                case _:
+                    warn_or_raise(
+                        f"Encountered unknown thing in formal type: {thing!r}"
+                    )
+        return cls(main_type=main, sub_type=sub, notional=True)
+
+    def __repr__(self) -> str:
+        repr = f"FormalType({self.main_type}"
+        if self.sub_type:
+            repr += f".{self.sub_type}"
+        repr += ")"
+        return repr
 
 
 @dataclass
@@ -334,10 +408,10 @@ class FormLabel:
     def from_parse(cls, parse: dict):
         form_dict = parse["Form"]
         function, shorthand = parse_function_label(form_dict.pop("FunctionLabel"))
-        type_exp = form_dict.pop("TypeExp", None)
+        formal_type = FormalType.from_parse(form_dict.pop("TypeExp", None))
         material_brackets = form_dict.pop("MaterialBrackets", None)
         check_for_unhandled_keys(form_dict)
-        return cls(function=function, type=type_exp, material=material_brackets)
+        return cls(function=function, type=formal_type, material=material_brackets)
 
 
 @dataclass
@@ -470,6 +544,24 @@ def parse_function_label(
 
 def parse_name(name_list: list) -> str:
     return concatenate_regex_results(name_list)
+
+
+def parse_type_name(type_name: str) -> Tuple[MainType, Optional[SubType]]:
+    if "." in type_name:
+        main_str, sub_str = type_name.split(".", 1)
+        main = MainType(main_str)
+        sub = SubType(sub_str)
+        if main not in MAIN_TO_SUBTYPES:
+            warn_or_raise(
+                f"Main type {main} does not have any subtypes, but got subtype {sub}"
+            )
+        elif sub not in MAIN_TO_SUBTYPES[main]:
+            warn_or_raise(
+                f"Subtype {sub} is not valid for main type {main}. "
+                f"Valid subtypes are: {MAIN_TO_SUBTYPES[main]}"
+            )
+        return main, sub
+    return MainType(type_name), None
 
 
 def parse_tree(tree: dict) -> AnnotationLabel:
