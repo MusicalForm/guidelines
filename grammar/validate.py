@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import argparse
 import json
+from abc import ABC, abstractmethod
 from collections import defaultdict
 from dataclasses import dataclass, field
 from enum import StrEnum, auto
@@ -227,30 +230,83 @@ class FunctionSpecificity(FancyStrEnum):
 
 
 # endregion enums
-# region dataclasses
+# region classes
+
+
+class FormalFunction(ABC):
+
+    @abstractmethod
+    def specificity(self) -> FunctionSpecificity:
+        raise NotImplementedError
 
 
 @dataclass
-class FormalFunction:
+class SingleFunction(FormalFunction):
     name: SpecificFunctionName | UnitName
-    cardinality: Optional[int] = None  # e.g. 1st unit => 1
     notional: bool = False  # "function"
     crossing_rightward: bool = False  # function /
 
-    @property
-    def specificity(self) -> FunctionSpecificity:
-        if isinstance(self.name, SpecificFunctionName):
-            return FunctionSpecificity.specific
-        elif isinstance(self.name, UnitName):
-            return FunctionSpecificity.generic
+    @classmethod
+    def from_name(
+        cls,
+        name: SpecificFunctionName | UnitName,
+        notional=False,
+        crossing_rightward=False,
+        cardinality=None,
+    ) -> SpecificFunction | GenericFunction:
+        """Dispatch to the appropriate subclass based on the type of the name.
+        Cardinality is only applicable to generic functions and must be None for specific functions.
+        """
+        if isinstance(name, SpecificFunctionName):
+            if cardinality is not None:
+                warn_or_raise(
+                    f"Cardinality is not applicable to specific functions. Got {cardinality=}"
+                )
+            return SpecificFunction(
+                name=name, notional=notional, crossing_rightward=crossing_rightward
+            )
+        elif isinstance(name, UnitName):
+            return GenericFunction(
+                name=name,
+                notional=notional,
+                crossing_rightward=crossing_rightward,
+                cardinality=cardinality,
+            )
         else:
-            raise ValueError(f"Unexpected function name: {self.name!r}")
+            raise ValueError(
+                f"Name must be either SpecificFunctionName or UnitName. Got {name!r} of type {type(name)}"
+            )
 
 
 @dataclass
-class FunctionalTransformation:
-    source: FormalFunction
-    target: FormalFunction
+class SpecificFunction(SingleFunction):
+    name: SpecificFunctionName
+
+    @property
+    def specificity(self) -> FunctionSpecificity:
+        return FunctionSpecificity.specific
+
+
+@dataclass
+class GenericFunction(SingleFunction):
+    """Inheritance only in terms of attributes, not in terms of the music-theoretical concept."""
+
+    name: UnitName
+    cardinality: Optional[int] = None  # e.g. 1st unit => 1
+
+    @property
+    def specificity(self) -> FunctionSpecificity:
+        return FunctionSpecificity.generic
+
+
+@dataclass
+class FunctionalTransformation(FormalFunction):
+    source: SpecificFunction | GenericFunction
+    target: SpecificFunction | GenericFunction
+
+    @property
+    def specificity(self) -> Tuple[FunctionSpecificity, FunctionSpecificity]:
+        return self.source.specificity, self.target.specificity
 
 
 @dataclass
@@ -281,7 +337,7 @@ class FormLabel:
         type_exp = form_dict.pop("TypeExp", None)
         material_brackets = form_dict.pop("MaterialBrackets", None)
         check_for_unhandled_keys(form_dict)
-        cls(function=function, type=type_exp, material=material_brackets)
+        return cls(function=function, type=type_exp, material=material_brackets)
 
 
 @dataclass
@@ -317,7 +373,7 @@ class AnnotationLabel:
         return cls(name=name, form_labels=labels)
 
 
-# endregion dataclasses
+# endregion classes
 # region parsing functions
 def parse_generic_function(generic_function: dict) -> str:
     raise NotImplementedError
@@ -330,9 +386,12 @@ def parse_function_name(
         return SpecificFunctionName(function_name["SpecificFunction"]), None
     elif "GenericFunction" in function_name:
         generic_function = function_name["GenericFunction"]
-        cardinality_str = generic_function.pop("Cardinality")
-        cardinality = int(cardinality_str[0])
         name = UnitName(generic_function.pop("Unit"))
+
+        cardinality = generic_function.pop("Cardinality", None)
+        if cardinality is not None:
+            # has the shape "1st", or "2nd", ... "9th"
+            cardinality = int(cardinality[0])
         check_for_unhandled_keys(generic_function)
         return name, cardinality
     else:
@@ -342,13 +401,16 @@ def parse_function_name(
 
 def parse_function(
     function: dict | list,
-) -> Tuple[SpecificFunctionName | UnitName, Optional[int], bool]:
+) -> SpecificFunction | GenericFunction:
     """Can be either function or "function" (for notional function attribution)."""
     if isinstance(function, dict):
         function_name = function.pop("FunctionName")
         check_for_unhandled_keys(function)
         name, cardinality = parse_function_name(function_name)
-        return name, cardinality, False
+        return SingleFunction.from_name(
+            name=name, notional=False, cardinality=cardinality
+        )
+    name, cardinality = None, None
     for thing in function:
         # 3 things: '"', <FunctionName>, '"'
         match thing:
@@ -358,17 +420,14 @@ def parse_function(
                 pass
             case _:
                 warn_or_raise(f"Encountered unknown thing in function: {thing!r}")
-    return name, cardinality, True
+    return SingleFunction.from_name(name=name, notional=True, cardinality=cardinality)
 
 
 def parse_function_expr(
     function_expr: dict,
-) -> Tuple[FormalFunction, Optional[ShorthandReference]]:
+) -> Tuple[SpecificFunction | GenericFunction, Optional[ShorthandReference]]:
     function = function_expr.pop("Function")
-    name, cardinality, notional = parse_function(function)
-    formal_function = FormalFunction(
-        name=name, cardinality=cardinality, notional=notional
-    )
+    formal_function = parse_function(function)
 
     shorthand = function_expr.pop("Shorthand", "")
     shorthand_ref = ShorthandReference(reference=shorthand) if shorthand else None
@@ -378,7 +437,7 @@ def parse_function_expr(
 
 def parse_function_label(
     parse: dict | list,
-) -> Tuple[FormalFunction | FunctionalTransformation, Optional[ShorthandReference]]:
+) -> Tuple[FormalFunction, Optional[ShorthandReference]]:
     if isinstance(parse, dict):
         function_expr = parse.pop("FunctionExpr")
         check_for_unhandled_keys(parse)
@@ -413,7 +472,7 @@ def parse_name(name_list: list) -> str:
     return concatenate_regex_results(name_list)
 
 
-def parse_tree(tree: dict) -> dict | list:
+def parse_tree(tree: dict) -> AnnotationLabel:
     return AnnotationLabel.from_parse(tree)
 
 
@@ -517,10 +576,10 @@ def main(
         raise ValueError("At least one argument must be provided.")
     if expression:
         parsed_expression = parse_expression_as_objects(expression)
-        pprint(parsed_expression, width=40, sort_dicts=False)
+        pprint(parsed_expression, sort_dicts=False)
     if txt_file:
         parsed_file = parse_file_as_objects(txt_file)
-        pprint(parsed_file, width=40, sort_dicts=False)
+        pprint(parsed_file, sort_dicts=False)
     if csv_file:
         parse_csv_file(csv_file)
 
