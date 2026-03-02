@@ -2,7 +2,7 @@
 
 Label               ::= (Name ':')? FormLabel ('-' FormLabel)*
 
-FormLabel           ::= Form MaterialBrackets?
+FormLabel           ::= Form ~ MaterialBrackets?
 
 Name                ::= [a-zA-Z0-9']+
 
