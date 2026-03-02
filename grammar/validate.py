@@ -2,6 +2,7 @@ import argparse
 import json
 from pprint import pprint
 from typing import Iterator, Optional, Tuple
+from warnings import warn
 
 import pandas as pd
 from DHParser import RootNode
@@ -41,8 +42,31 @@ def parse_name(name_list: list) -> str:
     return concatenate_regex_results(name_list)
 
 
-def parse_label(form_label: dict) -> dict:
-    return form_label
+def warn_about_leftover_keys(dct: dict, ignore_keys=":Text"):
+    if ignore_keys:
+        if isinstance(ignore_keys, str):
+            ignore_keys = {ignore_keys}
+        else:
+            ignore_keys = set(ignore_keys)
+    else:
+        ignore_keys = set()
+    keys = ", ".join(repr(key) for key in dct.keys() if key not in ignore_keys)
+    if keys:
+        msg = f"Warning: Unprocessed keys in dict: {keys}"
+        warn(msg, UserWarning)
+
+
+def parse_form_label(form_label: dict) -> dict:
+    form_dict = form_label["Form"]
+    function_label = form_dict.pop("FunctionLabel")
+    type_exp = form_dict.pop("TypeExp", None)
+    material_brackets = form_dict.pop("MaterialBrackets", None)
+    warn_about_leftover_keys(form_dict)
+    return {
+        "function": function_label,
+        "type": type_exp,
+        "material": material_brackets,
+    }
 
 
 def parse_tree(tree: dict) -> dict | list:
@@ -50,21 +74,21 @@ def parse_tree(tree: dict) -> dict | list:
         label = tree["Label"]
     except KeyError:
         raise ValueError(tree)
-    pprint(tree)
+    pprint(tree, sort_dicts=False)
     name = None
     labels = []
     if "Name" in label:
         name = parse_name(label["Name"])
     if isinstance(label, dict):
         label_dict = label["FormLabel"]
-        labels.append(parse_label(label_dict))
+        labels.append(parse_form_label(label_dict))
     else:
         for thing in label:
             match thing:
                 case ["Name", name_list]:
                     name = parse_name(name_list)
                 case ["FormLabel", label_dict]:
-                    labels.append(parse_label(label_dict))
+                    labels.append(parse_form_label(label_dict))
                 case [":Text", _] | [":Whitespace", _]:
                     pass
                 case _:
@@ -171,10 +195,10 @@ def main(
         raise ValueError("At least one argument must be provided.")
     if expression:
         parsed_expression = parse_expression_as_objects(expression)
-        pprint(parsed_expression, width=40)
+        pprint(parsed_expression, width=40, sort_dicts=False)
     if txt_file:
         parsed_file = parse_file_as_objects(txt_file)
-        pprint(parsed_file, width=40)
+        pprint(parsed_file, width=40, sort_dicts=False)
     if csv_file:
         parse_csv_file(csv_file)
 
