@@ -20,9 +20,9 @@ Function            ::= '"' FunctionName '"'
 
 FunctionName        ::= GenericFunction | SpecificFunction
 
-GenericFunction     ::= (Count [~_]?)?  Unit
+GenericFunction     ::= (Cardinality "_"?)? ~ Unit
 
-Count               ::= '1st' | '2nd' | '3rd' | '4th' | '5th' | '6th' | '7th' | '8th' | '9th'
+Cardinality         ::= ('1st' | '2nd' | '3rd' | '4th' | '5th' | '6th' | '7th' | '8th' | '9th')
 
 Unit                ::= 'unit' | 'x' | 'part' | 'section' | 'phrase' | 'sub-phrase' | 'idea'
                       | 'work' | 'movement' | 'zone' | 'theme'
