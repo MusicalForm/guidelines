@@ -110,7 +110,7 @@ preprocessing: PseudoJunction = create_preprocess_junction(
 class lcma_standardGrammar(Grammar):
     r"""Parser for a lcma_standard source file.
     """
-    source_hash__ = "ab913473e2603a2e1f6fdbd92777e0dd"
+    source_hash__ = "ff78de272f9c06208ddc0a8f179e7e28"
     disposable__ = re.compile('$.')
     static_analysis_pending__ = []  # type: List[bool]
     parser_initialization__ = ["upon instantiation"]
@@ -141,7 +141,7 @@ class lcma_standardGrammar(Grammar):
     Form = Series(FunctionLabel, Option(Series(Text('|'), TypeExp)))
     MaterialBrackets = Series(Text('['), MaterialPositions, Text(']'))
     FormLabel = Series(Form, wsp__, Option(MaterialBrackets))
-    Label = Series(Option(Series(Name, Text(':'))), FormLabel, ZeroOrMore(Series(Text('-'), FormLabel)))
+    Label = Series(Option(Series(Name, Text(':'))), wsp__, FormLabel, ZeroOrMore(Series(Text('-'), FormLabel)))
     root__ = Label
     
 parsing: PseudoJunction = create_parser_junction(lcma_standardGrammar)
