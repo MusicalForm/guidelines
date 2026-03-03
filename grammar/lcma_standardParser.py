@@ -246,7 +246,6 @@ preprocessing: PseudoJunction = create_preprocess_junction(
 #
 #######################################################################
 
-
 class lcma_standardGrammar(Grammar):
     r"""Parser for a lcma_standard document.
 
@@ -255,195 +254,54 @@ class lcma_standardGrammar(Grammar):
         parser = lcma_standard()
         syntax_tree = parser(source_code)
     """
-
-    source_hash__ = "342ae43b9a41723e69da1a0f31ead510"
-    disposable__ = re.compile("$.")
+    source_hash__ = "02c9a8847857de0f4d9d52f15bfe261f"
+    disposable__ = re.compile('$.')
     static_analysis_pending__ = []  # type: List[bool]
     parser_initialization__ = ["upon instantiation"]
-    COMMENT__ = r""
+    COMMENT__ = r''
     comment_rx__ = RX_NEVER_MATCH
-    WHITESPACE__ = r"\s*"
+    WHITESPACE__ = r'\s*'
     WSP_RE__ = mixin_comment(whitespace=WHITESPACE__, comment=COMMENT__)
     wsp__ = Whitespace(WSP_RE__)
-    Name = OneOrMore(RegExp("[a-zA-Z0-9']"))
-    MaterialOperators = OneOrMore(RegExp("[!*~^\xb0+]"))
+    Name = OneOrMore(RegExp('[a-zA-Z0-9\']'))
+    MaterialOperators = OneOrMore(RegExp('[!*~^\xb0+]'))
     Shorthand = Synonym(MaterialOperators)
-    Entry = Series(
-        Alternative(Series(Text('"'), Name, Text('"')), Name), Option(MaterialOperators)
-    )
-    Concatenation = Series(Entry, OneOrMore(Series(Text(","), Entry)))
-    MaterialRef = Alternative(
-        Series(Text("["), Concatenation, Text("]")), Concatenation, Entry
-    )
-    MaterialPositions = Alternative(
-        Series(Text(","), MaterialRef),
-        Series(MaterialRef, Option(Series(Text(","), Option(MaterialRef)))),
-    )
-    FormalType = Alternative(
-        Text("hybrid1"),
-        Text("hyb1"),
-        Text("hybrid2"),
-        Text("hyb2"),
-        Text("hybrid3"),
-        Text("hyb3"),
-        Text("hybrid4"),
-        Text("hyb4"),
-        Text("period"),
-        Text("pd"),
-        Text("ritornello form"),
-        Text("ritornello"),
-        Text("rondo form"),
-        Text("rondo"),
-        Text("sentence"),
-        Text("sent"),
-        Text("sequence"),
-        Text("seq"),
-        Text("sonata form"),
-        Text("sonata"),
-        Text("unary form"),
-        Text("unary"),
-        Text("simple_binary.balanced"),
-        Text("simple_binary"),
-        Text("rounded_binary"),
-        Text("ternary.through_composed"),
-        Text("ternary.da_capo"),
-        Text("ternary"),
-    )
+    Entry = Series(Alternative(Series(Text('"'), Name, Text('"')), Name), Option(MaterialOperators))
+    Concatenation = Series(Entry, OneOrMore(Series(Text(','), Entry)))
+    MaterialRef = Alternative(Series(Text('['), Concatenation, Text(']')), Concatenation, Entry)
+    MaterialPositions = Alternative(Series(Text(','), MaterialRef), Series(MaterialRef, Option(Series(Text(','), Option(MaterialRef)))))
+    FormalType = Alternative(Text('hybrid1'), Text('hyb1'), Text('hybrid2'), Text('hyb2'), Text('hybrid3'), Text('hyb3'), Text('hybrid4'), Text('hyb4'), Text('period'), Text('pd'), Text('ritornello form'), Text('ritornello'), Text('rondo form'), Text('rondo'), Text('sentence'), Text('sent'), Text('sequence'), Text('seq'), Text('sonata form'), Text('sonata'), Text('unary form'), Text('unary'), Text('simple_binary.balanced'), Text('simple_binary'), Text('rounded_binary'), Text('ternary.through_composed'), Text('ternary.da_capo'), Text('ternary'))
     TypeExp = Alternative(Series(Text('"'), FormalType, Text('"')), FormalType)
-    SpecificFunction = Alternative(
-        Text("antecedent"),
-        Text("ant"),
-        Text("after-the-end"),
-        Text("ate"),
-        Text("basic idea"),
-        Text("bi"),
-        Text("cadential idea"),
-        Text("cad"),
-        Text("compound basic idea"),
-        Text("cbi"),
-        Text("codetta"),
-        Text("cdta"),
-        Text("contrasting idea"),
-        Text("ci"),
-        Text("closing theme"),
-        Text("cls"),
-        Text("coda"),
-        Text("consequent"),
-        Text("cons"),
-        Text("continuation idea"),
-        Text("continuation"),
-        Text("conti"),
-        Text("cont"),
-        Text("development section"),
-        Text("dev"),
-        Text("essential expositional closure"),
-        Text("eec"),
-        Text("essential sonata closure"),
-        Text("esc"),
-        Text("exposition"),
-        Text("exp"),
-        Text("fragmentation"),
-        Text("frag"),
-        Text("introduction"),
-        Text("intro"),
-        Text("lead-in"),
-        Text("lin"),
-        Text("model"),
-        Text("mod"),
-        Text("movement"),
-        Text("mvt"),
-        Text("postcadential"),
-        Text("pcad"),
-        Text("presentation"),
-        Text("pres"),
-        Text("primary theme zone"),
-        Text("primary theme"),
-        Text("ptz"),
-        Text("pt"),
-        Text("recapitulation"),
-        Text("recap"),
-        Text("ritornello"),
-        Text("rit"),
-        Text("retransition"),
-        Text("rtr"),
-        Text("secondary theme zone"),
-        Text("secondary theme"),
-        Text("stz"),
-        Text("st"),
-        Text("sequence"),
-        Text("seq"),
-        Text("transition"),
-        Text("tr"),
-    )
-    Unit = Alternative(
-        Text("unit"),
-        Text("x"),
-        Text("part"),
-        Text("section"),
-        Text("phrase"),
-        Text("sub-phrase"),
-        Text("idea"),
-        Text("work"),
-        Text("movement"),
-        Text("zone"),
-        Text("theme"),
-        Text("album"),
-        Text("song"),
-        Text("cycle"),
-        Text("group"),
-    )
-    Cardinality = Alternative(
-        Text("1st"),
-        Text("2nd"),
-        Text("3rd"),
-        Text("4th"),
-        Text("5th"),
-        Text("6th"),
-        Text("7th"),
-        Text("8th"),
-        Text("9th"),
-    )
-    GenericFunction = Series(
-        Option(Series(Cardinality, Option(Text("_")))), wsp__, Unit
-    )
+    SpecificFunction = Alternative(Text('antecedent'), Text('ant'), Text('after-the-end'), Text('ate'), Text('basic idea'), Text('bi'), Text('cadential idea'), Text('cad'), Text('compound basic idea'), Text('cbi'), Text('codetta'), Text('cdta'), Text('contrasting idea'), Text('ci'), Text('closing theme'), Text('cls'), Text('coda'), Text('consequent'), Text('cons'), Text('continuation idea'), Text('continuation'), Text('conti'), Text('cont'), Text('development section'), Text('dev'), Text('essential expositional closure'), Text('eec'), Text('essential sonata closure'), Text('esc'), Text('exposition'), Text('exp'), Text('fragmentation'), Text('frag'), Text('introduction'), Text('intro'), Text('lead-in'), Text('lin'), Text('model'), Text('mod'), Text('movement'), Text('mvt'), Text('postcadential'), Text('pcad'), Text('presentation'), Text('pres'), Text('primary theme zone'), Text('primary theme'), Text('ptz'), Text('pt'), Text('recapitulation'), Text('recap'), Text('ritornello'), Text('rit'), Text('retransition'), Text('rtr'), Text('secondary theme zone'), Text('secondary theme'), Text('stz'), Text('st'), Text('sequence'), Text('seq'), Text('transition'), Text('tr'))
+    Unit = Alternative(Text('unit'), Text('x'), Text('part'), Text('section'), Text('phrase'), Text('sub-phrase'), Text('idea'), Text('work'), Text('movement'), Text('zone'), Text('theme'), Text('album'), Text('song'), Text('cycle'), Text('group'))
+    Cardinality = Alternative(Text('1st'), Text('2nd'), Text('3rd'), Text('4th'), Text('5th'), Text('6th'), Text('7th'), Text('8th'), Text('9th'))
+    GenericFunction = Series(Option(Series(Cardinality, Option(Text("_")))), wsp__, Unit)
     FunctionName = Alternative(GenericFunction, SpecificFunction)
     Function = Alternative(Series(Text('"'), FunctionName, Text('"')), FunctionName)
     FunctionExpr = Series(Function, Option(Shorthand))
-    Combinator = Text(">")
-    Connector = Text("/")
-    FunctionLabel = Alternative(
-        Series(FunctionExpr, Connector),
-        Series(FunctionExpr, Option(Series(Combinator, Option(FunctionExpr)))),
-    )
-    Form = Series(FunctionLabel, Option(Series(Text("|"), TypeExp)))
-    MaterialBrackets = Series(Text("["), MaterialPositions, Text("]"))
+    Combinator = Text('>')
+    Connector = Text('/')
+    FunctionLabel = Alternative(Series(FunctionExpr, Connector), Series(FunctionExpr, Option(Series(Combinator, Option(FunctionExpr)))))
+    Form = Series(FunctionLabel, Option(Series(Text('|'), TypeExp)))
+    MaterialBrackets = Series(Text('['), MaterialPositions, Text(']'))
     FormLabel = Series(Form, wsp__, Option(MaterialBrackets))
-    Label = Series(
-        Option(Series(Name, Text(":"))),
-        wsp__,
-        FormLabel,
-        ZeroOrMore(Series(Text("-"), FormLabel)),
-    )
+    Label = Series(Option(Series(Name, Text(':'))), wsp__, FormLabel, ZeroOrMore(Series(wsp__, Text('-'), wsp__, FormLabel)))
     root__ = Label
-
-
+    
 parsing: PseudoJunction = create_parser_junction(lcma_standardGrammar)
 get_grammar = parsing.factory  # for backwards compatibility, only
 
 try:
-    assert RE_INCLUDE == NEVER_MATCH_PATTERN or RE_COMMENT in (
-        lcma_standardGrammar.COMMENT__,
-        NEVER_MATCH_PATTERN,
-    ), (
-        "Please adjust the pre-processor-variable RE_COMMENT in file lcma_standardParser.py so that "
-        "it either is the NEVER_MATCH_PATTERN or has the same value as the COMMENT__-attribute "
-        "of the grammar class lcma_standardGrammar! "
-        'Currently, RE_COMMENT reads "%s" while COMMENT__ is "%s". '
-        % (RE_COMMENT, lcma_standardGrammar.COMMENT__)
-        + "\n\nIf RE_COMMENT == NEVER_MATCH_PATTERN then includes will deliberately be "
-        "processed, otherwise RE_COMMENT==lcma_standardGrammar.COMMENT__ allows the "
+    assert RE_INCLUDE == NEVER_MATCH_PATTERN or \
+        RE_COMMENT in (lcma_standardGrammar.COMMENT__, NEVER_MATCH_PATTERN), \
+        "Please adjust the pre-processor-variable RE_COMMENT in file lcma_standardParser.py so that " \
+        "it either is the NEVER_MATCH_PATTERN or has the same value as the COMMENT__-attribute " \
+        "of the grammar class lcma_standardGrammar! " \
+        'Currently, RE_COMMENT reads "%s" while COMMENT__ is "%s". ' \
+        % (RE_COMMENT, lcma_standardGrammar.COMMENT__) + \
+        "\n\nIf RE_COMMENT == NEVER_MATCH_PATTERN then includes will deliberately be " \
+        "processed, otherwise RE_COMMENT==lcma_standardGrammar.COMMENT__ allows the " \
         "preprocessor to ignore comments."
-    )
 except (AttributeError, NameError):
     pass
 

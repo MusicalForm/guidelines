@@ -1,6 +1,6 @@
 /* LCMA Form Annotation Standard v0.1 */
 
-Label               ::= (Name ':')? ~ FormLabel ('-' FormLabel)*
+Label               ::= (Name ':')? ~ FormLabel (~ '-' ~ FormLabel)*
 
 FormLabel           ::= Form ~ MaterialBrackets?
 
@@ -9,7 +9,7 @@ Name                ::= [a-zA-Z0-9']+
 Form                ::= FunctionLabel ('|' TypeExp)?
 
 FunctionLabel       ::= FunctionExpr Connector
-                      | FunctionExpr (Combinator FunctionExpr?)?
+                      | FunctionExpr (~ Combinator ~ FunctionExpr?)?
 Connector           ::= '/'
 Combinator          ::= '>'
 
@@ -86,7 +86,7 @@ MaterialPositions   ::= ',' MaterialRef
                       | MaterialRef (',' MaterialRef?)?
 /* This is the highest level designating the "Material Brackets" as we call them.
  * If FunctionLabel takes the form (FunctionExpr Combinator FunctionExpr), then there
- * three possibilities:
+ * are three possibilities:
  * 1) One MaterialRef followed by a comma to be attributed to the first FunctionExpr
  * 2) One MaterialRef preceded by a comma to be attributed to the second FunctionExpr
  * 3a) A single MaterialRef describing the entire segment
