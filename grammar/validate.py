@@ -16,7 +16,7 @@ import pandas as pd
 from DHParser import RootNode
 from lcma_standardParser import compile_snippet, compile_src
 
-WARNING_NOT_ERROR = False
+VERBOSE = False
 
 
 # region Helper functions
@@ -45,13 +45,6 @@ def concatenate_regex_results(name_list: list) -> str:
     return "".join(character for (_, character) in name_list)
 
 
-def warn_or_raise(msg: str):
-    if WARNING_NOT_ERROR:
-        warn(msg, UserWarning)
-    else:
-        raise ValueError(msg)
-
-
 def check_for_unhandled_keys(dct: dict, ignore_keys=(":Text", ":Whitespace")):
     if ignore_keys:
         if isinstance(ignore_keys, str):
@@ -62,7 +55,7 @@ def check_for_unhandled_keys(dct: dict, ignore_keys=(":Text", ":Whitespace")):
         ignore_keys = set()
     keys = ", ".join(repr(key) for key in dct.keys() if key not in ignore_keys)
     if keys:
-        warn_or_raise(f"Encountered unhandled keys: {keys!r}")
+        warn(f"Encountered unhandled keys: {keys!r}", UserWarning)
 
 
 # endregion Helper functions
@@ -362,7 +355,7 @@ class SingleFunction(FormalFunction):
         """
         if isinstance(name, SpecificFunctionName):
             if cardinality is not None:
-                warn_or_raise(
+                raise ValueError(
                     f"Cardinality is not applicable to specific functions. Got {cardinality=}"
                 )
             return SpecificFunction(
@@ -436,8 +429,9 @@ class FormalType:
                 case [":Text", '"']:
                     pass
                 case _:
-                    warn_or_raise(
-                        f"Encountered unknown thing in formal type: {thing!r}"
+                    warn(
+                        f"Encountered unknown thing in formal type: {thing!r}",
+                        UserWarning,
                     )
         return cls(main_type=main, sub_type=sub, notional=True)
 
@@ -482,8 +476,7 @@ class MaterialReferences(References):
         if parse is None and shorthand is None:
             return None
         if shorthand and parse:
-            warn_or_raise("Shorthand and material brackets cannot be combined.")
-            return None
+            raise ValueError("Shorthand and material brackets cannot be combined.")
         if shorthand:
             return cls(references=(shorthand,))
         for thing in parse:
@@ -493,8 +486,9 @@ class MaterialReferences(References):
                 case [":Text", _] | [":Whitespace", _]:
                     pass
                 case _:
-                    warn_or_raise(
-                        f"Encountered unknown thing in material brackets: {thing!r}"
+                    warn(
+                        f"Encountered unknown thing in material brackets: {thing!r}",
+                        UserWarning,
                     )
         return None
 
@@ -530,16 +524,16 @@ class TransformationalReferences(References):
                     if shorthand is not None:
                         source_short, target_short = shorthand
                         if source_short or target_short:
-                            warn_or_raise(
+                            raise ValueError(
                                 "Shorthand and material brackets cannot be combined."
                             )
-                            return None
                     return parse_transformational_positions(positions)
                 case [":Text", _] | [":Whitespace", _]:
                     pass
                 case _:
-                    warn_or_raise(
-                        f"Encountered unknown thing in material brackets: {thing!r}"
+                    warn(
+                        f"Encountered unknown thing in material brackets: {thing!r}",
+                        UserWarning,
                     )
         return None
 
@@ -575,7 +569,8 @@ class AnnotationLabel:
             label = parse["Label"]
         except KeyError:
             raise ValueError(parse)
-        pprint(parse, sort_dicts=False)
+        if VERBOSE:
+            pprint(parse, sort_dicts=False)
         name = None
         labels = []
         if "Name" in label:
@@ -593,7 +588,7 @@ class AnnotationLabel:
                     case [":Text", _] | [":Whitespace", _]:
                         pass
                     case _:
-                        warn_or_raise(f"Encountered unknown thing: {thing!r}")
+                        warn(f"Encountered unknown thing: {thing!r}", UserWarning)
         return cls(name=name, form_labels=labels)
 
 
@@ -619,7 +614,7 @@ def parse_function_name(
         check_for_unhandled_keys(generic_function)
         return name, cardinality
     else:
-        warn_or_raise(f"Encountered unknown function type: {function_name!r}")
+        warn(f"Encountered unknown function type: {function_name!r}", UserWarning)
         return None, None
 
 
@@ -643,7 +638,7 @@ def parse_function(
             case [":Text", '"']:
                 pass
             case _:
-                warn_or_raise(f"Encountered unknown thing in function: {thing!r}")
+                warn(f"Encountered unknown thing in function: {thing!r}", UserWarning)
     return SingleFunction.from_name(name=name, notional=True, cardinality=cardinality)
 
 
@@ -685,7 +680,10 @@ def parse_function_label(
             case [":Text", _] | [":Whitespace", _]:
                 pass
             case _:
-                warn_or_raise(f"Encountered unknown thing in function label: {thing!r}")
+                warn(
+                    f"Encountered unknown thing in function label: {thing!r}",
+                    UserWarning,
+                )
     if len(functions) == 1:
         function = functions[0]
         assert operator == "/"
@@ -708,11 +706,11 @@ def parse_type_name(type_name: str) -> Tuple[MainType, Optional[SubType]]:
         main = MainType(main_str)
         sub = SubType(sub_str)
         if main not in MAIN_TO_SUBTYPES:
-            warn_or_raise(
+            raise ValueError(
                 f"Main type {main} does not have any subtypes, but got subtype {sub}"
             )
         elif sub not in MAIN_TO_SUBTYPES[main]:
-            warn_or_raise(
+            raise ValueError(
                 f"Subtype {sub} is not valid for main type {main}. "
                 f"Valid subtypes are: {MAIN_TO_SUBTYPES[main]}"
             )
@@ -761,8 +759,9 @@ def parse_material_concatenation(concat_list: list) -> Tuple[SingleReference, ..
             case [":Text", _] | [":Whitespace", _]:
                 pass
             case _:
-                warn_or_raise(
-                    f"Encountered unknown thing in material concatenation: {thing!r}"
+                warn(
+                    f"Encountered unknown thing in material concatenation: {thing!r}",
+                    UserWarning,
                 )
     return tuple(refs)
 
@@ -790,7 +789,9 @@ def parse_material_ref(material_ref: dict | list) -> MaterialReferences:
             case [":Text", _] | [":Whitespace", _]:
                 pass
             case _:
-                warn_or_raise(f"Encountered unknown thing in material ref: {thing!r}")
+                warn(
+                    f"Encountered unknown thing in material ref: {thing!r}", UserWarning
+                )
     return MaterialReferences(references=refs, unordered=unordered)
 
 
@@ -799,10 +800,11 @@ def parse_material_positions(
 ) -> Optional[MaterialReferences]:
     """For a single function: only a single MaterialRef without positional syntax."""
     if isinstance(positions, list):
-        warn_or_raise("Two material positions are not allowed for a single function.")
-        return None
+        raise ValueError(
+            "Two material positions are not allowed for a single function."
+        )
     if "SourceOnly" in positions or "TargetOnly" in positions:
-        warn_or_raise(
+        raise ValueError(
             "Positional material references are not allowed for a single function."
         )
         return None
@@ -825,8 +827,9 @@ def parse_transformational_positions(
                 case [":Text", _] | [":Whitespace", _]:
                     pass
                 case _:
-                    warn_or_raise(
-                        f"Encountered unknown thing in material positions: {thing!r}"
+                    warn(
+                        f"Encountered unknown thing in material positions: {thing!r}",
+                        UserWarning,
                     )
         return TransformationalReferences(
             source_references=refs[0] if len(refs) > 0 else None,
@@ -861,7 +864,7 @@ def parse_transformational_positions(
                 source_references=MaterialReferences(references=(source_single,)),
                 target_references=MaterialReferences(references=(target_single,)),
             )
-        warn_or_raise(
+        raise ValueError(
             f"Bare concatenation with {len(entries)} entries is not allowed "
             f"for a functional transformation."
         )
@@ -1208,6 +1211,49 @@ def process_json_directory(
 # endregion JSON processing
 # region argument dispatch
 
+DEFAULT_REPORT_NAME = "lcma_validation_report.csv"
+
+
+def _resolve_single_output(
+    output: Optional[str | Path],
+    default_stem: Optional[str] = None,
+) -> Optional[Path]:
+    """Resolve -o for single-expression modes (-e, -f).
+
+    Returns None if no output was requested, otherwise the resolved Path.
+    """
+    if output is None:
+        return None
+    output = Path(output)
+    if output.suffix.lower() in (".csv", ".tsv"):
+        return output
+    # Treat as directory
+    output.mkdir(parents=True, exist_ok=True)
+    name = (default_stem + ".report.csv") if default_stem else DEFAULT_REPORT_NAME
+    return output / name
+
+
+def _validate_and_report(
+    expression: str,
+    output_path: Path,
+) -> None:
+    """Validate a single expression and write/update a one-row report CSV."""
+    try:
+        parsed_result = parse_expression_as_objects(expression)
+        passing = True
+        result_str = str(parsed_result)
+    except Exception as e:
+        passing = False
+        result_str = str(e)
+
+    df = pd.DataFrame(
+        [{"passing": passing, "expression": expression, "output": result_str}]
+    )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False)
+    status = "passed" if passing else "FAILED"
+    print(f"Expression {status}. Report saved to {output_path}")
+
 
 def main(
     expression: Optional[str] = None,
@@ -1218,6 +1264,8 @@ def main(
     output: Optional[str] = None,
     verbose: bool = False,
 ):
+    global VERBOSE
+    VERBOSE = verbose
     if all(
         arg is None for arg in (expression, txt_file, csv_file, json_file, json_dir)
     ):
@@ -1225,9 +1273,18 @@ def main(
     if expression:
         parsed_expression = parse_expression_as_objects(expression)
         pprint(parsed_expression, sort_dicts=False)
+        out_path = _resolve_single_output(output)
+        if out_path:
+            _validate_and_report(expression, out_path)
     if txt_file:
         parsed_file = parse_file_as_objects(txt_file)
         pprint(parsed_file, sort_dicts=False)
+        out_path = _resolve_single_output(output, default_stem=Path(txt_file).stem)
+        if out_path:
+            # Read the expression from the file and validate it
+            with open(txt_file, "r", encoding="utf-8") as f:
+                file_expression = f.read().strip()
+            _validate_and_report(file_expression, out_path)
     if csv_file:
         parse_csv_file(csv_file)
     if json_file:
@@ -1265,13 +1322,15 @@ def parse_args():
         "--output",
         help="Output path for report files. If a .csv/.tsv filepath, used as the output file. "
         "If a directory, reports are placed there with automatic names. "
-        "Default: report CSV is created next to each JSON file.",
+        "Default for -j/-d: report CSV next to each JSON file. "
+        "For -e/-f: no CSV output unless -o is specified.",
     )
     parser.add_argument(
         "-v",
         "--verbose",
         action="store_true",
-        help="Print information about skipped files (e.g., JSON files without the expected format).",
+        help="Show detailed parse trees during validation. Also print information "
+        "about skipped files when using -d.",
     )
     args = parser.parse_args()
     return args
