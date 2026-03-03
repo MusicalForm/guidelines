@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from abc import ABC, abstractmethod
 from collections import defaultdict
 from dataclasses import dataclass, field
 from enum import StrEnum, auto
 from pprint import pprint
-from typing import Iterator, Optional, Self, Tuple
+from typing import Iterator, Optional, Self, Set, Tuple
 from warnings import warn
 
 import pandas as pd
@@ -271,6 +272,65 @@ MAIN_TO_SUBTYPES: dict[MainType, set[SubType]] = {
 }
 
 
+class MaterialOperator(FancyStrEnum):
+    adaptation = auto()  # $adapt symbol: °
+    adapt = adaptation
+    augmentation = auto()  # $aug
+    aug = augmentation
+    combination = auto()  # $comb symbol: &
+    comb = combination
+    concatenation = auto()  # $conc symbol: ,
+    conc = concatenation
+    diminution = auto()  # $dim
+    dim = diminution
+    extension = auto()  # $ext symbol: +
+    ext = extension
+    interpolation = auto()  # $interp symbol: **
+    interp = interpolation
+    inversion = auto()  # $inv
+    inv = inversion
+    ornamentation = auto()  # $orn symbol: ~
+    orn = ornamentation
+    partial = auto()  # $part symbol: *
+    part = partial
+    repetition = auto()  # $rep symbol: !
+    rep = repetition
+    retrograde = auto()  # $retr
+    retr = retrograde
+    transposition = auto()  # $transp symbol: ^
+    transp = transposition
+    variation = auto()  # $var
+    var = variation
+
+    @classmethod
+    def _missing_(cls, value: object):
+        """Allow instantiation from symbols or aliases.
+
+        Args:
+            value: The value, symbol, or alias string to look up.
+
+        Returns:
+            The corresponding enum member, or None if not found.
+
+        Raises:
+            ValueError: If the value does not match any member, symbol, or alias.
+        """
+        symbol_map = {
+            "°": cls.adaptation,
+            "&": cls.combination,
+            ",": cls.concatenation,
+            "+": cls.extension,
+            "**": cls.interpolation,
+            "~": cls.ornamentation,
+            "*": cls.partial,
+            "!": cls.repetition,
+            "^": cls.transposition,
+        }
+        if isinstance(value, str) and value in symbol_map:
+            return symbol_map[value]
+        return super()._missing_(value)
+
+
 # endregion enums
 # region classes
 
@@ -388,14 +448,77 @@ class FormalType:
         return repr
 
 
-@dataclass
-class MaterialReferences:
-    references: list[str]
+class References(ABC):
+    pass
 
 
 @dataclass
-class ShorthandReference:
-    reference: str
+class SingleReference(References):
+    reference: Optional[str] = None
+    operators: Set[MaterialOperator] = field(default_factory=set)
+
+    @classmethod
+    def from_parse(cls, parse: dict):
+        if parse is None:
+            return None
+        name = parse.pop("Name", None)
+        operator_chars = parse.pop("MaterialOperators", [])
+        operators = parse_material_operator_chars(operator_chars)
+        return cls(reference=name, operators=operators)
+
+
+@dataclass
+class MaterialReferences(References):
+    """One or several material references, possibly with operators."""
+
+    references: Tuple[SingleReference, ...]
+    unordered: bool = False  # if True, this is considered a non-repeating set
+
+    @classmethod
+    def from_parse(
+        cls, parse: Optional[list], shorthand: Optional[SingleReference]
+    ) -> Optional[MaterialReferences]:
+        refs = []
+        if parse:
+            for thing in parse:
+                match thing:
+                    case ["MaterialPositions", ref_dict]:
+                        refs.extend(parse_material_references(ref_dict))
+                    case [":Text", _] | [":Whitespace", _]:
+                        pass
+                    case _:
+                        warn_or_raise(
+                            f"Encountered unknown thing in material references: {thing!r}"
+                        )
+        if shorthand:
+            refs.append(shorthand)
+        return cls(references=tuple(refs))
+
+
+@dataclass
+class TransformationalReferences(MaterialReferences):
+    source_references: Optional[MaterialReferences] = None
+    target_references: Optional[MaterialReferences] = None
+
+    @classmethod
+    def from_parse(
+        cls, parse: Optional[dict | list], shorthand: Optional[dict | list]
+    ) -> Optional[TransformationalReferences]:
+        refs = []
+        if parse:
+            for thing in parse:
+                match thing:
+                    case ["MaterialPositions", ref_dict]:
+                        refs.extend(parse_material_references(ref_dict))
+                    case [":Text", _] | [":Whitespace", _]:
+                        pass
+                    case _:
+                        warn_or_raise(
+                            f"Encountered unknown thing in material references: {thing!r}"
+                        )
+        if shorthand:
+            refs.append(shorthand)
+        return cls(references=tuple(refs))
 
 
 @dataclass
@@ -409,9 +532,13 @@ class FormLabel:
         form_dict = parse["Form"]
         function, shorthand = parse_function_label(form_dict.pop("FunctionLabel"))
         formal_type = FormalType.from_parse(form_dict.pop("TypeExp", None))
-        material_brackets = form_dict.pop("MaterialBrackets", None)
+        material_refs = parse_material_brackets(
+            parse.pop("MaterialBrackets", None),
+            shorthand=shorthand,
+            transformational=isinstance(function, FunctionalTransformation),
+        )
         check_for_unhandled_keys(form_dict)
-        return cls(function=function, type=formal_type, material=material_brackets)
+        return cls(function=function, type=formal_type, material=material_refs)
 
 
 @dataclass
@@ -499,19 +626,25 @@ def parse_function(
 
 def parse_function_expr(
     function_expr: dict,
-) -> Tuple[SpecificFunction | GenericFunction, Optional[ShorthandReference]]:
+) -> Tuple[SpecificFunction | GenericFunction, Optional[SingleReference]]:
     function = function_expr.pop("Function")
     formal_function = parse_function(function)
 
-    shorthand = function_expr.pop("Shorthand", "")
-    shorthand_ref = ShorthandReference(reference=shorthand) if shorthand else None
+    shorthand = function_expr.pop("Shorthand", None)
+    shorthand_ref = SingleReference.from_parse(shorthand)
     check_for_unhandled_keys(function_expr)
     return formal_function, shorthand_ref
 
 
+TransformationalShorthand = Tuple[SingleReference, SingleReference]
+
+
 def parse_function_label(
     parse: dict | list,
-) -> Tuple[FormalFunction, Optional[ShorthandReference]]:
+) -> (
+    Tuple[FormalFunction, Optional[SingleReference]]
+    | Tuple[FunctionalTransformation, TransformationalShorthand]
+):
     if isinstance(parse, dict):
         function_expr = parse.pop("FunctionExpr")
         check_for_unhandled_keys(parse)
@@ -537,9 +670,7 @@ def parse_function_label(
     assert len(functions) == 2
     assert operator == ">"
     transformation = FunctionalTransformation(source=functions[0], target=functions[1])
-    return transformation, ShorthandReference(
-        ", ".join(str(s) for s in shorthands if s)
-    )
+    return transformation, tuple(shorthands)
 
 
 def parse_name(name_list: list) -> str:
@@ -562,6 +693,93 @@ def parse_type_name(type_name: str) -> Tuple[MainType, Optional[SubType]]:
             )
         return main, sub
     return MainType(type_name), None
+
+
+def parse_material_operator_chars(operator_chars: list | str) -> Set[MaterialOperator]:
+    """For simplicity, the standard allows for any combination of the operators [°, &, +, ~, *, !, ^].
+    However, each operator is taken into account only once and ** needs to be extracted before * (although both
+    should not appear at the same time in the first place).
+    """
+    if not operator_chars:
+        return set()
+    if isinstance(operator_chars, str):
+        operators_string = operator_chars
+    else:
+        operators_string = concatenate_regex_results(operator_chars)
+
+    # Symbol map in alphabetical order
+    symbol_map = {
+        "°": MaterialOperator.adaptation,
+        "&": MaterialOperator.combination,
+        ",": MaterialOperator.concatenation,
+        "+": MaterialOperator.extension,
+        "**": MaterialOperator.interpolation,
+        "~": MaterialOperator.ornamentation,
+        "*": MaterialOperator.partial,
+        "!": MaterialOperator.repetition,
+        "^": MaterialOperator.transposition,
+    }
+
+    # Sort by length descending to match ** before *
+    sorted_symbols = sorted(symbol_map.keys(), key=len, reverse=True)
+    pattern = "|".join(re.escape(symbol) for symbol in sorted_symbols)
+    matches = re.findall(pattern, operators_string)
+    return set(symbol_map[match] for match in matches)
+
+
+def parse_material_concatenation(concat_list: list) -> list[SingleReference]:
+    refs = []
+    for thing in concat_list:
+        match thing:
+            case ["Entry", entry_dict]:
+                refs.append(SingleReference.from_parse(entry_dict))
+            case [":Text", _] | [":Whitespace", _]:
+                pass
+            case _:
+                warn_or_raise(
+                    f"Encountered unknown thing in material concatenation: {thing!r}"
+                )
+    return refs
+
+
+def parse_material_references(
+    material_references: dict | list,
+) -> list[SingleReference]:
+    refs = []
+    references = material_references.pop("MaterialRef")
+    if isinstance(references, dict):
+        if "Entry" in references:
+            entry = references.pop("Entry", None)
+            refs.append(SingleReference.from_parse(entry))
+        elif "Concatenation" in references:
+            refs = parse_material_concatenation(references.pop("Concatenation"))
+        check_for_unhandled_keys(references)
+    else:
+        for thing in references:
+            match thing:
+                case ["Concatenation", concat_list]:
+                    refs.extend(parse_material_concatenation(concat_list))
+                case [":Text", _] | [":Whitespace", _]:
+                    pass
+                case _:
+                    warn_or_raise(
+                        f"Encountered unknown thing in material references: {thing!r}"
+                    )
+    return refs
+
+
+MaterialPosition = Optional[SingleReference]
+
+
+def parse_material_brackets(
+    material_brackets: Optional[dict | list],
+    shorthand: MaterialPosition | Tuple[MaterialPosition, MaterialPosition],
+    transformational: bool = False,
+) -> Optional[MaterialReferences]:
+    if transformational:
+        return TransformationalReferences.from_parse(material_brackets, shorthand)
+    else:
+        return MaterialReferences.from_parse(material_brackets, shorthand)
 
 
 def parse_tree(tree: dict) -> AnnotationLabel:
