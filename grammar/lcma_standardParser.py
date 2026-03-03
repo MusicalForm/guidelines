@@ -254,7 +254,7 @@ class lcma_standardGrammar(Grammar):
         parser = lcma_standard()
         syntax_tree = parser(source_code)
     """
-    source_hash__ = "02c9a8847857de0f4d9d52f15bfe261f"
+    source_hash__ = "c2c86111d9dfc37e48b83437d886a350"
     disposable__ = re.compile('$.')
     static_analysis_pending__ = []  # type: List[bool]
     parser_initialization__ = ["upon instantiation"]
@@ -268,8 +268,10 @@ class lcma_standardGrammar(Grammar):
     Shorthand = Synonym(MaterialOperators)
     Entry = Series(Alternative(Series(Text('"'), Name, Text('"')), Name), Option(MaterialOperators))
     Concatenation = Series(Entry, OneOrMore(Series(Text(','), Entry)))
-    MaterialRef = Alternative(Series(Text('['), Concatenation, Text(']')), Concatenation, Entry)
-    MaterialPositions = Alternative(Series(Text(','), MaterialRef), Series(MaterialRef, Option(Series(Text(','), Option(MaterialRef)))))
+    MaterialRef = Alternative(Series(Text('['), Concatenation, Text(']')), Series(Text('('), Concatenation, Text(')')), Concatenation, Entry)
+    SourceOnly = Series(MaterialRef, Text(','))
+    TargetOnly = Series(Text(','), MaterialRef)
+    MaterialPositions = Alternative(TargetOnly, Series(MaterialRef, Text(','), MaterialRef), SourceOnly, MaterialRef)
     FormalType = Alternative(Text('hybrid1'), Text('hyb1'), Text('hybrid2'), Text('hyb2'), Text('hybrid3'), Text('hyb3'), Text('hybrid4'), Text('hyb4'), Text('period'), Text('pd'), Text('ritornello form'), Text('ritornello'), Text('rondo form'), Text('rondo'), Text('sentence'), Text('sent'), Text('sequence'), Text('seq'), Text('sonata form'), Text('sonata'), Text('unary form'), Text('unary'), Text('simple_binary.balanced'), Text('simple_binary'), Text('rounded_binary'), Text('ternary.through_composed'), Text('ternary.da_capo'), Text('ternary'))
     TypeExp = Alternative(Series(Text('"'), FormalType, Text('"')), FormalType)
     SpecificFunction = Alternative(Text('antecedent'), Text('ant'), Text('after-the-end'), Text('ate'), Text('basic idea'), Text('bi'), Text('cadential idea'), Text('cad'), Text('compound basic idea'), Text('cbi'), Text('codetta'), Text('cdta'), Text('contrasting idea'), Text('ci'), Text('closing theme'), Text('cls'), Text('coda'), Text('consequent'), Text('cons'), Text('continuation idea'), Text('continuation'), Text('conti'), Text('cont'), Text('development section'), Text('dev'), Text('essential expositional closure'), Text('eec'), Text('essential sonata closure'), Text('esc'), Text('exposition'), Text('exp'), Text('fragmentation'), Text('frag'), Text('introduction'), Text('intro'), Text('lead-in'), Text('lin'), Text('model'), Text('mod'), Text('movement'), Text('mvt'), Text('postcadential'), Text('pcad'), Text('presentation'), Text('pres'), Text('primary theme zone'), Text('primary theme'), Text('ptz'), Text('pt'), Text('recapitulation'), Text('recap'), Text('ritornello'), Text('rit'), Text('retransition'), Text('rtr'), Text('secondary theme zone'), Text('secondary theme'), Text('stz'), Text('st'), Text('sequence'), Text('seq'), Text('transition'), Text('tr'))
@@ -281,7 +283,7 @@ class lcma_standardGrammar(Grammar):
     FunctionExpr = Series(Function, Option(Shorthand))
     Combinator = Text('>')
     Connector = Text('/')
-    FunctionLabel = Alternative(Series(FunctionExpr, Connector), Series(FunctionExpr, Option(Series(Combinator, Option(FunctionExpr)))))
+    FunctionLabel = Alternative(Series(FunctionExpr, Connector), Series(FunctionExpr, Option(Series(wsp__, Combinator, wsp__, Option(FunctionExpr)))))
     Form = Series(FunctionLabel, Option(Series(Text('|'), TypeExp)))
     MaterialBrackets = Series(Text('['), MaterialPositions, Text(']'))
     FormLabel = Series(Form, wsp__, Option(MaterialBrackets))

@@ -15,7 +15,7 @@ import pandas as pd
 from DHParser import RootNode
 from lcma_standardParser import compile_snippet, compile_src
 
-WARNING_NOT_ERROR = True
+WARNING_NOT_ERROR = False
 
 
 # region Helper functions
@@ -478,47 +478,69 @@ class MaterialReferences(References):
     def from_parse(
         cls, parse: Optional[list], shorthand: Optional[SingleReference]
     ) -> Optional[MaterialReferences]:
-        refs = []
-        if parse:
-            for thing in parse:
-                match thing:
-                    case ["MaterialPositions", ref_dict]:
-                        refs.extend(parse_material_references(ref_dict))
-                    case [":Text", _] | [":Whitespace", _]:
-                        pass
-                    case _:
-                        warn_or_raise(
-                            f"Encountered unknown thing in material references: {thing!r}"
-                        )
+        if parse is None and shorthand is None:
+            return None
+        if shorthand and parse:
+            warn_or_raise("Shorthand and material brackets cannot be combined.")
+            return None
         if shorthand:
-            refs.append(shorthand)
-        return cls(references=tuple(refs))
+            return cls(references=(shorthand,))
+        for thing in parse:
+            match thing:
+                case ["MaterialPositions", positions]:
+                    return parse_material_positions(positions)
+                case [":Text", _] | [":Whitespace", _]:
+                    pass
+                case _:
+                    warn_or_raise(
+                        f"Encountered unknown thing in material brackets: {thing!r}"
+                    )
+        return None
 
 
 @dataclass
-class TransformationalReferences(MaterialReferences):
+class TransformationalReferences(References):
     source_references: Optional[MaterialReferences] = None
     target_references: Optional[MaterialReferences] = None
 
     @classmethod
     def from_parse(
-        cls, parse: Optional[dict | list], shorthand: Optional[dict | list]
-    ) -> Optional[TransformationalReferences]:
-        refs = []
-        if parse:
-            for thing in parse:
-                match thing:
-                    case ["MaterialPositions", ref_dict]:
-                        refs.extend(parse_material_references(ref_dict))
-                    case [":Text", _] | [":Whitespace", _]:
-                        pass
-                    case _:
-                        warn_or_raise(
-                            f"Encountered unknown thing in material references: {thing!r}"
-                        )
-        if shorthand:
-            refs.append(shorthand)
-        return cls(references=tuple(refs))
+        cls, parse: Optional[list], shorthand: Optional[tuple]
+    ) -> Optional[TransformationalReferences | MaterialReferences]:
+        if parse is None and shorthand is None:
+            return None
+        if parse is None and shorthand is not None:
+            source_short, target_short = shorthand
+            return cls(
+                source_references=(
+                    MaterialReferences(references=(source_short,))
+                    if source_short
+                    else None
+                ),
+                target_references=(
+                    MaterialReferences(references=(target_short,))
+                    if target_short
+                    else None
+                ),
+            )
+        for thing in parse:
+            match thing:
+                case ["MaterialPositions", positions]:
+                    if shorthand is not None:
+                        source_short, target_short = shorthand
+                        if source_short or target_short:
+                            warn_or_raise(
+                                "Shorthand and material brackets cannot be combined."
+                            )
+                            return None
+                    return parse_transformational_positions(positions)
+                case [":Text", _] | [":Whitespace", _]:
+                    pass
+                case _:
+                    warn_or_raise(
+                        f"Encountered unknown thing in material brackets: {thing!r}"
+                    )
+        return None
 
 
 @dataclass
@@ -659,6 +681,8 @@ def parse_function_label(
                 shorthands.append(shorthand)
             case ["Combinator", combinator]:
                 operator = combinator
+            case [":Text", _] | [":Whitespace", _]:
+                pass
             case _:
                 warn_or_raise(f"Encountered unknown thing in function label: {thing!r}")
     if len(functions) == 1:
@@ -727,7 +751,7 @@ def parse_material_operator_chars(operator_chars: list | str) -> Set[MaterialOpe
     return set(symbol_map[match] for match in matches)
 
 
-def parse_material_concatenation(concat_list: list) -> list[SingleReference]:
+def parse_material_concatenation(concat_list: list) -> Tuple[SingleReference, ...]:
     refs = []
     for thing in concat_list:
         match thing:
@@ -739,33 +763,110 @@ def parse_material_concatenation(concat_list: list) -> list[SingleReference]:
                 warn_or_raise(
                     f"Encountered unknown thing in material concatenation: {thing!r}"
                 )
-    return refs
+    return tuple(refs)
 
 
-def parse_material_references(
-    material_references: dict | list,
-) -> list[SingleReference]:
-    refs = []
-    references = material_references.pop("MaterialRef")
-    if isinstance(references, dict):
-        if "Entry" in references:
-            entry = references.pop("Entry", None)
-            refs.append(SingleReference.from_parse(entry))
-        elif "Concatenation" in references:
-            refs = parse_material_concatenation(references.pop("Concatenation"))
-        check_for_unhandled_keys(references)
-    else:
-        for thing in references:
+def parse_material_ref(material_ref: dict | list) -> MaterialReferences:
+    if isinstance(material_ref, dict):
+        if "Entry" in material_ref:
+            entry = material_ref.pop("Entry", None)
+            ref = SingleReference.from_parse(entry)
+            check_for_unhandled_keys(material_ref)
+            return MaterialReferences(references=(ref,))
+        elif "Concatenation" in material_ref:
+            refs = parse_material_concatenation(material_ref.pop("Concatenation"))
+            check_for_unhandled_keys(material_ref)
+            return MaterialReferences(references=refs)
+    # list: bracket-wrapped or paren-wrapped
+    unordered = False
+    refs = ()
+    for thing in material_ref:
+        match thing:
+            case ["Concatenation", concat_list]:
+                refs = parse_material_concatenation(concat_list)
+            case [":Text", "(" | ")"]:
+                unordered = True
+            case [":Text", _] | [":Whitespace", _]:
+                pass
+            case _:
+                warn_or_raise(f"Encountered unknown thing in material ref: {thing!r}")
+    return MaterialReferences(references=refs, unordered=unordered)
+
+
+def parse_material_positions(
+    positions: dict | list,
+) -> Optional[MaterialReferences]:
+    """For a single function: only a single MaterialRef without positional syntax."""
+    if isinstance(positions, list):
+        warn_or_raise("Two material positions are not allowed for a single function.")
+        return None
+    if "SourceOnly" in positions or "TargetOnly" in positions:
+        warn_or_raise(
+            "Positional material references are not allowed for a single function."
+        )
+        return None
+    if "MaterialRef" in positions:
+        return parse_material_ref(positions["MaterialRef"])
+    return None
+
+
+def parse_transformational_positions(
+    positions: dict | list,
+) -> Optional[TransformationalReferences | MaterialReferences]:
+    """For a functional transformation: disambiguate between positions and overrides."""
+    if isinstance(positions, list):
+        # two explicit MaterialRef positions
+        refs = []
+        for thing in positions:
             match thing:
-                case ["Concatenation", concat_list]:
-                    refs.extend(parse_material_concatenation(concat_list))
+                case ["MaterialRef", ref_data]:
+                    refs.append(parse_material_ref(ref_data))
                 case [":Text", _] | [":Whitespace", _]:
                     pass
                 case _:
                     warn_or_raise(
-                        f"Encountered unknown thing in material references: {thing!r}"
+                        f"Encountered unknown thing in material positions: {thing!r}"
                     )
-    return refs
+        return TransformationalReferences(
+            source_references=refs[0] if len(refs) > 0 else None,
+            target_references=refs[1] if len(refs) > 1 else None,
+        )
+    if "SourceOnly" in positions:
+        return TransformationalReferences(
+            source_references=parse_material_ref(
+                positions["SourceOnly"]["MaterialRef"]
+            ),
+            target_references=None,
+        )
+    if "TargetOnly" in positions:
+        return TransformationalReferences(
+            source_references=None,
+            target_references=parse_material_ref(
+                positions["TargetOnly"]["MaterialRef"]
+            ),
+        )
+    if "MaterialRef" not in positions:
+        return None
+    material_ref = positions["MaterialRef"]
+    # bare concatenation: reinterpret based on entry count
+    if isinstance(material_ref, dict) and "Concatenation" in material_ref:
+        entries = [
+            thing for thing in material_ref["Concatenation"] if thing[0] == "Entry"
+        ]
+        if len(entries) == 2:
+            source_single = SingleReference.from_parse(entries[0][1])
+            target_single = SingleReference.from_parse(entries[1][1])
+            return TransformationalReferences(
+                source_references=MaterialReferences(references=(source_single,)),
+                target_references=MaterialReferences(references=(target_single,)),
+            )
+        warn_or_raise(
+            f"Bare concatenation with {len(entries)} entries is not allowed "
+            f"for a functional transformation."
+        )
+        return None
+    # bracket/paren-wrapped or single entry: override to MaterialReferences
+    return parse_material_ref(material_ref)
 
 
 MaterialPosition = Optional[SingleReference]
@@ -847,9 +948,13 @@ def parse_csv_file(csv_file: str):
 
     # Add 'passing' and 'output' columns if they don't exist
     if "passing" not in df.columns:
-        df["passing"] = False
+        df["passing"] = pd.Series([False] * len(df), dtype=bool)
+    else:
+        df["passing"] = df["passing"].astype(bool)
     if "output" not in df.columns:
         df["output"] = ""
+    else:
+        df["output"] = df["output"].astype(str)
 
     # Iterate over expressions and test them
     for idx, row in df.iterrows():

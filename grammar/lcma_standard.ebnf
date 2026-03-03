@@ -82,8 +82,10 @@ FormalType          ::= 'hybrid1' | 'hyb1'
 
 MaterialBrackets    ::= '[' MaterialPositions ']'
 
-MaterialPositions   ::= ',' MaterialRef
-                      | MaterialRef (',' MaterialRef?)?
+MaterialPositions   ::= TargetOnly
+                      | MaterialRef ',' MaterialRef
+                      | SourceOnly
+                      | MaterialRef
 /* This is the highest level designating the "Material Brackets" as we call them.
  * If FunctionLabel takes the form (FunctionExpr Combinator FunctionExpr), then there
  * are three possibilities:
@@ -94,7 +96,11 @@ MaterialPositions   ::= ',' MaterialRef
  *     wrapped in brackets, resulting in double MaterialBrackets: [[Concatenation]]
  */
 
+TargetOnly          ::= ',' MaterialRef
+SourceOnly          ::= MaterialRef ','
+
 MaterialRef         ::= '[' Concatenation ']'
+                      | '(' Concatenation ')'
                       | Concatenation
                       | Entry
 
