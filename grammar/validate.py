@@ -347,6 +347,29 @@ class PlaceholderName(FancyStrEnum):
         return super()._missing_(value)
 
 
+class CertaintyName(FancyStrEnum):
+    default = auto()
+    uncertain = auto()
+
+    @classmethod
+    def _missing_(cls, value: object):
+        """Allow instantiation from symbols or aliases.
+
+        Args:
+            value: The value, symbol, or alias string to look up.
+
+        Returns:
+            The corresponding enum member, or None if not found.
+
+        Raises:
+            ValueError: If the value does not match any member, symbol, or alias.
+        """
+        symbol_map = {"?": cls.uncertain}
+        if isinstance(value, str) and value in symbol_map:
+            return symbol_map[value]
+        return super()._missing_(value)
+
+
 # endregion enums
 # region classes
 
@@ -609,11 +632,13 @@ class FormLabel(ReferencingLabel):
     function: FormalFunction
     type: Optional[FormalType] = None
     material: Optional[MaterialReferences] = None
+    certainty: CertaintyName = CertaintyName.default
 
     @classmethod
     def from_parse(cls, parse: dict):
         form_dict = parse["Form"]
         function, shorthand = parse_function_label(form_dict.pop("FunctionLabel"))
+        certainty = CertaintyName(form_dict.pop("Certainty", CertaintyName.default))
         formal_type = FormalType.from_parse(form_dict.pop("TypeExp", None))
         material_references = parse.pop("MaterialBrackets", None)
         check_for_unhandled_keys(form_dict)
@@ -623,6 +648,7 @@ class FormLabel(ReferencingLabel):
             transformational=isinstance(function, FunctionalTransformation),
             function=function,
             type=formal_type,
+            certainty=certainty,
         )
 
 

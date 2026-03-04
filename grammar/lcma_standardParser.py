@@ -254,7 +254,7 @@ class lcma_standardGrammar(Grammar):
         parser = lcma_standard()
         syntax_tree = parser(source_code)
     """
-    source_hash__ = "197d213ca857fe6b03eca4e2c2c657e0"
+    source_hash__ = "d10eef49f6c657d37a38bf514c137c57"
     disposable__ = re.compile('$.')
     static_analysis_pending__ = []  # type: List[bool]
     parser_initialization__ = ["upon instantiation"]
@@ -284,7 +284,8 @@ class lcma_standardGrammar(Grammar):
     Combinator = Text('>')
     Connector = Text('/')
     FunctionLabel = Alternative(Series(FunctionExpr, Connector), Series(FunctionExpr, Option(Series(wsp__, Combinator, wsp__, Option(FunctionExpr)))))
-    Form = Series(FunctionLabel, Option(Series(Text('|'), TypeExp)))
+    Certainty = Text('?')
+    Form = Series(FunctionLabel, Option(Series(Text('|'), TypeExp)), Option(Certainty))
     MaterialBrackets = Series(Text('['), MaterialPositions, Text(']'))
     Placeholder = Text("%")
     PlaceholderLabel = Series(Placeholder, Option(Shorthand), wsp__, Option(MaterialBrackets))

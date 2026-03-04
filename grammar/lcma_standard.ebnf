@@ -8,7 +8,8 @@ Placeholder         ::= "%"
 
 Name                ::= [a-zA-Z0-9']+
 
-Form                ::= FunctionLabel ('|' TypeExp)?
+Form                ::= FunctionLabel ('|' TypeExp)? Certainty?
+Certainty           ::= '?'
 
 FunctionLabel       ::= FunctionExpr Connector
                       | FunctionExpr (~ Combinator ~ FunctionExpr?)?
