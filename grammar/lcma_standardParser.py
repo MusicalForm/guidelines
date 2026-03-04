@@ -254,7 +254,7 @@ class lcma_standardGrammar(Grammar):
         parser = lcma_standard()
         syntax_tree = parser(source_code)
     """
-    source_hash__ = "c2c86111d9dfc37e48b83437d886a350"
+    source_hash__ = "197d213ca857fe6b03eca4e2c2c657e0"
     disposable__ = re.compile('$.')
     static_analysis_pending__ = []  # type: List[bool]
     parser_initialization__ = ["upon instantiation"]
@@ -286,8 +286,10 @@ class lcma_standardGrammar(Grammar):
     FunctionLabel = Alternative(Series(FunctionExpr, Connector), Series(FunctionExpr, Option(Series(wsp__, Combinator, wsp__, Option(FunctionExpr)))))
     Form = Series(FunctionLabel, Option(Series(Text('|'), TypeExp)))
     MaterialBrackets = Series(Text('['), MaterialPositions, Text(']'))
+    Placeholder = Text("%")
+    PlaceholderLabel = Series(Placeholder, Option(Shorthand), wsp__, Option(MaterialBrackets))
     FormLabel = Series(Form, wsp__, Option(MaterialBrackets))
-    Label = Series(Option(Series(Name, Text(':'))), wsp__, FormLabel, ZeroOrMore(Series(wsp__, Text('-'), wsp__, FormLabel)))
+    Label = Series(Option(Series(Name, Text(':'))), wsp__, Alternative(FormLabel, PlaceholderLabel), ZeroOrMore(Series(wsp__, Text('-'), wsp__, FormLabel)))
     root__ = Label
     
 parsing: PseudoJunction = create_parser_junction(lcma_standardGrammar)

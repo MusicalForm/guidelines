@@ -3,7 +3,7 @@
 ![Label](diagram/Label.png)
 
 ```
-Label    ::= ( Name ':' )? FormLabel ( '-' FormLabel )*
+Label    ::= ( Name ':' )? ( FormLabel | PlaceholderLabel ) ( '-' FormLabel )*
 ```
 
 **FormLabel:**
@@ -13,6 +13,19 @@ Label    ::= ( Name ':' )? FormLabel ( '-' FormLabel )*
 ```
 FormLabel
          ::= Form MaterialBrackets?
+```
+
+referenced by:
+
+* Label
+
+**PlaceholderLabel:**
+
+![PlaceholderLabel](diagram/PlaceholderLabel.png)
+
+```
+PlaceholderLabel
+         ::= '%' Shorthand? MaterialBrackets?
 ```
 
 referenced by:
@@ -297,6 +310,7 @@ MaterialBrackets
 referenced by:
 
 * FormLabel
+* PlaceholderLabel
 
 **MaterialPositions:**
 
@@ -382,6 +396,7 @@ Shorthand
 referenced by:
 
 * FunctionExpr
+* PlaceholderLabel
 
 **MaterialOperators:**
 

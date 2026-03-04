@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from enum import StrEnum, auto
 from pathlib import Path
 from pprint import pprint
-from typing import Iterator, Optional, Self, Set, Tuple
+from typing import Iterator, List, Optional, Self, Set, Tuple
 from warnings import warn
 
 import pandas as pd
@@ -325,6 +325,28 @@ class MaterialOperator(FancyStrEnum):
         return super()._missing_(value)
 
 
+class PlaceholderName(FancyStrEnum):
+    repeat = auto()
+
+    @classmethod
+    def _missing_(cls, value: object):
+        """Allow instantiation from symbols or aliases.
+
+        Args:
+            value: The value, symbol, or alias string to look up.
+
+        Returns:
+            The corresponding enum member, or None if not found.
+
+        Raises:
+            ValueError: If the value does not match any member, symbol, or alias.
+        """
+        symbol_map = {"%": cls.repeat}
+        if isinstance(value, str) and value in symbol_map:
+            return symbol_map[value]
+        return super()._missing_(value)
+
+
 # endregion enums
 # region classes
 
@@ -538,8 +560,52 @@ class TransformationalReferences(References):
         return None
 
 
+class ReferencingLabel(ABC):
+    material: Optional[MaterialReferences] = None
+
+    @classmethod
+    def from_parse(
+        cls,
+        material_references: Optional[dict] = None,
+        shorthand: Optional[SingleReference] = None,
+        transformational: bool = False,
+        **kwargs,
+    ) -> Self:
+        """Instantiate from "MaterialBrackets" dict and/or shorthand (=anonymous reference)."""
+        if material_references is None and shorthand is None:
+            return cls(**kwargs)
+        material_refs = parse_material_brackets(
+            material_references,
+            shorthand=shorthand,
+            transformational=transformational,
+        )
+        return cls(**kwargs, material=material_refs)
+
+
 @dataclass
-class FormLabel:
+class PlaceholderLabel(ReferencingLabel):
+    name: PlaceholderName
+    material: Optional[MaterialReferences] = None
+
+    @classmethod
+    def from_parse(cls, parse: dict):
+        name = PlaceholderName(parse.pop("Placeholder"))
+        shorthand = parse.pop("Shorthand", None)
+        shorthand_ref = SingleReference.from_parse(shorthand)
+        material_references = parse.pop("MaterialBrackets", None)
+        check_for_unhandled_keys(parse)
+        if material_references or shorthand_ref:
+            return super().from_parse(
+                material_references=material_references,
+                shorthand=shorthand_ref,
+                transformational=False,
+                name=name,
+            )
+        return cls(name)
+
+
+@dataclass
+class FormLabel(ReferencingLabel):
     function: FormalFunction
     type: Optional[FormalType] = None
     material: Optional[MaterialReferences] = None
@@ -549,19 +615,21 @@ class FormLabel:
         form_dict = parse["Form"]
         function, shorthand = parse_function_label(form_dict.pop("FunctionLabel"))
         formal_type = FormalType.from_parse(form_dict.pop("TypeExp", None))
-        material_refs = parse_material_brackets(
-            parse.pop("MaterialBrackets", None),
+        material_references = parse.pop("MaterialBrackets", None)
+        check_for_unhandled_keys(form_dict)
+        return super().from_parse(
+            material_references=material_references,
             shorthand=shorthand,
             transformational=isinstance(function, FunctionalTransformation),
+            function=function,
+            type=formal_type,
         )
-        check_for_unhandled_keys(form_dict)
-        return cls(function=function, type=formal_type, material=material_refs)
 
 
 @dataclass
 class AnnotationLabel:
     name: Optional[str]
-    form_labels: field(default_factory=list)
+    form_labels: List[FormLabel] = field(default_factory=list)
 
     @classmethod
     def from_parse(cls, parse: dict) -> Self:
@@ -569,15 +637,18 @@ class AnnotationLabel:
             label = parse["Label"]
         except KeyError:
             raise ValueError(parse)
-        if VERBOSE:
-            pprint(parse, sort_dicts=False)
         name = None
         labels = []
         if "Name" in label:
             name = parse_name(label["Name"])
         if isinstance(label, dict):
-            label_dict = label["FormLabel"]
-            labels.append(FormLabel.from_parse(label_dict))
+            if "PlaceholderLabel" in label:
+                labels.append(
+                    PlaceholderLabel.from_parse(label.pop("PlaceholderLabel"))
+                )
+            else:
+                labels.append(FormLabel.from_parse(label.pop("FormLabel")))
+            check_for_unhandled_keys(label)
         else:
             for thing in label:
                 match thing:
@@ -585,6 +656,8 @@ class AnnotationLabel:
                         name = parse_name(name_list)
                     case ["FormLabel", label_dict]:
                         labels.append(FormLabel.from_parse(label_dict))
+                    case ["Placeholder", placeholder_dict]:
+                        labels.append(PlaceholderLabel.from_parse(placeholder_dict))
                     case [":Text", _] | [":Whitespace", _]:
                         pass
                     case _:
@@ -888,6 +961,8 @@ def parse_material_brackets(
 
 
 def parse_tree(tree: dict) -> AnnotationLabel:
+    if VERBOSE:
+        pprint(tree, sort_dicts=False)
     return AnnotationLabel.from_parse(tree)
 
 
@@ -1270,6 +1345,7 @@ def main(
         arg is None for arg in (expression, txt_file, csv_file, json_file, json_dir)
     ):
         raise ValueError("At least one argument must be provided.")
+
     if expression:
         parsed_expression = parse_expression_as_objects(expression)
         pprint(parsed_expression, sort_dicts=False)

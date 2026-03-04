@@ -1,8 +1,10 @@
 /* LCMA Form Annotation Standard v0.1 */
 
-Label               ::= (Name ':')? ~ FormLabel (~ '-' ~ FormLabel)*
+Label               ::= (Name ':')? ~ (FormLabel|PlaceholderLabel) (~ '-' ~ FormLabel)*
 
 FormLabel           ::= Form ~ MaterialBrackets?
+PlaceholderLabel    ::= Placeholder Shorthand? ~ MaterialBrackets?
+Placeholder         ::= "%"
 
 Name                ::= [a-zA-Z0-9']+
 
