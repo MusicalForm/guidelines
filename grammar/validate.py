@@ -805,7 +805,9 @@ def parse_function_label(
     return transformation, tuple(shorthands)
 
 
-def parse_name(name_list: list) -> str:
+def parse_name(name_list: str | list) -> str:
+    if isinstance(name_list, str):
+        return name_list.strip()
     return concatenate_regex_results(name_list)
 
 
