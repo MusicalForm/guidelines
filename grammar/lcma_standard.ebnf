@@ -71,6 +71,7 @@ FormalType          ::= 'hybrid1' | 'hyb1'
                       | 'hybrid3' | 'hyb3'
                       | 'hybrid4' | 'hyb4'
                       | 'period' | 'pd'
+                      | 'repeated' '_'? ~ Unit
                       | 'ritornello form' | 'ritornello'
                       | 'rondo form' | 'rondo'
                       | 'sentence' | 'sent'

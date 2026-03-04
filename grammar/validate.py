@@ -33,7 +33,7 @@ def concatenate_dict_values_recursively(specs: Iterator[str | dict]) -> str:
     return result
 
 
-def concatenate_regex_results(name_list: list) -> str:
+def concatenate_regex_results(name_list: list, strip=True) -> str:
     """Processes a list of regEx matches and returns the result.
 
     Example input:
@@ -42,6 +42,8 @@ def concatenate_regex_results(name_list: list) -> str:
          [':RegExp', 'm'],
          [':RegExp', 'e']]
     """
+    if strip:
+        return "".join(character.strip() for (_, character) in name_list)
     return "".join(character for (_, character) in name_list)
 
 
@@ -235,6 +237,14 @@ class MainType(FancyStrEnum):
     hyb4 = hybrid4
     period = auto()
     pd = period
+    # repeated_movement
+    repeated_part = auto()
+    repeated_section = auto()
+    repeated_zone = auto()
+    repeated_theme = auto()
+    repeated_phrase = auto()
+    repeated_subphrase = auto()
+    repeated_idea = auto()
     ritornello_form = auto()
     ritornello = ritornello_form
     rondo_form = auto()
@@ -800,7 +810,12 @@ def parse_name(name_list: list) -> str:
 
 
 def parse_type_name(type_name: str) -> Tuple[MainType, Optional[SubType]]:
-    if "." in type_name:
+    if isinstance(type_name, list):
+        # e.g.: [[':Text', 'repeated'], [':Text', '_'], ['Unit', 'section']]
+        type_name = concatenate_regex_results(type_name)
+    elif isinstance(type_name, dict):
+        type_name = "repeated_" + type_name["Unit"]
+    elif "." in type_name:
         main_str, sub_str = type_name.split(".", 1)
         main = MainType(main_str)
         sub = SubType(sub_str)

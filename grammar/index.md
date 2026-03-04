@@ -168,6 +168,7 @@ Unit     ::= 'unit'
 
 referenced by:
 
+* FormalType
 * GenericFunction
 
 **SpecificFunction:**
@@ -274,6 +275,7 @@ FormalType
            | 'hyb4'
            | 'period'
            | 'pd'
+           | 'repeated' '_'? Unit
            | 'ritornello form'
            | 'ritornello'
            | 'rondo form'
