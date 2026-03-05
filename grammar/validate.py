@@ -5,7 +5,7 @@ import json
 import re
 from abc import ABC, abstractmethod
 from collections import defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 from enum import StrEnum, auto
 from pathlib import Path
 from pprint import pprint
@@ -20,6 +20,70 @@ VERBOSE = False
 
 
 # region Helper functions
+
+
+def compact_repr(_cls=None, *, filter_none=True, filter_false=True, **kwargs):
+    """
+    A class decorator that modifies a dataclass's __repr__ to omit
+    attributes based on custom rules. Specify fields that you want to
+    omit based on a "value" or on ["value1", "value2"] as kwargs.
+
+    Examples:
+
+        @compact_repr                                   # omits None and False fields
+        @compact_repr(filter_false=False)               # omits None fields
+        @compact_repr(field_name="default")             # shows only non-default values
+        @compact_repr(
+            certainty=[
+                CertaintyName.normal,
+                CertaintyName.high,
+            ],
+        )                                               # shows only low certainty
+    """
+
+    ignore_rules = {}
+    for field_name, ignore_values in kwargs.items():
+        if isinstance(ignore_values, (list, tuple, set)) and not isinstance(
+            ignore_values, str
+        ):
+            ignore_rules[field_name] = list(ignore_values)
+        else:
+            ignore_rules[field_name] = [ignore_values]
+
+    def decorator(cls):
+        def custom_repr(self):
+            parts = []
+            for f in fields(self):
+                if not f.repr:
+                    continue
+
+                value = getattr(self, f.name)
+
+                # 1. Standard boolean and None filters (using 'is' to avoid matching 0 or empty strings)
+                if filter_none and value is None:
+                    continue
+                if filter_false and value is False:
+                    continue
+
+                # 2. Custom kwargs filtering
+                if value in ignore_rules.get(f.name, []):
+                    continue
+
+                parts.append(f"{f.name}={repr(value)}")
+
+            return f"{self.__class__.__name__}({', '.join(parts)})"
+
+        # Overwrite the default __repr__
+        cls.__repr__ = custom_repr
+        return cls
+
+    # This allows the decorator to be used with or without parentheses
+    if _cls is None:
+        return decorator
+    else:
+        return decorator(_cls)
+
+
 def concatenate_dict_values_recursively(specs: Iterator[str | dict]) -> str:
     """Recursively concatenates dict values. Pass dict.values() iterator or some other iterator of
     strings and (nested) dicts."""
@@ -391,6 +455,7 @@ class FormalFunction(ABC):
         raise NotImplementedError
 
 
+@compact_repr
 @dataclass
 class SingleFunction(FormalFunction):
     name: SpecificFunctionName | UnitName
@@ -429,6 +494,7 @@ class SingleFunction(FormalFunction):
             )
 
 
+@compact_repr
 @dataclass
 class SpecificFunction(SingleFunction):
     name: SpecificFunctionName
@@ -438,6 +504,7 @@ class SpecificFunction(SingleFunction):
         return FunctionSpecificity.specific
 
 
+@compact_repr
 @dataclass
 class GenericFunction(SingleFunction):
     """Inheritance only in terms of attributes, not in terms of the music-theoretical concept."""
@@ -460,6 +527,7 @@ class FunctionalTransformation(FormalFunction):
         return self.source.specificity, self.target.specificity
 
 
+@compact_repr
 @dataclass
 class FormalType:
     main_type: MainType
@@ -517,6 +585,7 @@ class SingleReference(References):
         return cls(reference=name, operators=operators)
 
 
+@compact_repr
 @dataclass
 class MaterialReferences(References):
     """One or several material references, possibly with operators."""
@@ -615,6 +684,7 @@ class ReferencingLabel(ABC):
         return cls(**kwargs, material=material_refs)
 
 
+@compact_repr
 @dataclass
 class PlaceholderLabel(ReferencingLabel):
     name: PlaceholderName
@@ -637,6 +707,7 @@ class PlaceholderLabel(ReferencingLabel):
         return cls(name)
 
 
+@compact_repr(certainty=CertaintyName.default)
 @dataclass
 class FormLabel(ReferencingLabel):
     function: FormalFunction
