@@ -444,6 +444,10 @@ class CertaintyName(FancyStrEnum):
         return super()._missing_(value)
 
 
+class ReferenceSentinel(FancyStrEnum):
+    previous = auto()
+
+
 # endregion enums
 # region classes
 
@@ -572,14 +576,14 @@ class References(ABC):
 
 @dataclass
 class SingleReference(References):
-    reference: Optional[str] = None
+    reference: Optional[str | ReferenceSentinel] = None
     operators: Set[MaterialOperator] = field(default_factory=set)
 
     @classmethod
     def from_parse(cls, parse: dict):
         if parse is None:
             return None
-        name = parse.pop("Name", None)
+        name = parse.pop("Name", ReferenceSentinel.previous)
         operator_chars = parse.pop("MaterialOperators", [])
         operators = parse_material_operator_chars(operator_chars)
         return cls(reference=name, operators=operators)
