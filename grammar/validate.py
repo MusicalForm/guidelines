@@ -195,10 +195,10 @@ class FancyStrEnum(StrEnum):
         return ", ".join(str_components)
 
     def __repr__(self) -> str:
-        return f'"{self.name}"'
+        return self.name
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.__class__}.{self.name}"
 
 
 class SpecificFunctionName(FancyStrEnum):
