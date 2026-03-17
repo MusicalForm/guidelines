@@ -254,7 +254,7 @@ Figure&nbsp;1: Franz Schubert, Ländler No.&nbsp;8, D. 790.
 <p>Below the hierarchy, TiLiA’s <em>marker timelines</em> hold two additional annotation layers visible in <a href="#fig-form" class="quarto-xref">Figure&nbsp;1 (b)</a>: <em>Cadences</em> records cadence labels at the points where they occur (e.g.&nbsp;<code>PAC (i)</code>, <code>HC (i)</code>), and <em>Comments</em> provides free-text notes such as “weak cadence” or “written out repeat”.</p>
 <section id="formal-function" class="level3">
 <h3 class="anchored" data-anchor-id="formal-function">Formal function</h3>
-<p>The one thing that can never be absent from a label is a <em>formal function</em>. Every formal function ultimately derives from the temporal qualities <em>beginning</em>, <em>middle</em>, and <em>end</em>: an antecedent is a beginning, a continuation is a middle, a cadential idea is an end, and so on. The function expresses what role a segment plays in its context: <code>ant</code> (antecedent), <code>cont</code> (continuation), <code>cad</code> (cadential idea), <code>bi</code> (basic idea), and so on. In <a href="#fig-form" class="quarto-xref">Figure&nbsp;1 (b)</a> the bottom level shows <code>bi</code>, <code>ci</code>, <code>cad</code>, <code>mod</code>, <code>seq</code>; one level up <code>a: ant</code>, <code>cons</code>, <code>cont|modseq</code>. Functions can be <em>generic</em> (numbered units like <code>1st_section</code>) or <em>specific</em> (terms from the form-analytic tradition). The full list is in the <a href="../../Vocabulary.html">Vocabulary</a>.</p>
+<p>The one thing that can never be absent from a label is a <em>formal function</em>. Every formal function ultimately derives from the temporal qualities <em>beginning</em>, <em>middle</em>, and <em>end</em>: an antecedent is a beginning, a continuation is a middle(+end), a cadential idea is an end, and so on. The function expresses what role a segment plays in its context: <code>ant</code> (antecedent), <code>cont</code> (continuation), <code>cad</code> (cadential idea), <code>bi</code> (basic idea), and so on. In <a href="#fig-form" class="quarto-xref">Figure&nbsp;1 (b)</a> the bottom level shows <code>bi</code>, <code>ci</code>, <code>cad</code>, <code>mod</code>, <code>seq</code>; one level up <code>a: ant</code>, <code>cons</code>, <code>cont|modseq</code>. Functions can be <em>generic</em> (numbered units like <code>1st_section</code>) or <em>specific</em> (terms from the form-analytic tradition). The full list is in the <a href="../../Vocabulary.html">Vocabulary</a>.</p>
 </section>
 <section id="formal-types" class="level3">
 <h3 class="anchored" data-anchor-id="formal-types">Formal types</h3>
@@ -307,7 +307,7 @@ dance|simple_binary  →  "dance, realized as a simple binary"</code></pre>
 </tr>
 </tbody>
 </table>
-<p>The <code>%</code> symbol signifies that the previous form-functional subtree repeats (all child levels are understood to recur, so they need not be duplicated). When the <em>music</em> also repeats — not just the functional structure — combine it with the exact-repetition operator <code>!</code>, yielding <code>%!</code>. Both halves of the Ländler are written-out repeats, hence <code>%!</code>. See <a href="../../wiki/Syntax.html#repeating-a-subtree">Repeating a subtree</a>.</p>
+<p>The <code>%</code> symbol signifies that the previous form-functional subtree repeats (all child levels are understood to recur, so they need not be duplicated). When the <em>music</em> also repeats — not just the functional structure — combine it with the exact-repetition operator <code>!</code>, yielding <code>%!</code>. Both halves of the Ländler are repeated (the first repeat being written-out), hence <code>%!</code>. See <a href="../../wiki/Syntax.html#repeating-a-subtree">Repeating a subtree</a>.</p>
 </section>
 <section id="names" class="level3">
 <h3 class="anchored" data-anchor-id="names">Names</h3>
@@ -348,7 +348,7 @@ dance|simple_binary  →  "dance, realized as a simple binary"</code></pre>
 </tr>
 <tr class="even">
 <td><code>°</code></td>
-<td>harmonic adaptation</td>
+<td>adaptation to new formal context</td>
 </tr>
 <tr class="odd">
 <td><code>+</code></td>
@@ -361,10 +361,10 @@ dance|simple_binary  →  "dance, realized as a simple binary"</code></pre>
 <section id="common-gotchas" class="level3">
 <h3 class="anchored" data-anchor-id="common-gotchas">Common gotchas</h3>
 <ul>
-<li><code>%</code> is for entire subtrees; use <code>!</code> for repeating a single component.</li>
 <li><code>cbi</code> (compound basic idea) and <code>ci</code> (contrasting idea) are different.</li>
 <li><code>cad</code> is a function, not a type: write <code>cad</code>, not <code>|cad</code>.</li>
 <li>Do not duplicate subtrees by hand; use <code>%</code> or <code>% [name]</code>.</li>
+<li><code>%</code> is for repeating entire subtrees; <code>!</code> means that (some of the referenced) material repeats exactly. An exact repetition interpreted to have the same form tree is written as <code>%!</code>, but when its an earlier named sub-tree that repeats, we use <code>% [name!]</code> (regular material-reference syntax).</li>
 <li>Assign names whenever material recurs at a distance; anonymous references only work for immediate repetitions.</li>
 </ul>
 </section>
