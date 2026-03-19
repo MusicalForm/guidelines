@@ -13,6 +13,7 @@ website:
         href: index.qmd
       - text: "Tutorial"
         menu:
+          - wiki/tutorials/quickstart.md
           - wiki/Intro.md
           - wiki/Principles.md
       - text: "How-To"
