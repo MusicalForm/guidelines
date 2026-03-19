@@ -1,2 +1,4 @@
 /.quarto/
 /.jupyter_cache/
+**/LOGS/
+/grammar/test_files/reports/
