@@ -1,0 +1,403 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Seite-1" id="2ize24lfhPwKUS8X3RXn">
+    <mxGraphModel dx="2540" dy="2873" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="TtANzp5p8de4d1apu0bq-37" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="TtANzp5p8de4d1apu0bq-36">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="910" y="990" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-19" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-12" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="compound basic idea" vertex="1">
+          <mxGeometry height="200" width="200" x="-260" y="310" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-13" parent="TtANzp5p8de4d1apu0bq-12" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;text-align: left;&quot;&gt;An initiating phrase function that is a hybrid of a presentation and antecedent. It is a 4-m. phrase consisting of a basic idea followed by a contrasting idea, which does not lead to cadential closure. It is supported by a tonic prolongational progression.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="160" width="180" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-20" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-70">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="209.94117647058806" y="539.9999999999995" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-32" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="86" y="360" />
+              <mxPoint x="550" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-18" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="hybrid of" vertex="1">
+          <mxGeometry height="40" width="94" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-31" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="tonic prolongation" vertex="1">
+          <mxGeometry height="60" width="120" x="-50" y="1475" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-32" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="fragmentation" vertex="1">
+          <mxGeometry height="60" width="120" x="610" y="1656" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-33" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="harmonic&lt;br&gt;acceleration" vertex="1">
+          <mxGeometry height="60" width="120" x="750" y="1656" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-34" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="faster surface &lt;br&gt;rhythm" vertex="1">
+          <mxGeometry height="60" width="120" x="1020" y="1656" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-35" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="sequential progression" vertex="1">
+          <mxGeometry height="60" width="120" x="880" y="1656" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-39" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.375;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-40" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.625;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-35">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="1500" />
+              <mxPoint x="860" y="1578" />
+              <mxPoint x="940" y="1578" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-41" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="TtANzp5p8de4d1apu0bq-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-36" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="at least&lt;br&gt;one of" vertex="1">
+          <mxGeometry height="40" width="94" x="786" y="1460" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-38" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.631;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;" target="TtANzp5p8de4d1apu0bq-32">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="757.8000000000002" y="1564.92" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-42" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="continuation phrase" vertex="1">
+          <mxGeometry height="336" width="200" x="1050" y="284" as="geometry">
+            <mxRectangle height="36" width="150" x="700" y="403.5" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-45" parent="TtANzp5p8de4d1apu0bq-42" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="In the continuation phrase, continuation function destabilizes the harmonic, tonal, and rhythmic processes established in the presentation, and cadential function brings closure to the theme.&lt;div&gt;...&lt;/div&gt;&lt;div&gt;A continuation phrase can end with any one of the three basic cadences.&lt;/div&gt;&lt;div&gt;...&lt;/div&gt;&lt;div&gt;The final unit of the phrase, the cadential idea, is supported by a cadential progression.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="290" width="175" x="12.5" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-52" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.625;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-46" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="composed of" vertex="1">
+          <mxGeometry height="40" width="120" x="750" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-47" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="continuation idea" vertex="1">
+          <mxGeometry height="200" width="200" x="520" y="1050" as="geometry">
+            <mxRectangle height="30" width="150" x="420" y="750" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-58" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-50" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="cadential idea" vertex="1">
+          <mxGeometry height="200" width="200" x="840" y="1045" as="geometry">
+            <mxRectangle height="30" width="150" x="920" y="815" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-82" parent="TtANzp5p8de4d1apu0bq-50" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="A concluding idea function consisting of a 2-m. (or shorter) unit, supported exclusively by a cadential progression, that effects (or implies) a cadence." vertex="1">
+          <mxGeometry height="140" width="166" x="19" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-51" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.375;exitY=1;exitDx=0;exitDy=0;entryX=0.464;entryY=-0.024;entryDx=0;entryDy=0;entryPerimeter=0;" target="TtANzp5p8de4d1apu0bq-47">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-59" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-60" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.625;exitY=1;exitDx=0;exitDy=0;" target="TtANzp5p8de4d1apu0bq-57">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1179" y="1450" />
+              <mxPoint x="1330" y="1450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-61" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="TtANzp5p8de4d1apu0bq-55">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-53" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="ends with" vertex="1">
+          <mxGeometry height="40" width="94" x="1120" y="1370" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-55" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="HC" vertex="1">
+          <mxGeometry height="60" width="120" x="1400" y="1566" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-56" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="PAC" vertex="1">
+          <mxGeometry height="60" width="120" x="1140" y="1566" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-57" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="IAC" vertex="1">
+          <mxGeometry height="60" width="120" x="1270" y="1566" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-62" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-46">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1250" y="920" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-68" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-66">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1346" y="690" />
+              <mxPoint x="1477" y="690" />
+              <mxPoint x="1477" y="1360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-69" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="TtANzp5p8de4d1apu0bq-67">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-66" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="is supported&lt;div&gt;by&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="94" x="1530" y="1360" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-67" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="Extended &lt;br&gt;cadential&lt;br&gt;progression" vertex="1">
+          <mxGeometry height="60" width="120" x="1570" y="1566" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-77" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-76">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-70" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="antecedent" vertex="1">
+          <mxGeometry height="125" width="200" x="214" y="405" as="geometry">
+            <mxRectangle height="30" width="140" x="214" y="405" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-24" parent="TtANzp5p8de4d1apu0bq-70" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="An initiating phrase function consisting of a unit that closes with a weak cadence, thus implying a repetition (a consequent) to bring stronger cadential closure." vertex="1">
+          <mxGeometry height="60" width="180" x="10" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-75" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-72" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-72" collapsed="1" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="basic idea" vertex="1">
+          <mxGeometry height="30" width="140" x="-10" y="1130" as="geometry">
+            <mxRectangle height="200" width="200" x="110" y="560" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-73" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="contrasting idea" vertex="1">
+          <mxGeometry height="130" width="200" x="230" y="1080" as="geometry">
+            <mxRectangle height="30" width="140" x="230" y="690" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-83" parent="TtANzp5p8de4d1apu0bq-73" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="A concluding function consisting of a 2-m. unit that follows and contrasts with (i.e., is not a repetition of) a basic idea." vertex="1">
+          <mxGeometry height="90" width="180" x="10" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-78" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-76" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-72">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-76" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="composed of" vertex="1">
+          <mxGeometry height="40" width="120" x="250" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-79" edge="1" parent="1" source="TtANzp5p8de4d1apu0bq-76" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-73">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-89" parent="1" style="text;whiteSpace=wrap;" value="If the contrasting idea is entirely supported by a cadential progression, as seen in mm. 3–4 of Example 3.3, then it effectively resembles a “cadential idea” ending the sentence form." vertex="1">
+          <mxGeometry height="50" width="360" x="170" y="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-13" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-1" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="compound antecedent" vertex="1">
+          <mxGeometry height="200" width="200" x="555" y="-310" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-2" parent="bXIRBmEltb291ZugGWno-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;An initiating phrase function consisting of a simple sentence or hybrid that closes with a weak cadence, thus implying a repetition (a compound consequent) to bring stronger cadential closure.&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="180" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-3" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="compound consequent" vertex="1">
+          <mxGeometry height="200" width="200" x="905" y="-310" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-4" parent="bXIRBmEltb291ZugGWno-3" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;A concluding phrase function that repeats a prior compound antecedent but ends with stronger cadential closure.&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="180" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-8" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-9" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="TtANzp5p8de4d1apu0bq-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-7" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="composed of" vertex="1">
+          <mxGeometry height="40" width="120" x="120" y="-50" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-10" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="sentence" vertex="1">
+          <mxGeometry height="34" width="200" x="520" y="-784" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-14" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-17" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.625;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-12" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="consists of (or)" vertex="1">
+          <mxGeometry height="40" width="120" x="620" y="-390" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-16" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="hybrid" vertex="1">
+          <mxGeometry height="34" width="200" x="860" y="-784" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-23" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-66">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1530" y="522" />
+              <mxPoint x="1530" y="791" />
+              <mxPoint x="1477" y="791" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-21" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="continuation⇒cadential phrase" vertex="1">
+          <mxGeometry height="116.5" width="210" x="1610" y="313.5" as="geometry">
+            <mxRectangle height="33" width="140" x="890" y="403.5" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-22" parent="bXIRBmEltb291ZugGWno-21" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="A phrase supported exclusively by an expanded cadential progression. It fuses continuation and cadential functions." vertex="1">
+          <mxGeometry height="70" width="190" x="10" y="31.5" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-27" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="presentation" vertex="1">
+          <mxGeometry height="125" width="200" x="790" y="360" as="geometry">
+            <mxRectangle height="30" width="140" x="214" y="405" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-28" parent="bXIRBmEltb291ZugGWno-27" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="An initiating phrase function consisting of a basic idea and its repetition, supported by a prolongation of tonic harmony." vertex="1">
+          <mxGeometry height="60" width="180" x="10" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-30" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="consequent" vertex="1">
+          <mxGeometry height="125" width="200" x="450" y="405" as="geometry">
+            <mxRectangle height="30" width="140" x="214" y="405" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-31" parent="bXIRBmEltb291ZugGWno-30" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="A concluding phrase function that repeats a prior antecedent but ends with stronger cadential closure." vertex="1">
+          <mxGeometry height="60" width="180" x="10" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-34" parent="1" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" value="theme level" vertex="1">
+          <mxGeometry height="600" width="2330" x="-595" y="-520" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-5" parent="bXIRBmEltb291ZugGWno-34" style="swimlane;whiteSpace=wrap;html=1;" value="compound presentation" vertex="1">
+          <mxGeometry height="200" width="200" x="665" y="210" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-6" parent="bXIRBmEltb291ZugGWno-5" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="An initiating phrase function consisting of a compound basic idea and its repetition, supported by a prolongation of tonic harmony." vertex="1">
+          <mxGeometry height="160" width="180" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-43" parent="bXIRBmEltb291ZugGWno-34" style="swimlane;whiteSpace=wrap;html=1;" value="exposition (minuet)" vertex="1">
+          <mxGeometry height="200" width="200" x="1905" y="120" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-44" parent="bXIRBmEltb291ZugGWno-43" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;div style=&quot;text-align: left;&quot;&gt;An initiating function consisting of a complete thematic unit ending with an authentic cadence. The first unit of the small ternary theme type.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="180" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-39" parent="1" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" value="phrase level" vertex="1">
+          <mxGeometry height="525" width="2755" x="-580" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="TtANzp5p8de4d1apu0bq-63" parent="bXIRBmEltb291ZugGWno-39" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="cadential phrase" vertex="1">
+          <mxGeometry height="116.5" width="210" x="1875" y="263" as="geometry">
+            <mxRectangle height="33" width="140" x="890" y="403.5" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-20" parent="TtANzp5p8de4d1apu0bq-63" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="A phrase supported exclusively by an expanded cadential progression. It does not usually exhibit continuational characteristics." vertex="1">
+          <mxGeometry height="70" width="190" x="10" y="31.5" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-68" parent="bXIRBmEltb291ZugGWno-39" style="swimlane;whiteSpace=wrap;html=1;" value="stading on the dominant" vertex="1">
+          <mxGeometry height="200" width="200" x="2530" y="50" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-69" parent="bXIRBmEltb291ZugGWno-68" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;div style=&quot;text-align: left;&quot;&gt;A postcadential phrase function following a half cadence. It may also follow a perfect authentic cadence at the end of a small ternary exposition to initiate a contrasting middle. It consists of one or more ideas supported exclusively by a dominant prolongation.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="180" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-66" parent="bXIRBmEltb291ZugGWno-39" style="swimlane;whiteSpace=wrap;html=1;" value="closing section" vertex="1">
+          <mxGeometry height="160" width="200" x="2270" y="350" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-67" parent="bXIRBmEltb291ZugGWno-66" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;div style=&quot;text-align: left;&quot;&gt;A postcadential phrase function following a perfect authentic cadence. It consists of a group of codettas, often featuring fragmentation and a recessive dynamic.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="180" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-41" parent="1" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" value="idea level" vertex="1">
+          <mxGeometry height="955" width="2615" x="-595" y="835" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-53" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-47">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-45" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="contrasting middle" vertex="1">
+          <mxGeometry height="200" width="200" x="2460" y="160" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-46" parent="bXIRBmEltb291ZugGWno-45" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;br&gt;&lt;table cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&#x9;&lt;colgroup width=&quot;1089&quot;&gt;&lt;/colgroup&gt;&#x9;&lt;tbody&gt;&lt;tr&gt;&#x9;&#x9;&lt;td height=&quot;47&quot; align=&quot;left&quot;&gt;A medial function that loosens the prevailing formal organization, emphasizes the home-key dominant, and closes with a half cadence (or dominant arrival). The second unit of the small ternary theme type.&lt;/td&gt;&#x9;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="180" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-54" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.375;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-55" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-49">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-56" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.625;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-50">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2575" y="550" />
+              <mxPoint x="2800" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-47" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="consists of (or)" vertex="1">
+          <mxGeometry height="40" width="120" x="2500" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-71" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.375;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-68">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-48" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="commonly" vertex="1">
+          <mxGeometry height="40" width="120" x="2430" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-59" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TtANzp5p8de4d1apu0bq-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-49" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="commonly" vertex="1">
+          <mxGeometry height="40" width="120" x="2590" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-62" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2810" y="280" />
+              <mxPoint x="2815" y="280" />
+              <mxPoint x="2815" y="40" />
+              <mxPoint x="500" y="40" />
+              <mxPoint x="500" y="-758" />
+            </Array>
+            <mxPoint x="2810" y="390" as="sourcePoint" />
+            <mxPoint x="600" y="-720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-50" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" value="occasionally" vertex="1">
+          <mxGeometry height="40" width="120" x="2740" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-64" edge="1" parent="1" source="bXIRBmEltb291ZugGWno-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.625;entryY=0;entryDx=0;entryDy=0;" target="bXIRBmEltb291ZugGWno-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-63" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="loosely organised" vertex="1">
+          <mxGeometry height="80" width="120" x="2750" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-70" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="multiple levels" vertex="1">
+          <mxGeometry height="2140" width="1230" x="2390" y="-490" as="geometry" />
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-72" parent="bXIRBmEltb291ZugGWno-70" style="swimlane;whiteSpace=wrap;html=1;" value="codetta" vertex="1">
+          <mxGeometry height="200" width="200" x="210" y="1290" as="geometry">
+            <mxRectangle height="30" width="150" x="180" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bXIRBmEltb291ZugGWno-73" parent="bXIRBmEltb291ZugGWno-72" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;div style=&quot;text-align: left;&quot;&gt;A postcadential function following a perfect authentic cadence and ranging in length from a single chord to a 4-m. phrase. It is supported by a tonic prolongational (occasionally a cadential) progression (compare closing section).&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="180" x="10" y="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
