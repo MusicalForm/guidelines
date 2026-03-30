@@ -1,1105 +1,1137 @@
-# LCMA Model Architecture Draft
+# LCMA Architecture Document
 
-> **Status**: Draft for review -- v0.1, 2026-03-30
-> **Purpose**: This document proposes an integrated architecture for the LCMA
-> modelling infrastructure.  It is structured to present options where the path
-> is not yet determined, and to flag open questions that require human decision.
-> Nothing here is prescriptive until reviewed and approved by the project team.
+> **Status**: Working draft, v0.2.0-dev
+> **Date**: 2026-03-31
+> **Scope**: Architecture for the form model, its representations,
+> tooling, and collaborative workflow.
 
 ---
 
 ## Table of Contents
 
 1. [Current State Inventory](#1-current-state-inventory)
-2. [Architecture Goals](#2-architecture-goals)
-3. [Design Principles](#3-design-principles)
-4. [The Central Root: `musicalform` Python Library](#4-the-central-root-musicalform-python-library)
-5. [Downstream Components and Interfaces](#5-downstream-components-and-interfaces)
-6. [Collaborative Workflow and Version Management](#6-collaborative-workflow-and-version-management)
-7. [Tooling Recommendations](#7-tooling-recommendations)
-8. [Migration Path](#8-migration-path)
-9. [Open Questions Requiring Human Decision](#9-open-questions-requiring-human-decision)
+2. [Terminology](#2-terminology)
+3. [Goal Dependency Graph](#3-goal-dependency-graph)
+4. [Project Root: Analysis and Recommendation](#4-project-root-analysis-and-recommendation)
+5. [Vocabulary Management Platform](#5-vocabulary-management-platform)
+6. [Tooling: Module-by-Module Analysis](#6-tooling-module-by-module-analysis)
+7. [Derivation Hierarchy and Change Propagation](#7-derivation-hierarchy-and-change-propagation)
+8. [Collaborative Workflow](#8-collaborative-workflow)
+9. [Documentation Architecture](#9-documentation-architecture)
+10. [Phased Migration Path](#10-phased-migration-path)
+11. [Open Questions](#11-open-questions)
+12. [Appendices](#appendices)
 
 ---
 
 ## 1. Current State Inventory
 
-### 1.1 Components at a Glance
+### 1.1 The Guidelines Repository
 
-| Component | Location | Version | Status |
-|-----------|----------|---------|--------|
-| Guidelines homepage | `_quarto.yml`, rendered to `docs/` | N/A | Outdated; needs rebuild after every change |
-| Wiki content | `wiki/` (git submodule) | N/A | Partially outdated; browser-editable |
-| Vocabulary spreadsheet | Nextcloud (external) | N/A | Partially deprecated; CSV export in `data/` |
-| Vocabulary notebook | `Vocabulary.ipynb` | N/A | Renders CSV; will be superseded |
-| EBNF grammar | `grammar/lcma_standard.ebnf` | v0.1 | Closest to authoritative v0.1.0 of standard |
-| Auto-generated parser | `grammar/lcma_standardParser.py` | v0.1 | Generated from EBNF via DHParser |
-| `musicalform` library | `musicalform/` (git submodule) | v0.1.0 | Minimal but functional; enums + domain model |
-| OWL ontology | `ontology/protege/form_ontology.owl` | Sept 2024 | Deprecated; needs full rebuild |
-| Analysis model paper | `ontology/model_of_music_analysis/` | N/A | Conceptual foundation; current |
-| Vignettes | `wiki/vignettes/` (2 files) | N/A | Only 2 exist; every concept needs one |
-| Annotation pilot | Separate repo (`annotation_pilot`) | N/A | Contains TiLiA analyses to be validated |
-| draw.io diagrams | `ontology/drawio/classical.drawio` | N/A | Unknown currency |
+The guidelines repo (`MusicalForm/guidelines`) is the central workspace for the
+LCMA model. It renders a Quarto website (`_quarto.yml`, output to `docs/`)
+hosted at `https://musicalform.github.io/guidelines/`. The site follows the
+[Diataxis](https://diataxis.fr/) documentation philosophy with four quadrants:
 
-### 1.2 The `musicalform` Library in Detail
+| Quadrant     | Content                       | Source location                      |
+|--------------|-------------------------------|--------------------------------------|
+| Tutorial     | Quickstart, Intro, Principles | `wiki/tutorials/`, `wiki/`           |
+| How-To       | Workflow                      | `wiki/Workflow.md`                   |
+| Explanations | Examples                      | `wiki/Examples.md`                   |
+| Reference    | Syntax, Vocabulary table      | `wiki/Syntax.md`, `Vocabulary.ipynb` |
 
-The library (v0.1.0) currently contains:
+The wiki is included as a git submodule (`wiki/` -> `MusicalForm/guidelines.wiki`).
+Browser-based editing of the wiki is possible; updating the rendered homepage
+requires updating the submodule pointer and rebuilding Quarto.
 
-- **`enums.py`** -- `FancyStrEnum` base class with 10 enum subclasses encoding
-  the full analytical vocabulary: `SpecificFunctionName` (29 members + aliases),
-  `UnitName` (14), `MainType` (18), `SubType` (3), `MaterialOperator` (14 +
-  symbol aliases), `PlaceholderName`, `CertaintyName`, `ReferenceSentinel`,
-  `FunctionSpecificity`.
-- **`core.py`** -- Domain model as dataclasses: `AnnotationLabel`, `FormLabel`,
-  `PlaceholderLabel`, `FormalFunction` (ABC), `SingleFunction`,
-  `SpecificFunction`, `GenericFunction`, `FunctionalTransformation`,
-  `FormalType`, `SingleReference`, `MaterialReferences`,
-  `TransformationalReferences`.  Each with `from_parse()` classmethods that
-  consume the DHParser JSON dict output.
-- **`utils.py`** -- `compact_repr` decorator, recursive dict concatenation,
-  parse-tree helpers.
-- **`cli/validate.py`** -- CLI for validating expressions, CSVs, TiLiA JSON
-  files, and directories thereof.
-- **CI** -- pytest (8 tests), tox, pre-commit (black, isort, flake8, mypy),
-  release-please for automated versioning.
+### 1.2 The Annotation Standard and EBNF Grammar
 
-### 1.3 The OWL Ontology in Detail
+The annotation standard defines a label syntax for form analysis in TiLiA (a
+timeline annotator). The syntax is documented in `wiki/Syntax.md` and encoded
+formally in `grammar/lcma_standard.ebnf` (115 lines). DHParser auto-generates
+a parser script (`grammar/lcma_standardParser.py`) from this EBNF, and a copy
+lives in the Python library at `musicalform/src/musicalform/cli/lcma_standardParser.py`.
 
-The `form_ontology.owl` (Sept 2024) defines:
+The EBNF defines:
 
-- **Classes**: `Formal Function`, `Formal Type`, `Form-functional Aspect`
-  (subclasses: `Directionality`, `Weightedness`, `Temporality`), `Feature`
-  (subclasses: `Context-Independent Feature`, `Context-Dependent Feature`),
-  `Intrinsic Function`, `Contextual Function` (subclass: `Positional
-  Function`), `Musical Domain`, `Musical Expression`, `Timeline`, `Timespan`
-  (subclass: `Musical Context`).
-- **Properties**: `characterises`/`is characterised by`, `qualifies`/`is
-  qualified by`, `informs`/`is informed by`, `operationalises`/`is
-  operationalised by`, `realises`/`is realised as`, `embeds`/`is embedded in`,
-  `elapses over`, `is context of`.
+- **Labels**: optional name, one or more `FormLabel` or `PlaceholderLabel` segments
+- **FormLabel**: function expression + optional type expression + optional certainty + optional material brackets
+- **Function vocabulary**: 30 `SpecificFunction` entries and 15 `Unit` entries
+- **Type vocabulary**: 14 `FormalType` entries (some with subtypes)
+- **Material operations**: operators for repetition, transposition, ornamentation, etc.
 
-This ontology captures the *meta-level* (what a Formal Function is, how it
-relates to Features and Types) but **not** the vocabulary itself (individual
-functions, types, features).  It is deprecated but its conceptual structure
-remains relevant.
+### 1.3 The Vocabulary Spreadsheet
 
-### 1.4 The Vocab Spreadsheet
+A Nextcloud-hosted spreadsheet (CSV export at `data/Form vocabulary.csv`, 103
+rows) contains term definitions including labels, abbreviations, hierarchical
+level, function/type classification, relations, short explanations, and
+theoretical provenance. Rows 62-103 contain terms that are either
+cadence-related or not yet integrated into the formal vocabulary (many with
+empty fields). Large parts are deprecated.
 
-The CSV export (`data/Form vocabulary.csv`, 103 rows) contains columns:
-`Formal label`, `Short label`, `Function/type`, `Hierarchical level`,
-`Relation: contains`, `Short explanation`, `Open Music Theory Link`,
-`Theoretical provenance`.  Rows 1--60 are broadly current; rows 61--103 include
-deprecated, speculative, and cadence-related terms that do not all appear in the
-EBNF grammar or the Python enums.
+`Vocabulary.ipynb` reads this CSV and renders a filtered reference table for
+the Quarto site, linking terms to Open Music Theory pages and vignettes.
 
-### 1.5 The Conceptual Foundation
+### 1.4 The `musicalform` Python Library
 
-The paper *Modelling Music Analysis: Ambiguity* (Brahms_Form_New_text.html)
-establishes the project's conceptual basis:
+Included as a git submodule (`musicalform/` -> `MusicalForm/musicalform`),
+version 0.1.0. Key components:
 
-- Music analysis is modelled as **Claim Production** by Agents with Sets of
-  Beliefs.
-- A **Concept Attribution** is a claim relating a Musical Object to a Concept
-  via a Relationship (match, partial match, no match).
-- **Concepts** are defined recursively in terms of Features with value ranges.
-- Draws on IFLA LRM (Work/Expression/Manifestation) and CIDOC CRM, adapted for
-  music-analytical claims.
-- Key insight: analysts' concept definitions differ in **feature weighting**,
-  not always in the features themselves.
+| File                         | Contents                                                                                                                                                                                                                                                                         |
+|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `enums.py`                   | `FancyStrEnum` base class; `SpecificFunctionName` (30 members + aliases), `UnitName` (15), `MainType` (18 + aliases), `SubType` (2), `MaterialOperator` (15 + symbol aliases), `PlaceholderName`, `CertaintyName`                                                                |
+| `core.py`                    | Domain model: `AnnotationLabel`, `FormLabel`, `PlaceholderLabel`, `FormalFunction` (ABC), `SingleFunction`, `SpecificFunction`, `GenericFunction`, `FunctionalTransformation`, `FormalType`, `References`, `SingleReference`, `MaterialReferences`, `TransformationalReferences` |
+| `utils.py`                   | `compact_repr` decorator, parse-tree helpers                                                                                                                                                                                                                                     |
+| `cli/validate.py`            | Validation CLI: expression, file, CSV, and TiLiA JSON modes                                                                                                                                                                                                                      |
+| `cli/main.py`                | CLI entry point with `validate` subcommand                                                                                                                                                                                                                                       |
+| `cli/lcma_standardParser.py` | DHParser-generated parser (copy from `grammar/`)                                                                                                                                                                                                                                 |
 
-### 1.6 What is Missing / Inconsistent
+Build system: `uv_build`, `pyproject.toml`. Dependencies: DHParser >= 1.8.3,
+pandas >= 2.0. Dev tools: pytest, tox, pre-commit, black, isort, flake8, mypy.
 
-1. **No single source of truth**: the vocab spreadsheet, the EBNF grammar, and
-   the Python enums all contain overlapping but non-identical sets of terms.
-2. **No concept definitions**: neither the Python classes nor the OWL ontology
-   encode what defines a concept (which features, which value ranges).
-3. **No hierarchical relations** between concepts in Python (e.g., `antecedent`
-   is a Beginning function -- this is only implicit).
-4. **No version alignment**: the grammar is at v0.1, the library at v0.1.0, the
-   ontology is deprecated, the docs are outdated.
-5. **No automated propagation**: changing a term in one place does not update
-   others.
-6. **Vignettes**: only 2 of ~60+ needed exist.
-7. **Test coverage**: 8 tests covering enums and basic construction; no
-   end-to-end parsing tests, no validation against the annotation pilot.
+CI: GitHub Actions (`ci.yml`) runs tox on Python 3.11 and 3.12. Release
+management via `release-please.yml` on the `development` branch.
 
----
+### 1.5 The OWL Ontology (deprecated)
 
-## 2. Architecture Goals
+`ontology/protege/form_ontology.owl` (428 lines, September 2024) was created
+in WebProtege. It defines the meta-level structure:
 
-Derived directly from the project specs:
+| OWL Class                 | Label                  |
+|---------------------------|------------------------|
+| `Rlqidt0dt2pEZVIfEhmBeR`  | Formal Function        |
+| `R53kZLGWA8NQB483qUSyaQ`  | Form-functional Aspect |
+| `RNZUc4Eis88akAPwITfLx6`  | Formal Type            |
+| `RoBc2KO68r05ZBPZyf9zPI`  | Feature                |
+| `R88OoE1s5MJif7rlX2tTyaF` | Timespan               |
+| `RDyg4CmamyII9JlsnOf7IJC` | Timeline               |
+| `RDV5Uxq0I7jjzcfUr9T0EkP` | Musical Expression     |
+| `RQvENM7B4TkChxhO6Dw6I6`  | Musical Domain         |
 
-| # | Goal | Priority |
-|---|------|----------|
-| G1 | **Single source of truth** in Python that determines all other representations | Critical |
-| G2 | **Modification propagation**: changing the model in one place detects/flags every downstream impact | Critical |
-| G3 | **Consistency at all times**: the "production version" is valid across all components | Critical |
-| G4 | **Collaborative modelling**: multiple contributors work on different parts simultaneously | Critical |
-| G5 | **Versioned releases**: a single version number spanning standard, model, ontology, documentation | High |
-| G6 | **Dialectic validation**: iterative fitting between model and existing annotations | High |
-| G7 | **Layered model**: vertical metaconcept layers + horizontal abstraction levels | High |
-| G8 | **Documentation as first-class output**: auto-generated + manually curated, Diataxis structure | High |
-| G9 | **Ontology synchronization**: Python class hierarchy mirrored in OWL | Medium |
-| G10 | **Vocabulary management GUI**: graph + table views, filtering, navigation | Medium |
-| G11 | **Backward compatibility**: older annotation labels remain parseable | Medium |
+Properties include: `characterises`/`is characterised by`, `qualifies`/
+`is qualified by`, `operationalises`/`is operationalised by`, `informs`/
+`is informed by`, `realises`/`is realised as`, `embeds`/`is embedded in`,
+`elapses over`, `is context of`.
 
----
+**Status**: This OWL file is fully deprecated. It will be used only as
+informational input for the meta-level design. A new OWL ontology will be
+generated from scratch with human-readable URIs (see
+[Section 4](#4-project-root-analysis-and-recommendation)).
 
-## 3. Design Principles
+### 1.6 The Analysis Model Paper
 
-### 3.1 Python as the Single Root
+`ontology/model_of_music_analysis/Brahms_Form_New_text.html` is a paper
+modelling music analysis as "Claim Production by Agents," drawing on IFLA LRM
+and CIDOC CRM. It provides the conceptual foundation for the meta-level
+ontology. IFLA LRM terms (Work, Expression, Manifestation, Item) and their
+most relevant subclasses will be included in the generated OWL ontology.
 
-The `musicalform` Python library becomes the **canonical encoding** of the
-model.  Every other representation (OWL, EBNF, documentation tables, vignette
-stubs) is **derived from** or **validated against** the Python code.
+### 1.7 Vignettes
 
-**Rationale** (confirming your stated reasoning):
-- Python's ecosystem provides conversion paths to every other format.
-- IDE navigation (PyCharm) makes the model browseable and refactorable.
-- The library already has CI, testing, and release infrastructure.
-- Python dataclasses + enums provide both human-readable definitions and
-  machine-processable structure.
+Two vignettes exist in `wiki/vignettes/`:
 
-### 3.2 Declaration over Generation
+- `vignette-thematic-intro.md` -- Curtain & Thematic Introduction
+- `vignette-sequence.md` -- Sequence (note: filename uses a Unicode hyphen)
 
-Wherever possible, the model should be **declared** in Python (class
-definitions, docstrings, type annotations, class attributes) rather than
-constructed procedurally.  This makes the model inspectable, diffable, and
-reviewable without running code.
+Approximately 60+ vignettes are needed to cover the full vocabulary.
 
-### 3.3 Layered Derivation
+### 1.8 Gaps and Inconsistencies
 
-Changes flow in one direction:
-
-```
-Python model (source of truth)
-    |
-    +--> EBNF grammar (generated or validated)
-    |        |
-    |        +--> DHParser parser (auto-generated)
-    |
-    +--> OWL ontology (generated or validated)
-    |
-    +--> Documentation (generated stubs + manually curated content)
-    |
-    +--> Validation reports (against annotation_pilot)
-    |
-    +--> Vocabulary tables (CSV, HTML)
-```
-
-Any change to a downstream artifact that is not reflected in the Python source
-is either: (a) a manual curation that lives in a designated "overlay" location,
-or (b) a bug.
-
-### 3.4 Fail-Loud Consistency
-
-CI checks must **fail** when:
-- The OWL ontology is out of sync with the Python model.
-- The EBNF grammar does not accept/reject the same labels as the Python enums.
-- A vignette stub is missing for a concept that exists in the model.
-- An annotation from the pilot corpus parses under the grammar but produces an
-  invalid object, or vice versa.
+| # | Gap                                                                                                            | Impact                                                                                       |
+|---|----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| 1 | No single source of truth: spreadsheet, EBNF, and Python enums contain overlapping but non-identical term sets | Any change requires manual synchronization across three locations                            |
+| 2 | No concept definitions: neither Python classes nor OWL encode which features define a concept                  | Concepts are labels without semantics beyond their name                                      |
+| 3 | No hierarchical relations between concepts in Python                                                           | The `contains` column in the CSV is not programmatically accessible                          |
+| 4 | No version alignment across components                                                                         | EBNF, Python, CSV, and OWL may diverge silently                                              |
+| 5 | No automated change propagation                                                                                | Adding a term requires editing EBNF + Python enums + CSV manually                            |
+| 6 | Only 2 of ~60+ vignettes exist                                                                                 | Reference documentation is skeletal                                                          |
+| 7 | Minimal test coverage                                                                                          | No property-based tests, no cross-source consistency tests                                   |
+| 8 | Parser script exists as a copy in two locations                                                                | `grammar/lcma_standardParser.py` vs `musicalform/src/musicalform/cli/lcma_standardParser.py` |
 
 ---
 
-## 4. The Central Root: `musicalform` Python Library
+## 2. Terminology
 
-### 4.1 Terminological Convention
+The following terms are used precisely throughout this document. The word
+"metaclass" is avoided to prevent confusion with Python's `metaclass`.
 
-To avoid collision with Python's `class` and `metaclass` keywords, and to align
-with the conceptual model of music analysis as concept attribution:
+**Metaconcept** (e.g., "Caesura"):
+An abstract class stipulating the overarching meaning and use of a class of
+concepts, potentially across musical styles. Defines the upper,
+style-independent layers of the ontology. Includes the set of
+metaconcepts/concepts/metafeatures needed to obtain a concrete, parametrized
+concept. There is a continuum where child metaconcepts become more concrete by
+swapping abstract components with concrete ones ("conditioning" /
+"predicating"). The child that replaces the very last unconditioned component
+constitutes the "quantum leap" from metaconcept to concept. In Python,
+metaconcepts may be implemented as runtime-checkable `Protocol`s. Fundamental
+modelling decisions at this level require extreme care and may require testing
+multiple solutions.
 
-| Your term | Proposed Python name | Rationale |
-|-----------|---------------------|-----------|
-| Metaclass (abstract concept template) | **`Metaconcept`** | Aligns with "concept attribution" model; avoids Python metaclass confusion |
-| Class (parametrized concept) | **`Concept`** | The concrete, applicable unit |
-| Feature (atomic or composite) | **`Feature`** | Direct mapping; no ambiguity |
-| Meta-feature (feature + value range) | **`FeatureSpec`** | "Specification" conveys the value-range + preference-rule semantics |
+**Concept** (e.g., "Half Cadence in the Viennese classic"):
+A fully conditioned, parametrized subclass of a metaconcept. When resolved
+against a musical object, yields a congruence score. An atomic concept can
+become a small class hierarchy of metafeatures (probability distribution,
+score-based ranking, single imperative value, logic-based values, etc.). A
+non-atomic concept defines acceptable congruence score ranges for its resolved
+metafeatures. A concept defines which types of musical objects it can be
+applied to (it may serve as a type guard in the Python sense).
 
-> **QUESTION FOR TEAM**: Do these names work?  Alternatives considered:
-> `ConceptTemplate`/`ConceptInstance`, `AbstractConcept`/`AppliedConcept`,
-> `Schema`/`Concept`.  The important constraint is that these are
-> *domain-model terms*, not Python implementation terms -- they should be
-> meaningful to musicologists reading the code and documentation.
+**Metafeature** (e.g., "dominant harmony"):
+The combination of a concept with some value range. A component within a
+concept definition that specifies not a single value but a range, distribution,
+or ranked set of acceptable values for a given feature.
 
-### 4.2 Proposed Package Structure
+**Feature** (e.g., "dominant harmony with Roman numeral V, indicating a root
+position triad"):
+The outcome of resolving a metafeature against a musical object. The
+combination of a concept with a specific value. Exposes nested structure
+corresponding to the resolved definition components (because concepts are
+recursively defined, resolving a feature may yield sub-features).
+
+---
+
+## 3. Goal Dependency Graph
+
+Goals are structured as a directed acyclic graph (DAG). An arrow `A -> B`
+means "A must be completed before B can begin."
 
 ```
-musicalform/
-  src/musicalform/
-    __init__.py                 # Public API
+G1: Consolidate term inventory
+ |
+ v
+G2: Design canonical YAML schema
+ |
+ +---> G3a: YAML -> Python enum/class generator
+ |      |
+ |      +---> G5: VocabularyRegistry in Python
+ |      |
+ |      +---> G8: Property-based tests & cross-source consistency tests
+ |
+ +---> G3b: YAML -> EBNF generator (or EBNF -> YAML back-import)
+ |      |
+ |      +---> G8
+ |
+ +---> G3c: YAML -> OWL generator (with IFLA LRM terms)
+ |      |
+ |      +---> G9: OWL export/import bridge
+ |      |
+ |      +---> G8
+ |
+ +---> G4: CI sync checks (all derived artifacts must match YAML)
+ |      |
+ |      +---> G8
+ |
+ v
+G5: VocabularyRegistry (runtime concept lookup, abbreviation resolution)
+ |
+ v
+G6: Annotation validation pipeline expansion
+ |   (validate TiLiA JSON files against the model; batch annotation_pilot)
+ |
+ v
+G7: Vignette pipeline (auto-generated stub from YAML + manual curation)
+ |
+ v
+G10: Documentation rebuild (Quarto + generated reference + curated content)
+ |
+ v
+G11: Iterative consolidation cycle
+     (validate annotation_pilot analyses <-> model; update both)
 
-    # ── Layer 1: Vocabulary & Atoms ──────────────────────────
-    vocabulary/
-      __init__.py
-      _base.py                  # FancyStrEnum, ConceptEnum base
-      functions.py              # SpecificFunctionName enum (expanded)
-      types.py                  # MainType, SubType enums (expanded)
-      units.py                  # UnitName enum
-      operators.py              # MaterialOperator enum
-      relations.py              # RelationType enum (new)
-      registry.py               # Central VocabularyRegistry singleton
+--- Parallel track (independent of G3-G6) ---
 
-    # ── Layer 2: Concept Definitions ─────────────────────────
-    concepts/
-      __init__.py
-      _metaconcept.py           # Metaconcept base class
-      _feature.py               # Feature, FeatureSpec base classes
-      _concept.py               # Concept base class
-      formal_functions/         # One module per metaconcept family
-        __init__.py
-        _base.py                # FormalFunction metaconcept
-        beginning.py            # Beginning functions
-        middle.py               # Middle functions
-        ending.py               # Ending functions
-        # ... style-specific sub-packages later
-      formal_types/
-        __init__.py
-        _base.py                # FormalType metaconcept
-        sentence.py
-        period.py
-        binary.py
-        ternary.py
-        sonata.py
-        rondo.py
-        # ...
-      relations/
-        __init__.py
-        _base.py                # Relation metaconcept (generalizes MaterialRelations)
-        material.py             # Material relations
-        # ...
-      features/                 # Bottom-up: atomic features
-        __init__.py
-        _base.py
-        temporal.py             # Duration, position, proportion
-        harmonic.py             # Cadence types, key relations
-        melodic.py              # Contour, interval content
-        rhythmic.py             # Metric position, rhythmic density
-        textural.py             # Voice count, density
-        # ...
+G12: Vocabulary management GUI evaluation and deployment
+     (depends on G2: schema must be stable before tooling is chosen)
 
-    # ── Layer 3: Annotation Standard ─────────────────────────
-    standard/
-      __init__.py
-      label.py                  # AnnotationLabel, FormLabel (refactored from core.py)
-      parsing.py                # from_parse() logic (refactored from core.py)
-      grammar.py                # EBNF generation/validation interface
-      versioning.py             # Standard version management, migration
-
-    # ── Layer 4: Ontology Bridge ─────────────────────────────
-    ontology/
-      __init__.py
-      owl_export.py             # Python model -> OWL/RDF serialization
-      owl_import.py             # OWL -> Python model validation/diff
-      skos_export.py            # Vocabulary -> SKOS concept scheme
-      graph.py                  # Graph operations (hierarchy, visualization data)
-
-    # ── Layer 5: Documentation Bridge ────────────────────────
-    docs/
-      __init__.py
-      vignette_stubs.py         # Generate vignette stub markdown from model
-      vocab_table.py            # Generate vocabulary tables (replaces notebook)
-      reference_gen.py          # Generate reference pages from docstrings
-
-    # ── CLI ──────────────────────────────────────────────────
-    cli/
-      __init__.py
-      main.py
-      validate.py               # Existing validation (expanded)
-      check.py                  # New: model consistency checks
-      export.py                 # New: export to OWL, SKOS, EBNF, docs
-
-  tests/
-    test_vocabulary/
-    test_concepts/
-    test_standard/
-    test_ontology/
-    test_docs/
-    test_integration/           # End-to-end: parse label -> object -> OWL -> back
-    conftest.py                 # Shared fixtures
+G13: Human review workflow integration
+     (depends on G4: CI checks must exist before review is meaningful)
 ```
 
-### 4.3 The Vocabulary Registry
+### Goal Descriptions
 
-The `VocabularyRegistry` is a singleton that indexes every concept,
-abbreviation, and alias in the model.  It serves as the integration
-point between the enum-based vocabulary and the concept hierarchy.
+| Goal    | Description                                                                                                                                                                                                                                                                                                                                                           |
+|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **G1**  | Audit the spreadsheet, EBNF, and Python enums.  Produce a reconciled term list with canonical names, abbreviations, hierarchical levels, function/type classification, and containment relations.  Identify terms that exist in one source but not others.                                                                                                            |
+| **G2**  | Define the YAML schema for concept definitions.  Each concept file (or entry in a multi-concept file) specifies: canonical name, abbreviations, metaconcept membership, metafeature definitions with value ranges, hierarchical level, containment relations, theoretical provenance, and vignette link.  The schema itself is defined in JSON Schema for validation. |
+| **G3a** | Write a generator that reads YAML and produces Python `FancyStrEnum` members and (later) domain dataclass definitions.  Must produce identical output to the current hand-written enums as a migration constraint.                                                                                                                                                    |
+| **G3b** | Write a generator that reads YAML and produces the EBNF grammar (or: define a back-importer that seeds YAML from the existing EBNF).  The EBNF remains the input to DHParser for parser generation.                                                                                                                                                                   |
+| **G3c** | Write a generator that reads YAML and produces OWL/RDF with human-readable URIs under a project namespace.  Include IFLA LRM classes (Work, Expression, Manifestation, Item) and their relevant subclasses as upper-ontology imports.                                                                                                                                 |
+| **G4**  | CI checks that fail when any derived artifact (Python enums, EBNF, OWL) is out of sync with the YAML source.  Implemented as a `make check-sync` target or equivalent.                                                                                                                                                                                                |
+| **G5**  | A `VocabularyRegistry` class that loads the generated vocabulary at runtime, supports lookup by canonical name or abbreviation, and provides iteration/filtering by hierarchical level, function/type, etc.  Population mechanism depends on the YAML -> Python generator output.                                                                                     |
+| **G6**  | Expand the annotation validation pipeline to validate TiLiA JSON files against the full model (not just grammar parsing).  Batch-validate the annotation_pilot repository.                                                                                                                                                                                            |
+| **G7**  | For each concept in the YAML, auto-generate a vignette stub (with fields for definition, musical examples, related concepts, etc.).  Manually curated content is written into a designated section that is preserved across regeneration.                                                                                                                             |
+| **G8**  | Property-based tests (Hypothesis) for grammar parsing, cross-source consistency tests (YAML == Python enums == EBNF terms == OWL individuals), and roundtrip tests for the generators.                                                                                                                                                                                |
+| **G9**  | An OWL export/import bridge: export the current model state as OWL for use in external tools (VocBench, Protege); import OWL modifications back into YAML (with conflict detection).                                                                                                                                                                                  |
+| **G10** | Rebuild the Quarto documentation pipeline.  Reference material is auto-generated from YAML/Python.  Curated content (tutorials, how-tos, explanations, vignette narratives) coexists via designated directories.                                                                                                                                                      |
+| **G11** | The ongoing dialectic: validate annotation_pilot analyses against the model, update analyses to comply, update the model where analyses reveal gaps.                                                                                                                                                                                                                  |
+| **G12** | Evaluate and deploy a vocabulary management GUI for musicologists (see [Section 5](#5-vocabulary-management-platform)).                                                                                                                                                                                                                                               |
+| **G13** | Integrate the human review stage: PR-based review with CI checks, preview of generated documentation, diff of OWL changes.                                                                                                                                                                                                                                            |
 
-```python
-# Sketch -- not final implementation
-class VocabularyRegistry:
-    """Central index of all terms in the LCMA model.
+---
 
-    Populated at import time by scanning all ConceptEnum subclasses
-    and Concept subclasses.  Provides:
-    - Lookup by canonical name, abbreviation, or alias
-    - Lookup by metaconcept family
-    - Hierarchical parent/child queries
-    - Diff against a previous version
-    - Export to SKOS, CSV, OWL individuals
-    """
+## 4. Project Root: Analysis and Recommendation
 
-    def lookup(self, term: str) -> ConceptEntry: ...
-    def children_of(self, concept: str) -> list[ConceptEntry]: ...
-    def concepts_in(self, metaconcept: str) -> list[ConceptEntry]: ...
-    def diff(self, other: "VocabularyRegistry") -> VocabDiff: ...
-    def to_skos(self) -> rdflib.Graph: ...
-    def to_dataframe(self) -> pd.DataFrame: ...
-```
+### 4.1 Options Evaluated
 
-> **QUESTION FOR TEAM**: Should the registry be populated by *scanning* Python
-> classes at import time (introspection), or by explicit *registration* calls?
-> Introspection is more DRY; explicit registration is more predictable and
-> allows ordering.
+| Option                                             | Root paradigm                                  | Daily workflow                         | Accessibility                                     | Robustness                                         | Expressiveness |
+|----------------------------------------------------|------------------------------------------------|----------------------------------------|---------------------------------------------------|----------------------------------------------------|----------------|
+| **(a)** Python hierarchy                           | Edit Python IDE                                | Low for non-devs                       | High (no external deps)                           | High (full Python expressiveness)                  |
+| **(b)** OWL file via ontology editor               | Edit OWL, generate Python                      | Medium (GUI-based)                     | Low (OWL editor dependency, generation fragility) | High (OWL DL)                                      |
+| **(c)** Spreadsheet/tabular tool                   | Edit spreadsheet, generate Python+OWL          | High (familiar to musicologists)       | Low (cloud dependency, merge conflicts)           | Low (flat structure, no recursion)                 |
+| **(d)** Dedicated vocabulary platform              | Edit via platform GUI, generate all            | Medium-High (purpose-built)            | Low (vendor lock-in, cost)                        | Medium (platform-constrained)                      |
+| **(e)** Hybrid: Python top-level + YAML vocabulary | Edit YAML for vocabulary, Python for structure | High (YAML is readable, PR-reviewable) | High (plain text, git-native)                     | High (YAML supports nesting; Python handles logic) |
 
-### 4.4 Concept and Metaconcept Classes
+### 4.2 Evaluation
 
-Each concept in the model will be represented as a Python class with:
+**Option (a): Python as sole root.**
+Editing Python enums and dataclasses requires IDE familiarity. Adding a term
+means editing `enums.py` (enum member + alias), potentially `core.py`
+(dataclass fields), and `lcma_standard.ebnf` (grammar rule). This is
+error-prone and inaccessible to musicologists. However, the Python code is
+the most expressive representation and the one that must ultimately be correct.
 
-1. **A docstring** following a structured template (parseable for documentation
-   generation):
-   ```python
-   class Antecedent(BeginningFunction):
-       """A phrase-level beginning function.
+**Option (b): OWL as sole root.**
+Requires maintaining the ontology in an OWL editor and generating Python from
+it. The generation step is fragile: OWL's open-world semantics do not map
+cleanly to Python's closed-world type system. OWL editors (Protege,
+VocBench) have steep learning curves. OWL does not natively express the
+procedural aspects of the model (parsing rules, congruence scoring).
 
-       .. musicological::
-           The first phrase of a period, ending with a weak cadence
-           (HC or IAC), creating an expectation of continuation.
-           [Caplin 1998, p. 49]
+**Option (c): Spreadsheet as sole root.**
+The current spreadsheet already demonstrates the problems: flat structure
+cannot represent recursive concept definitions, merge conflicts in CSV are
+unreadable, no validation, no type checking. Cloud dependency (Nextcloud)
+adds a failure point.
 
-       .. formal::
-           Metaconcept: FormalFunction
-           Parent: BeginningFunction
-           Hierarchical level: Phrase
-           Abbreviations: ant
-           Typical children: {basic_idea, contrasting_idea}
-           Defining features:
-               cadence_type: {HC, IAC} [required]
-               position: beginning [required]
-               length: ~2 phrases [typical]
+**Option (d): Dedicated platform as sole root.**
+TopBraid EDG and PoolParty are enterprise products (5-6 figure annual
+licensing). VocBench is free but requires server deployment and does not
+support the full expressiveness needed (YAML-level nesting, custom
+metafeature schemas). All platforms risk vendor lock-in and produce heavy
+technological debt.
 
-       .. vignette:: vignettes/antecedent
-       """
+**Option (e): Hybrid with YAML control files.**
+The abstract metaconcept hierarchy (structural rules, class architecture) is
+maintained in Python, which is expected to stabilize within weeks. The
+vocabulary -- individual concept definitions and relations, which constitute
+the bulk of daily work -- is maintained in YAML files within the git repo.
+Code generators produce Python enums/classes, EBNF grammar rules, and OWL
+from the YAML.
+
+### 4.3 Recommendation: Option (e) -- Hybrid with YAML Control Files
+
+**Rationale**:
+
+1. **Optimal for the daily workflow.**  Adding a term means editing a YAML file
+   (human-readable, diff-friendly), creating a PR (standard GitHub workflow),
+   which triggers CI to regenerate all derived artifacts and run consistency
+   tests. Merge = new release. This will happen thousands of times; the
+   overhead per change is minimal.
+
+2. **Accessible to musicologists.**  YAML is readable without programming
+   knowledge. A concept definition in YAML looks like:
+
+   ```yaml
+   # Example concept definition (illustrative; schema is a conceptual draft)
+   antecedent:
+     abbreviations: [ant]
+     type: function
+     hierarchical_level: phrase
+     contains: [basic_idea, contrasting_idea]
+     provenance: Caplin1998
+     vignette: wiki/vignettes/vignette-antecedent.md
+     explanation: >
+       2-bar bi, 2-bar ci, ending with HC or IAC.
    ```
 
-2. **Class-level attributes** encoding structural properties that the
-   ontology bridge and documentation generator can read:
-   ```python
-   class Antecedent(BeginningFunction):
-       _abbreviations = ("ant",)
-       _hierarchical_level = HierarchicalLevel.PHRASE
-       _typical_children = (BasicIdea, ContrastingIdea)
-       _defining_features = {
-           "cadence_type": FeatureSpec(CadenceType, required=True,
-                                       values={CadenceType.HC, CadenceType.IAC}),
-           "position": FeatureSpec(PositionFunction, required=True,
-                                    values={PositionFunction.BEGINNING}),
-       }
+3. **Robust against dependency risks.**  The source of truth is plain text in
+   git. No external platform is required for the core workflow. External
+   tools (VocBench, visualization tools) consume generated OWL as read-only
+   views.
+
+4. **Expressive.**  YAML supports the nested structures needed for recursive
+   concept definitions. The YAML schema is validated by JSON Schema, catching
+   errors before generation. Python handles the procedural logic (parsing,
+   validation, congruence scoring) that YAML cannot express.
+
+5. **Version-controlled.**  Every change to the vocabulary is a git commit with
+   full history, blame, and diff support. PR-based review is native.
+
+**Trade-off acknowledged**: YAML is not a GUI. Musicologists who find YAML
+intimidating can use a vocabulary management GUI (see
+[Section 5](#5-vocabulary-management-platform)) that reads/writes the YAML files.
+The GUI is an optional convenience layer, not the source of truth.
+
+---
+
+## 5. Vocabulary Management Platform
+
+### 5.1 Requirements
+
+The vocabulary management platform serves as an optional GUI layer over the
+YAML control files. It must support:
+
+- Browsing and searching the vocabulary (terms, hierarchies, relations)
+- Editing concept definitions (with validation)
+- Visualizing the ontology as an interactive graph
+- Exporting to OWL/RDF for interoperability
+- Collaborative use by multiple musicologists
+- Integration with the git-based workflow (reading from / writing to YAML)
+
+### 5.2 Candidates Evaluated
+
+#### 5.2.1 Dedicated Ontology Management Software
+
+| Tool                     | OWL/RDF Support                          | Collaboration                            | Version Control                       | Visualization                        | License                       | Risk Assessment                                                                                                                                                                       |
+|--------------------------|------------------------------------------|------------------------------------------|---------------------------------------|--------------------------------------|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Protege Desktop**      | Full OWL 2                               | None (single-user)                       | None native                           | Minimal (OntoGraf plugin, stale)     | Free, open-source             | Low cost, high learning curve, no collaboration, stale plugins. Adequate for individual expert use; inadequate as a team platform.                                                    |
+| **WebProtege**           | OWL 2 subset                             | Web-based, multi-user                    | Change history (not git)              | Limited                              | Free, open-source             | The existing OWL was created here.  Limited expressiveness (no SWRL, limited annotation properties).  Stanford-hosted instance is unreliable.  Self-hosting requires Java stack.      |
+| **VocBench 3**           | Full OWL, SKOS, SKOS-XL, OntoLex, RDF    | Web-based, multi-user, role-based access | Change tracking, validation workflows | Tree views, SPARQL-based exploration | Free, open-source (EU-funded) | **Best-in-class for free OWL management.**  Backed by Semantic Turkey.  Supports import/export in all standard formats.  Active development.  Requires Java/Tomcat server deployment. |
+| **TopBraid EDG**         | Full OWL, SHACL, SKOS                    | Enterprise multi-user                    | Full audit trail, workflows           | Graph views, forms, dashboards       | Commercial (5-6 figure/year)  | Powerful but prohibitively expensive for an academic project.  Vendor lock-in risk.                                                                                                   |
+| **PoolParty**            | SKOS-focused, OWL support via extensions | Enterprise multi-user                    | Change tracking, workflows            | Graph views, thesaurus views         | Commercial (5-6 figure/year)  | Merged with Ontotext (now Graphwise).  SKOS-first design limits OWL expressiveness.  Enterprise pricing.                                                                              |
+| **Semaphore** (Progress) | SKOS, limited OWL                        | Enterprise multi-user                    | Audit trail                           | Limited                              | Commercial                    | Taxonomy-focused; insufficient for OWL-level expressiveness.                                                                                                                          |
+| **OntoPortal**           | OWL, SKOS                                | Web-based, multi-user                    | Version tracking                      | Ontology visualization               | Free, open-source             | Designed for ontology repositories (BioPortal model), not editing environments.  Overkill for vocabulary management.                                                                  |
+
+#### 5.2.2 Graph-Based Ontology Editors
+
+| Tool                       | Graph Editing                          | OWL Support   | Integration                               | License                | Risk Assessment                                                                                                           |
+|----------------------------|----------------------------------------|---------------|-------------------------------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| **Grafo**                  | Visual graph editing                   | OWL 2         | Export OWL/RDF                            | Free tier + commercial | Promising but early-stage; unclear long-term viability.  No Python API.                                                   |
+| **Metaphactory**           | Visual graph exploration, SPARQL-based | Full RDF/OWL  | REST API, SPARQL endpoint                 | Commercial             | Enterprise-grade knowledge graph platform.  Expensive.  More suited to large knowledge graphs than vocabulary management. |
+| **yEd / yEd Live**         | Visual graph editing                   | No native OWL | Export GraphML, import/export via scripts | Free                   | General-purpose graph editor.  Would require custom conversion scripts.  No semantic awareness.                           |
+| **draw.io / diagrams.net** | Visual diagramming                     | None          | Export SVG/PNG                            | Free                   | Visualization only; no semantic layer.  Useful for documentation diagrams, not for editing the ontology.                  |
+
+#### 5.2.3 Lightweight / Developer-Oriented Tools
+
+| Tool                   | Approach                                   | OWL Support                               | Integration                    | License           |
+|------------------------|--------------------------------------------|-------------------------------------------|--------------------------------|-------------------|
+| **LinkML**             | YAML-based schema language for linked data | Generates OWL, JSON Schema, SHACL, Python | CLI generators, Python library | Free, open-source |
+| **Cogs** (YAML -> OWL) | YAML vocabulary definitions -> OWL         | Generation only                           | Python scripts                 | Free, open-source |
+| **OWLReady2**          | Python library for OWL manipulation        | Full OWL 2                                | Direct Python integration      | Free, open-source |
+| **RDFLib**             | Python library for RDF                     | RDF/OWL parsing/serialization             | Direct Python integration      | Free, open-source |
+
+### 5.3 Recommendation
+
+**Primary workflow**: YAML control files in git, edited directly or via IDE.
+No external platform dependency.
+
+**Visualization and exploration**: **VocBench 3** deployed as a read-mostly
+tool. The generated OWL is imported into VocBench for browsing, graph
+exploration, and SPARQL queries. VocBench can also be used for experimental
+edits that are then back-ported to YAML.
+
+**YAML-to-OWL generation**: Evaluate **LinkML** as the schema language for
+the YAML control files. LinkML is purpose-built for defining linked-data
+schemas in YAML and can generate OWL, JSON Schema, Python dataclasses, and
+SHACL shapes from a single source. If LinkML's expressiveness proves
+sufficient for the LCMA model, it would replace custom generation scripts
+for G3a/G3c and provide a maintained, community-backed toolchain.
+
+**Fallback if LinkML is insufficient**: Custom Python generators using
+**RDFLib** (for OWL generation) and **Jinja2** (for Python code generation)
+operating on a custom YAML schema validated by JSON Schema.
+
+**Decision point**: LinkML suitability must be evaluated during G2 (YAML
+schema design). The evaluation criteria are:
+
+1. Can LinkML express metaconcept hierarchies with metafeature definitions?
+2. Can LinkML generate the `FancyStrEnum` pattern used in `musicalform`?
+3. Can LinkML incorporate IFLA LRM terms as external imports?
+
+---
+
+## 6. Tooling: Module-by-Module Analysis
+
+### 6.1 Vocabulary and Ontology Management (Primary)
+
+**Functional need**: Create, modify, browse, and validate concept definitions
+and their relations.
+
+**Paradigms**:
+
+| Paradigm                            | Description                                      | Suitability                                                              |
+|-------------------------------------|--------------------------------------------------|--------------------------------------------------------------------------|
+| Plain-text files in git (YAML/TOML) | Version-controlled, diff-friendly, CI-integrated | **Best fit for source of truth**.  Requires schema validation tooling.   |
+| Spreadsheet (cloud or local)        | Familiar UI, multi-user                          | Poor for nested data, merge conflicts in CSV, no validation              |
+| Ontology editor (Protege/VocBench)  | Purpose-built for OWL/SKOS                       | Good as secondary view; too heavyweight and opaque as primary source     |
+| Custom web GUI                      | Tailored to domain                               | High development cost; consider only if YAML editing proves insufficient |
+
+**Recommended solution**: YAML files in git + JSON Schema validation.
+Evaluate LinkML as the schema framework (see [Section 5.3](#53-recommendation)).
+
+**Dependency path**: This decision constrains G2 (schema design), G3a-c
+(generators), and G4 (CI checks). All downstream tooling must consume YAML
+as input.
+
+### 6.2 OWL/RDF Storage and Manipulation
+
+**Functional need**: Generate, parse, serialize, and query OWL/RDF
+representations of the model.
+
+**Paradigms**:
+
+| Paradigm                                   | Description                                             | Suitability                                                                                                            |
+|--------------------------------------------|---------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| File-based OWL (Turtle, RDF/XML)           | Generated files committed to git or produced on-the-fly | **Best fit**.  Simple, version-controlled, no server dependency.                                                       |
+| In-memory RDF (Python library)             | Load OWL into Python for programmatic manipulation      | Needed for generation and validation scripts.                                                                          |
+| Triple store (Fuseki, GraphDB, Blazegraph) | SPARQL endpoint for complex queries                     | Overkill for current vocabulary size (~100 concepts).  Consider if model grows to 1000+ concepts with dense relations. |
+| Graph database (Neo4j, etc.)               | Property graph model                                    | Impedance mismatch with OWL.  Not recommended.                                                                         |
+
+**Recommended solution**: **RDFLib** for in-memory OWL manipulation in Python.
+Generated OWL is serialized to Turtle format and committed to git. If LinkML
+is adopted, its built-in OWL generator replaces custom RDFLib scripts.
+
+**Dependency path**: RDFLib is already pure-Python with no external server
+dependencies. Produces minimal technological debt.
+
+### 6.3 Ontology Reasoning
+
+**Functional need**: Infer implicit relations, check consistency of concept
+definitions, validate OWL constraints.
+
+**Paradigms**:
+
+| Paradigm                              | Description                            | Suitability                                                                                                                    |
+|---------------------------------------|----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| OWL DL reasoner (HermiT, Pellet, ELK) | Full OWL reasoning                     | Needed if the ontology uses OWL axioms for consistency checking.  Java-based; can be called from Python via owlready2 or Jena. |
+| SHACL validation                      | Shape-based constraint checking on RDF | **Preferred** for vocabulary-level validation (cardinality, value ranges, required properties).  Python support via pySHACL.   |
+| SPARQL-based checks                   | Custom queries that detect violations  | Lightweight, no external reasoner needed.  Good for CI checks.                                                                 |
+
+**Recommended solution**: **pySHACL** for shape-based validation of the
+generated OWL. SHACL shapes are generated alongside OWL (from YAML or
+LinkML). Full OWL DL reasoning (HermiT/Pellet) is deferred until the
+ontology reaches a complexity that requires it.
+
+**Dependency path**: pySHACL depends on RDFLib. Minimal additional debt.
+
+### 6.4 Visualization and Graph Interaction
+
+**Functional need**: Display the ontology as an interactive graph for
+exploration, communication, and (optionally) editing.
+
+**Paradigms**:
+
+| Paradigm                                            | Description                                 | Suitability                                                                                    |
+|-----------------------------------------------------|---------------------------------------------|------------------------------------------------------------------------------------------------|
+| Web-based ontology browser (VocBench)               | Full OWL browsing, SPARQL, tree/graph views | **Best fit for collaborative exploration**.  Requires server deployment.                       |
+| Python visualization (pyvis, NetworkX + matplotlib) | Programmatic graph rendering                | Good for CI-generated diagrams in documentation.  Not interactive enough for daily use.        |
+| Standalone graph editor (yEd, Cytoscape)            | Desktop graph visualization                 | Requires manual export/import.  No semantic layer.                                             |
+| Web-based graph library (D3.js, Cytoscape.js)       | Custom interactive visualization            | High development cost.  Consider for the Quarto website (embedded interactive vocab explorer). |
+
+**Recommended solution**: **VocBench 3** for interactive exploration (import
+generated OWL).  **pyvis or Mermaid** for auto-generated diagrams embedded in
+Quarto documentation.
+
+**Dependency path**: VocBench requires a Java/Tomcat server. For the team,
+a shared deployment (e.g., on a university server or a small cloud VM) is
+sufficient. pyvis/Mermaid produce no server dependency.
+
+### 6.5 Documentation Generation
+
+**Functional need**: Render the Quarto website with auto-generated reference
+material (from the model) and manually curated content.
+
+**Paradigms**:
+
+| Paradigm         | Description                                      | Suitability                                                                         |
+|------------------|--------------------------------------------------|-------------------------------------------------------------------------------------|
+| Quarto (current) | Markdown/notebook rendering, multi-format output | **Already in use**.  Supports Jupyter, R, and plain Markdown.  Diataxis-compatible. |
+| Sphinx           | Python-native documentation                      | Would require migration.  No clear advantage over Quarto for this project.          |
+| MkDocs           | Markdown-based static site                       | Simpler than Quarto but less flexible.  No notebook support.                        |
+| Docusaurus       | React-based documentation                        | Overkill.  JavaScript dependency.                                                   |
+
+**Recommended solution**: **Quarto** (retain current setup). Auto-generated
+reference pages (vocabulary table, concept pages, vignette stubs) are produced
+by Python scripts that read YAML and output Markdown/QMD files into a
+designated directory. The Quarto build includes these alongside the wiki
+content.
+
+**Dependency path**: Quarto depends on Pandoc and (for Jupyter) a Python
+kernel. These are already in use.
+
+### 6.6 Grammar and Parser Infrastructure
+
+**Functional need**: Define the annotation label grammar, auto-generate a
+parser, validate labels.
+
+**Paradigms**:
+
+| Paradigm                        | Description                                   | Suitability                                                                                                                    |
+|---------------------------------|-----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| EBNF + DHParser (current)       | EBNF grammar, auto-generated Python parser    | **Already in use**.  DHParser is maintained and produces working parsers.  The EBNF is the standard's normative specification. |
+| EBNF + Lark                     | Alternative Python parser generator from EBNF | Lark is more widely used and better documented than DHParser.  Migration would require adapting the parse-tree processing.     |
+| PEG + Parsimonious/Arpeggio     | PEG grammar variant                           | No clear advantage over EBNF for this grammar.                                                                                 |
+| Custom regex/handwritten parser | No grammar file                               | Not maintainable for a growing standard.                                                                                       |
+
+**Recommended solution**: **Retain DHParser** for now. The EBNF is generated
+from YAML (G3b) and fed to DHParser. Evaluate migration to **Lark** if
+DHParser maintenance becomes a concern (DHParser is a smaller project with
+fewer maintainers).
+
+**Dependency path**: DHParser is a single Python dependency. Lark migration
+would require rewriting `core.py`'s parse-tree processing (~200 lines) but
+no architectural changes.
+
+### 6.7 Annotation Validation
+
+**Functional need**: Validate annotation labels (strings, CSV files, TiLiA
+JSON files) against the grammar and the model.
+
+**Current state**: `musicalform validate` supports expression, file, CSV, and
+JSON validation modes. Validation is grammar-level only (syntactic); it does
+not check whether a label's semantic content is consistent with the model
+(e.g., whether a function is valid at a given hierarchical level).
+
+**Recommended expansion**:
+
+1. **Syntactic validation** (current): grammar parsing via DHParser.
+2. **Vocabulary validation**: check that all terms in a label exist in the
+   VocabularyRegistry.
+3. **Structural validation**: check that containment relations are respected
+   (e.g., `presentation` must appear within a `sentence` or `hybrid` type).
+4. **Cross-reference validation**: check that material references resolve to
+   existing named segments.
+
+**Dependency path**: Levels 2-4 depend on G5 (VocabularyRegistry) and the
+YAML schema encoding containment/constraint rules.
+
+### 6.8 CI/CD and Version Management
+
+**Functional need**: Automated testing, consistency checking, and release
+management.
+
+**Current state**: GitHub Actions CI (`ci.yml`) runs tox on Python 3.11/3.12.
+Release-please (`release-please.yml`) manages versioning on the `development`
+branch.
+
+**Recommended expansion**:
+
+| CI Check          | Description                                                                  | Depends on        |
+|-------------------|------------------------------------------------------------------------------|-------------------|
+| `check-sync`      | Verify all derived artifacts (Python enums, EBNF, OWL) match the YAML source | G3a, G3b, G3c, G4 |
+| `check-grammar`   | Re-generate parser from EBNF, run grammar tests                              | G3b               |
+| `check-owl`       | Validate generated OWL with pySHACL shapes                                   | G3c               |
+| `check-vignettes` | Verify all concepts in YAML have a vignette stub                             | G7                |
+| `test-validation` | Run annotation validation on test corpus (annotation_pilot)                  | G6                |
+| `preview-docs`    | Build Quarto site, deploy preview for PR review                              | G10               |
+
+**Version numbering**: SemVer with domain-specific meaning:
+
+- **Major**: Breaking changes to the annotation standard (existing labels may
+  become invalid).
+- **Minor**: New concepts, metaconcepts, or metafeatures added; existing labels
+  remain valid.
+- **Patch**: Bug fixes, documentation updates, tooling changes that do not
+  affect the model.
+
+---
+
+## 7. Derivation Hierarchy and Change Propagation
+
+### 7.1 Source of Truth
+
+```
+YAML control files (vocabulary/*.yaml)
+    |
+    |--- [G3a: generate] ---> Python enums + dataclasses
+    |                           (musicalform/src/musicalform/enums.py, core.py)
+    |
+    |--- [G3b: generate] ---> EBNF grammar
+    |                           (grammar/lcma_standard.ebnf)
+    |                             |
+    |                             |--- [DHParser] ---> Parser script
+    |                                   (musicalform/src/musicalform/cli/lcma_standardParser.py)
+    |
+    |--- [G3c: generate] ---> OWL ontology
+    |                           (ontology/generated/lcma_ontology.ttl)
+    |
+    |--- [G7: generate] ----> Vignette stubs
+    |                           (wiki/vignettes/vignette-<concept>.md)
+    |
+    |--- [G10: generate] ---> Vocabulary reference pages
+                                (docs/reference/generated/)
+```
+
+The **Python metaconcept hierarchy** (abstract classes, Protocols, structural
+logic in `core.py`) is maintained directly in Python and is upstream of YAML
+in the sense that the YAML schema must conform to the structural rules defined
+in Python. However, the vocabulary data flows from YAML to Python.
+
+```
+Python metaconcept hierarchy (core.py, structural logic)
+    ^
+    | (schema constraints flow up)
+    |
+YAML control files (vocabulary/*.yaml)
+    |
+    | (data flows down to all derived artifacts)
+    v
+```
+
+### 7.2 Change Propagation Rules
+
+1. **Any change to a derived artifact that is not reflected in the YAML source
+   is either (a) a manual curation in a designated overlay location, or (b) a
+   bug.**
+
+2. **Designated overlay locations** (where manual content coexists with
+   generated content):
+    - Vignette narratives: the `## Description` section (and below) in vignette
+      files is manually curated. The header and metadata are generated.
+    - Wiki pages: entirely manually curated.
+    - Quarto configuration: manually maintained.
+
+3. **CI enforcement**: The `check-sync` CI job regenerates all derived
+   artifacts from YAML and compares them to the committed versions. Any
+   difference causes a build failure. This ensures that no hand-edit to a
+   generated file can be merged without updating the YAML source.
+
+4. **Parser script duplication**: The parser script currently exists in two
+   locations (`grammar/` and `musicalform/src/musicalform/cli/`). Under the
+   new architecture, the canonical location is within the Python package. The
+   `grammar/` copy is removed; the EBNF source remains in `grammar/` and the
+   generation step places the parser directly into the package.
+
+### 7.3 Change Propagation Example
+
+A musicologist wants to add the concept "bridge" (abbreviation "br") as a
+function at the section level:
+
+1. Edit `vocabulary/functions.yaml`, adding:
+   ```yaml
+   bridge:
+     abbreviations: [br]
+     type: function
+     hierarchical_level: section
+     explanation: "Transition module."
+     provenance: pop/rock form theory
    ```
 
-3. **Integration with the existing FancyStrEnum** for backward compatibility:
-   the enum member `SpecificFunctionName.antecedent` continues to exist, and
-   the `VocabularyRegistry` maps it to the `Antecedent` class.
+2. Run `make generate` locally (or let CI do it):
+    - `enums.py` gains `bridge = auto()` and `br = bridge` in
+      `SpecificFunctionName`.
+    - `lcma_standard.ebnf` gains `| 'bridge' | 'br'` in the
+      `SpecificFunction` rule.
+    - `lcma_ontology.ttl` gains a new OWL individual.
+    - `wiki/vignettes/vignette-bridge.md` is created as a stub.
 
-> **QUESTION FOR TEAM**: How tightly should enum members and concept classes
-> be coupled?  Options:
->
-> **Option A -- Enum members reference classes**: Each enum member gets a
-> `.concept_class` attribute pointing to the corresponding class.  The enum
-> remains the primary way to instantiate from strings; the class provides
-> the full definition.
->
-> **Option B -- Classes replace enums for concepts**: Concepts are only
-> classes; the enum is reduced to a pure string-lookup mechanism that returns
-> the class.  More OOP-pure but bigger refactor.
->
-> **Option C -- Parallel with cross-references**: Enums and classes coexist
-> independently, linked through the registry.  Least disruption to existing
-> code.
->
-> **Recommendation**: Option A -- it preserves the convenient `FancyStrEnum`
-> instantiation while giving each concept a rich class definition.
+3. Commit all generated files + YAML change. Open PR.
 
-### 4.5 The Horizontal Layers (Abstraction Levels)
+4. CI runs: `check-sync` passes (generated files match YAML), grammar tests
+   pass, OWL validation passes.
 
-The model's horizontal layering (universal -> style-specific) maps to Python's
-package/module hierarchy:
+5. Reviewers inspect the YAML diff and the generated diffs. Approve.
+
+6. Merge triggers release-please -> new minor version.
+
+---
+
+## 8. Collaborative Workflow
+
+### 8.1 The Daily Cycle
+
+The following workflow is optimized for the operation that will happen
+thousands of times: changing a definition or adding a term.
 
 ```
-concepts/
-  formal_functions/
-    _base.py                    # Universal: BeginningFunction, MiddleFunction, EndingFunction
-    beginning.py                # Universal beginning functions (abstract FeatureSpecs)
-    middle.py
-    ending.py
-    classical/                  # Style layer: classical common practice
-      __init__.py
-      beginning.py              # e.g., Antecedent with classical FeatureSpec values
-      middle.py
-      ending.py
-    romantic/                   # Style layer: 19th century
-      ...
-    popular/                    # Style layer: popular music
-      ...
+1. Musicologist edits YAML file(s)
+   (directly in GitHub web editor, VS Code, or vocabulary GUI)
+       |
+       v
+2. Opens Pull Request
+       |
+       v
+3. CI automatically:
+   a. Validates YAML against JSON Schema
+   b. Regenerates all derived artifacts
+   c. Runs check-sync (generated == committed)
+   d. Runs grammar tests (parse test corpus)
+   e. Runs OWL validation (pySHACL)
+   f. Builds Quarto preview site
+       |
+       v
+4. PR shows:
+   - YAML diff (the substantive change)
+   - Generated diffs (auto-produced, reviewable)
+   - Quarto preview link (rendered documentation)
+   - CI status (all green / failures with messages)
+       |
+       v
+5. Colleagues review and discuss
+   (domain review of the concept definition,
+    not code review of generated artifacts)
+       |
+       v
+6. Merge -> release-please creates version bump PR
+       |
+       v
+7. Merge version bump -> new release tag
+   - GitHub Pages rebuilds
+   - PyPI publish (if configured)
+   - VocBench OWL import (if configured)
 ```
 
-At each layer, a concept class can:
-- **Inherit** from the layer above, adding or narrowing FeatureSpecs.
-- **Override** FeatureSpec value ranges to be more specific.
-- Carry a `_scope` attribute declaring its applicability.
+### 8.2 Roles
 
-This means that `concepts.formal_functions.classical.Antecedent` is a
-subclass of `concepts.formal_functions.beginning.Antecedent` (or of a
-universal `BeginningFunction`), with classical-specific feature constraints
-added.
+| Role                | Responsibilities                                                                    | Tools                                        |
+|---------------------|-------------------------------------------------------------------------------------|----------------------------------------------|
+| **Musicologist**    | Edit concept definitions (YAML), write vignette narratives, review peer definitions | GitHub web editor / VS Code / vocabulary GUI |
+| **Model architect** | Maintain Python metaconcept hierarchy, design YAML schema, write generators         | IDE (PyCharm/VS Code), Python                |
+| **Annotator**       | Create TiLiA analyses, report validation failures                                   | TiLiA, `musicalform validate` CLI            |
+| **Maintainer**      | CI configuration, release management, infrastructure                                | GitHub Actions, Quarto, VocBench server      |
 
-> **QUESTION FOR TEAM**: Is the inheritance approach correct here, or should
-> style-specific layers be *compositions* (a universal Antecedent + a style
-> configuration object)?  Inheritance is natural for "is-a" relations;
-> composition is better if the same concept can appear in multiple style
-> contexts with different configurations simultaneously.
+### 8.3 Branch Strategy
 
-### 4.6 The Feature Hierarchy (Bottom-Up)
+- `main`: production; protected; only release-please PRs merge here.
+- `development`: integration branch; PRs from feature branches merge here.
+  CI runs on push and PR.
+- Feature branches: `vocab/<concept-name>`, `fix/<issue>`, `feat/<feature>`.
 
-Atomic features are Python classes that act as functions:
+---
+
+## 9. Documentation Architecture
+
+### 9.1 Diataxis Structure (Retained)
+
+| Quadrant         | Source                            | Content type     | Generation                                           |
+|------------------|-----------------------------------|------------------|------------------------------------------------------|
+| **Tutorial**     | `wiki/tutorials/`                 | Manually curated | None                                                 |
+| **How-To**       | `wiki/`                           | Manually curated | None                                                 |
+| **Explanations** | `wiki/`                           | Manually curated | None                                                 |
+| **Reference**    | `wiki/Syntax.md`, generated pages | Mixed            | Vocabulary table, concept reference pages, vignettes |
+
+### 9.2 Wiki Submodule Resolution
+
+The wiki submodule is retained for manually curated content (tutorials,
+how-tos, explanations, syntax reference). Browser-based editing via the
+GitHub wiki interface remains available for these pages.
+
+The vocabulary reference (currently `Vocabulary.ipynb` reading a CSV) is
+replaced by auto-generated reference pages produced from YAML. The Jupyter
+notebook is deprecated once the generated reference pages are operational.
+
+The CSV file (`data/Form vocabulary.csv`) is deprecated once the YAML control
+files are the source of truth. A one-time migration (CSV -> YAML) is part of
+G1/G2.
+
+### 9.3 Vignette Workflow
+
+Each concept in the YAML source gets a vignette page. The page has two
+sections:
+
+1. **Auto-generated header** (regenerated on every build):
+    - Concept name, abbreviations, hierarchical level, type/function
+    - Metaconcept membership
+    - Metafeature summary (when metafeatures are defined)
+    - Related concepts (containment, see-also)
+    - Theoretical provenance
+
+2. **Manually curated body** (preserved across regeneration):
+    - Narrative description
+    - Musical examples with analysis
+    - Edge cases and common mistakes
+    - References
+
+The generation script detects the boundary marker (e.g.,
+`<!-- BEGIN MANUAL CONTENT -->`) and preserves everything below it. New
+vignette stubs are created with a template body that the author fills in.
+
+### 9.4 Quarto Build Pipeline
+
+```
+make docs:
+  1. Generate reference pages from YAML -> docs/reference/generated/
+  2. Generate vignette stubs (if missing) -> wiki/vignettes/
+  3. Generate vocabulary table QMD -> docs/reference/vocabulary.qmd
+  4. Run quarto render (includes wiki/ content + generated content)
+  5. Output to docs/ (GitHub Pages source)
+```
+
+---
+
+## 10. Phased Migration Path
+
+### Phase 0: Preparation (1-2 weeks)
+
+- G1: Audit and reconcile the term inventory across CSV, EBNF, and Python
+  enums. Produce a consolidated term list.
+- Set up the `vocabulary/` directory in the guidelines repo.
+
+### Phase 1: Schema and Generators (2-4 weeks)
+
+- G2: Design the canonical YAML schema. Evaluate LinkML vs. custom schema.
+  Define JSON Schema for validation.
+- G3a: Implement YAML -> Python generator. Verify it produces output
+  identical to the current hand-written enums.
+- G3b: Implement YAML -> EBNF generator (or EBNF back-import + YAML ->
+  EBNF roundtrip).
+- G4: Implement `check-sync` CI job.
+
+### Phase 2: OWL and Validation (2-3 weeks)
+
+- G3c: Implement YAML -> OWL generator with human-readable URIs and IFLA LRM
+  imports.
+- G8: Write cross-source consistency tests and property-based grammar tests.
+- G9: Set up OWL export/import bridge (initially export-only).
+- Deploy VocBench instance, import generated OWL.
+
+### Phase 3: Documentation and Vignettes (2-4 weeks)
+
+- G7: Implement vignette stub generator.
+- G10: Rebuild Quarto pipeline with generated reference pages.
+- Deprecate `Vocabulary.ipynb` and CSV.
+- Begin vignette authoring campaign (assign concepts to musicologists).
+
+### Phase 4: Validation Expansion (2-3 weeks)
+
+- G5: Implement VocabularyRegistry.
+- G6: Expand annotation validation to vocabulary/structural/cross-reference
+  levels.
+- Begin iterative consolidation (G11) with annotation_pilot analyses.
+
+### Phase 5: Workflow Maturation (Ongoing)
+
+- G12: Evaluate and deploy vocabulary management GUI (if YAML editing proves
+  insufficient for the team).
+- G13: Integrate human review workflow with CI previews.
+- Continue vignette authoring, model refinement, annotation validation.
+
+---
+
+## 11. Open Questions
+
+The following questions require human input about the domain model and cannot
+be resolved by architectural decisions alone.
+
+### Q1: Relations Between Concepts
+
+What is the complete set of relation types between concepts? The current
+model has:
+
+- **contains** (hierarchical composition: a sentence contains a presentation
+  and a continuation)
+- **is realised as** (function -> type: a theme is realised as a sentence)
+
+Are there additional relation types needed? Candidates:
+
+- **precedes** / **follows** (temporal ordering within a parent)
+- **contrasts with** (functional contrast between sibling concepts)
+- **transforms into** (functional transformation relation)
+- **is a specialization of** (sub-concept hierarchy beyond metaconcept ->
+  concept)
+
+### Q2: Metafeature Value Types
+
+What types of values can a metafeature take? The terminology defines several
+possibilities:
+
+- Probability distribution
+- Score-based ranking
+- Single imperative value
+- Logic-based values
+
+Are all of these needed in v0.2? Which should be implemented first?
+
+### Q3: Congruence Scoring
+
+How is the congruence score computed when a concept is resolved against a
+musical object? Is this:
+
+- A weighted sum of individual metafeature scores?
+- A threshold-based pass/fail for each metafeature?
+- A fuzzy logic combination?
+- Domain-specific and different per concept?
+
+### Q4: Style Conditioning
+
+How are metaconcepts conditioned by musical style? Is style an explicit
+parameter in the YAML schema (e.g., `style: viennese_classic`), or is it
+implicit in the concept hierarchy (e.g., `half_cadence_viennese_classic` is a
+concept under the `half_cadence` metaconcept)?
+
+### Q5: IFLA LRM Subclasses
+
+Which specific subclasses of Work, Expression, Manifestation, and Item are
+"most relevant" for inclusion in the OWL ontology? The paper
+(`Brahms_Form_New_text.html`) may specify these, but explicit confirmation
+is needed.
+
+### Q6: Annotation Pilot Scope
+
+How many TiLiA analysis files exist in annotation_pilot? What is the
+expected pass rate when validated against the current grammar? This
+determines the scope of G11 (iterative consolidation).
+
+---
+
+## Appendices
+
+### Appendix A: Conceptual Package Structure (Draft)
+
+> **Note**: This is a conceptual draft subject to substantial change depending
+> on decisions about LinkML adoption, the YAML schema design, and evolving
+> understanding of the domain model.
+
+```
+guidelines/                          # This repository
+├── vocabulary/                      # YAML control files (source of truth)
+│   ├── schema.yaml                  # YAML schema definition (or LinkML schema)
+│   ├── functions.yaml               # Specific function definitions
+│   ├── units.yaml                   # Generic unit definitions
+│   ├── types.yaml                   # Formal type definitions
+│   ├── operators.yaml               # Material operator definitions
+│   └── relations.yaml               # Inter-concept relations
+├── grammar/
+│   └── lcma_standard.ebnf           # Generated from vocabulary/ YAML
+├── ontology/
+│   ├── generated/
+│   │   └── lcma_ontology.ttl        # Generated from vocabulary/ YAML
+│   ├── shapes/
+│   │   └── lcma_shapes.ttl          # SHACL shapes for OWL validation
+│   └── protege/
+│       └── form_ontology.owl        # Deprecated; kept for reference
+├── generators/
+│   ├── yaml_to_python.py            # G3a
+│   ├── yaml_to_ebnf.py             # G3b
+│   ├── yaml_to_owl.py              # G3c
+│   ├── yaml_to_vignettes.py        # G7
+│   └── yaml_to_docs.py             # G10
+├── wiki/                            # Submodule: manually curated content
+│   ├── tutorials/
+│   ├── vignettes/                   # Vignette stubs (generated) + narratives (manual)
+│   ├── Syntax.md
+│   └── ...
+├── data/
+│   └── Form vocabulary.csv          # Deprecated; kept for reference
+├── _quarto.yml
+├── Vocabulary.ipynb                 # Deprecated; replaced by generated pages
+├── Makefile                         # Targets: generate, check-sync, docs, test
+└── architecture.md                  # This document
+
+musicalform/                         # Submodule: Python library
+├── src/musicalform/
+│   ├── __init__.py
+│   ├── enums.py                     # Generated from vocabulary/ YAML (G3a)
+│   ├── core.py                      # Domain model (manually maintained)
+│   ├── registry.py                  # VocabularyRegistry (G5)
+│   ├── utils.py
+│   └── cli/
+│       ├── main.py
+│       ├── validate.py
+│       └── lcma_standardParser.py   # Generated from EBNF by DHParser
+├── tests/
+│   ├── test_enums.py
+│   ├── test_core.py
+│   ├── test_registry.py
+│   ├── test_validation.py
+│   └── test_consistency.py          # Cross-source consistency tests (G8)
+└── pyproject.toml
+```
+
+### Appendix B: Interface Contracts (Draft)
+
+#### B.1 YAML Concept Entry Schema
+
+```yaml
+# JSON Schema for a single concept entry (conceptual draft)
+type: object
+required: [ abbreviations, category, hierarchical_level ]
+properties:
+  abbreviations:
+    type: array
+    items: { type: string }
+    description: "Short labels; first element is the preferred abbreviation."
+  category:
+    type: string
+    enum: [ function, type, subtype, operator ]
+  hierarchical_level:
+    type: string
+    enum: [ movement, section, phrase, subphrase, cross-level ]
+  contains:
+    type: array
+    items: { type: string }
+    description: "Canonical names of concepts this concept contains."
+  provenance:
+    type: string
+    description: "Theoretical source (e.g., 'Caplin1998')."
+  explanation:
+    type: string
+  vignette:
+    type: string
+    description: "Path to the vignette file."
+  metafeatures:
+    type: object
+    description: "Metafeature definitions (schema TBD per Q2)."
+  style:
+    type: string
+    description: "Musical style scope (schema TBD per Q4)."
+```
+
+#### B.2 VocabularyRegistry Interface
 
 ```python
-class CadenceStrength(Feature):
-    """Measures the strength of a cadential pattern.
-
-    Returns a value on the ordinal scale:
-    PAC > IAC > HC > DC > EC > none
-    """
-    domain = MusicalDomain.HARMONY
-    return_type = CadenceType  # an enum
-
-    def __call__(self, musical_object: MusicalObject) -> CadenceType:
-        # Operationalization -- calls into music21, partitura, etc.
-        ...
-```
-
-Features compose into FeatureSpecs within concept definitions.  The
-bottom-up modelling work will populate the `concepts/features/` subpackage
-over the coming year+.
-
----
-
-## 5. Downstream Components and Interfaces
-
-### 5.1 EBNF Grammar (Interface: `standard/grammar.py`)
-
-**Current state**: The grammar is manually authored and the parser is
-auto-generated from it.
-
-**Two options going forward**:
-
-**Option E1 -- Grammar generated from Python model**:
-A script traverses all `FancyStrEnum` members (canonical names + aliases) and
-generates the relevant EBNF production rules.  The structural rules (Label,
-FormLabel, MaterialBrackets, etc.) remain manually maintained but the vocabulary
-rules (`SpecificFunction`, `FormalType`, `Unit`) are generated.
-
-- Pro: guarantees vocabulary sync; a new term added to the enum immediately
-  appears in the grammar.
-- Con: the grammar's structure still needs manual curation; the generated parts
-  must be clearly delimited.
-
-**Option E2 -- Grammar validated against Python model**:
-The grammar remains manually authored but CI checks verify that every enum
-member (and alias) appears in the grammar, and every grammar terminal maps to
-an enum member.
-
-- Pro: simpler; preserves the grammar as a human-readable specification.
-- Con: requires discipline; two places to update.
-
-**Recommendation**: **Option E1 for vocabulary rules, manual for structural
-rules**, with a CI check that the generated grammar round-trips correctly
-through the parser.
-
-### 5.2 OWL Ontology (Interface: `ontology/owl_export.py`)
-
-**Goal**: The class hierarchy in Python produces an isomorphic OWL class
-hierarchy.  OWL-specific constructs (properties with domain/range, restrictions,
-SWRL rules) are encoded as Python class attributes and exported.
-
-**Architecture**:
-
-```
-Python concept class hierarchy
-    |
-    v
-owl_export.py  ──>  form_ontology.owl  (RDF/XML or Turtle)
-    |                     |
-    |                     v
-    |              pyLODE  ──>  ontology reference HTML
-    |
-    v
-owl_import.py  <──  (validation: does the OWL match Python?)
-```
-
-**Key mappings**:
-
-| Python | OWL |
-|--------|-----|
-| Concept class | `owl:Class` |
-| Class inheritance | `rdfs:subClassOf` |
-| `_abbreviations` | `skos:altLabel` |
-| Class docstring (formal section) | `rdfs:comment`, `skos:definition` |
-| `_defining_features` | `owl:Restriction` (someValuesFrom/allValuesFrom) |
-| Feature class | `owl:ObjectProperty` or `owl:DatatypeProperty` |
-| `domain`/`return_type` | `rdfs:domain`/`rdfs:range` |
-| Enum members | `owl:NamedIndividual` (if needed) or `skos:Concept` |
-
-> **QUESTION FOR TEAM**: Should we maintain a single monolithic OWL file, or
-> split into modular ontologies (one per metaconcept family) that import each
-> other?  Modular is more maintainable and allows independent loading, but
-> requires careful namespace management.
-
-### 5.3 Documentation Homepage (Interface: `docs/`)
-
-**Current state**: Quarto renders the wiki submodule into a static site.
-
-**Proposed changes**:
-
-1. **Keep Quarto** as the rendering engine (it handles markdown, Jupyter
-   notebooks, cross-references, and bibliography well).
-2. **Replace** the wiki submodule approach with a model where:
-   - Auto-generated pages (vocabulary tables, vignette stubs, concept
-     reference) are produced by `musicalform`'s doc bridge and committed
-     to the guidelines repo.
-   - Manually curated content (tutorials, how-tos, explanations) remains
-     in the wiki or moves to the guidelines repo directly.
-3. **Vignette workflow**: Each concept gets a vignette directory containing:
-   - `_generated.md` -- auto-generated stub with formal definition, hierarchy
-     position, abbreviations, links (regenerated on every release; never
-     manually edited).
-   - `content.md` -- manually curated musicological discussion, examples,
-     figures (created once as a stub, then edited by domain experts).
-   - The final vignette page includes both via Quarto's `include` mechanism.
-
-> **QUESTION FOR TEAM**: Should we keep the wiki submodule for browser-editable
-> content, or move everything into the guidelines repo proper?
->
-> **Option D1 -- Keep wiki submodule**: Non-technical contributors edit in the
-> browser; a CI step updates the submodule and rebuilds.  Friction: submodule
-> update is a manual step; merge conflicts possible.
->
-> **Option D2 -- Direct editing in repo**: Contributors edit markdown directly
-> via GitHub's web editor or PRs.  Friction: slightly less discoverable than
-> the wiki; requires basic git knowledge.
->
-> **Option D3 -- Hybrid**: Generated content lives in the repo; manually curated
-> content stays in the wiki.  Risk: split-brain.
->
-> **Recommendation**: Option D2 for simplicity and consistency, with clear
-> `CONTRIBUTING.md` instructions.  The wiki can remain as a staging area for
-> rough notes, but the authoritative content lives in the repo.
-
-### 5.4 Vocabulary Management and Visualization
-
-**Goal**: A way to view the concept hierarchy as a graph, filter by metaconcept
-family, inspect definitions, and (potentially) manipulate relations.
-
-**Proposed approach** (layered, build incrementally):
-
-1. **Phase 1 -- Static exports** (immediate):
-   - `VocabularyRegistry.to_dataframe()` produces the table currently in
-     `Vocabulary.ipynb`, replacing it with an auto-generated CSV/markdown.
-   - A Graphviz DOT export produces a static hierarchy diagram for the docs.
-
-2. **Phase 2 -- Interactive notebook** (short-term):
-   - A Jupyter notebook using `pyvis` or `plotly` renders an interactive graph
-     from the registry.  Can be hosted on the Quarto site.
-
-3. **Phase 3 -- Dedicated GUI** (medium-term, if needed):
-   - A lightweight web app (e.g., Streamlit, Panel, or a custom Flask app)
-     providing search, filter, graph navigation, and potentially inline
-     editing of concept properties.
-
-> **QUESTION FOR TEAM**: How important is in-browser editing of the model
-> graph?  If it is a must-have, it significantly impacts architecture (needs
-> a server, persistence layer, conflict resolution).  If read-only
-> visualization suffices for now, Phases 1--2 cover the need.
-
-### 5.5 Annotation Validation Pipeline (Interface: `cli/validate.py`)
-
-**Current state**: The CLI validates individual labels and TiLiA JSON files
-against the EBNF grammar.
-
-**Proposed expansion**:
-
-```
-annotation_pilot repo
-    |
-    v
-musicalform validate -d /path/to/pilot  (existing)
-    |
-    v
-Validation Report CSV
-    |
-    +--> Syntactic validity (grammar parse: pass/fail)
-    +--> Semantic validity (object construction: pass/fail)  [existing]
-    +--> Constraint violations (new: FeatureSpec checks)
-    +--> Version compatibility (new: which standard version?)
-    +--> Suggested migrations (new: old label -> current label)
-```
-
-### 5.6 Nextcloud Vocab Spreadsheet (Deprecation Path)
-
-The spreadsheet has served its purpose as a low-barrier entry point.  Going
-forward:
-
-1. **Freeze** the spreadsheet at its current state.
-2. **Import** all non-deprecated rows into the Python model (enum members +
-   concept class stubs).
-3. **Replace** the `Vocabulary.ipynb` with an auto-generated markdown table
-   produced by the doc bridge.
-4. **Archive** the spreadsheet with a note pointing to the Python model.
-
-> **QUESTION FOR TEAM**: Are there active users of the spreadsheet who would
-> be disrupted by this transition?  If so, we can maintain a read-only CSV
-> export as a transitional measure.
-
----
-
-## 6. Collaborative Workflow and Version Management
-
-### 6.1 The Modelling Iteration Cycle
-
-```
-                    +---------+
-                    | PROPOSE |   (branch: feature/xxx or model/xxx)
-                    +----+----+
-                         |
-                         v
-                    +---------+
-                    | DEVELOP |   modify Python model, add tests
-                    +----+----+
-                         |
-                         v
-                    +---------+
-                    |  CHECK  |   CI: lint, test, consistency checks
-                    +----+----+   (grammar sync, OWL sync, vignette stubs)
-                         |
-                  pass    |    fail
-                  +-------+-------+
-                  |               |
-                  v               v
-            +---------+     +---------+
-            | REVIEW  |     |   FIX   |
-            | (human) |     +----+----+
-            +----+----+          |
-                 |               v
-                 |          (back to CHECK)
-                 v
-            +---------+
-            |  MERGE  |   -> development branch
-            +----+----+
-                 |
-                 v
-            +---------+
-            | RELEASE |   version bump, tag, rebuild docs,
-            +----+----+   regenerate OWL, update guidelines site
-                 |
-                 v
-            +---------+
-            |VALIDATE |   run against annotation_pilot
-            +---------+
-```
-
-### 6.2 Branch Strategy
-
-| Branch | Purpose | Protection |
-|--------|---------|------------|
-| `main` | Production releases only | Requires PR + 2 approvals |
-| `development` | Integration branch; always consistent | Requires PR + CI pass |
-| `model/*` | Model changes (new concepts, hierarchy changes) | PR to development |
-| `standard/*` | Annotation standard changes (grammar, parsing) | PR to development |
-| `docs/*` | Documentation-only changes | PR to development |
-| `fix/*` | Bug fixes | PR to development |
-
-### 6.3 Version Numbering
-
-A single version number applies to the entire model ecosystem.
-
-**Proposed scheme**: Semantic Versioning with domain-specific meaning:
-
-| Increment | When |
-|-----------|------|
-| **Major** (e.g., 1.0.0 -> 2.0.0) | Breaking changes to the annotation standard that invalidate existing annotations without a migration path |
-| **Minor** (e.g., 0.1.0 -> 0.2.0) | New concepts, new features, new metaconcept families; non-breaking additions to the standard |
-| **Patch** (e.g., 0.1.0 -> 0.1.1) | Bug fixes, documentation improvements, clarifications that do not change the model |
-
-**Version alignment**: The `musicalform` library, the EBNF grammar, the OWL
-ontology, and the documentation homepage all carry the same version number.
-Release-please (already configured) manages this in the library; the other
-artifacts are regenerated and tagged as part of the release workflow.
-
-### 6.4 CI Consistency Checks
-
-The following checks run on every PR to `development`:
-
-| Check | What it verifies |
-|-------|-----------------|
-| `test-unit` | All pytest tests pass |
-| `test-integration` | End-to-end: random label generation -> parse -> object -> serialize -> re-parse |
-| `check-grammar-sync` | Every enum member/alias appears in the EBNF grammar and vice versa |
-| `check-owl-sync` | The generated OWL is structurally equivalent to the committed OWL |
-| `check-vignette-stubs` | Every concept has a vignette directory with at least a generated stub |
-| `check-vocab-table` | The generated vocab table matches the committed table |
-| `lint` | black, isort, flake8, mypy |
-
-### 6.5 The Human Review Stage
-
-For model changes (PRs to `development` from `model/*` branches):
-
-1. The PR description must include a **Model Change Summary** using a template:
-   - What concepts were added/modified/removed
-   - What metaconcept families are affected
-   - What downstream artifacts need updating
-   - Whether existing annotations are affected
-2. At least **two project members** must approve, ideally from different
-   sub-teams.
-3. The review explicitly checks whether the musicological definitions
-   (docstrings, vignette content) are accurate and reflect the group's
-   consensus.
-
----
-
-## 7. Tooling Recommendations
-
-### 7.1 Core Python Stack
-
-| Package | Purpose | Maturity / Risk |
-|---------|---------|-----------------|
-| **rdflib** (7.6.0) | RDF foundation: parse/serialize OWL, SPARQL queries | Very active; multi-maintainer; very low risk |
-| **owlready2** (0.50) | OWL semantics: class manipulation, reasoning | Active; single maintainer; medium risk |
-| **pySHACL** | SHACL validation of RDF graphs | Active; RDFLib org; low risk |
-| **pyLODE** (3.4.2) | HTML documentation from OWL | Active; RDFLib org; low risk |
-| **OWL-RL** | Lightweight OWL reasoning (no Java) | Active; RDFLib org; low risk |
-| **skosify** | SKOS vocabulary validation | Maintained; institutional; low-medium risk |
-| **DHParser** (1.8.3+) | EBNF -> parser generation | Current dependency; working |
-| **pandas** | Data manipulation (validation reports) | Current dependency; ubiquitous |
-
-> **QUESTION FOR TEAM**: The owlready2 single-maintainer risk.  Mitigation
-> options:
->
-> **M1**: Use owlready2 only for reasoning; use rdflib for all I/O.  If
-> owlready2 is abandoned, reasoning can be replaced with OWL-RL or a Java
-> reasoner.
->
-> **M2**: Use rdflib exclusively and encode OWL semantics manually.  More work
-> upfront; no reasoning out-of-the-box.
->
-> **M3**: Use owlready2 now, monitor maintenance, plan migration if needed.
-> Pragmatic, but requires vigilance.
->
-> **Recommendation**: M1 -- use owlready2 behind an abstraction layer
-> (`ontology/` subpackage) so it can be swapped if necessary.
-
-### 7.2 Visualization
-
-| Phase | Tool | Output |
-|-------|------|--------|
-| Immediate | Graphviz via `rdflib` + `pydot` | Static SVG/PNG for docs |
-| Short-term | Mermaid diagrams (generated) | Inline in Quarto docs |
-| Medium-term | `plotly` or `pyvis` | Interactive HTML embeds |
-
-### 7.3 Documentation
-
-| Component | Tool | Notes |
-|-----------|------|-------|
-| Static site | **Quarto** (current) | Supports markdown, Jupyter, cross-refs, bibliography |
-| API reference | **Sphinx** or **mkdocstrings** | For Python API docs specifically |
-| Ontology reference | **pyLODE** | Standalone HTML from OWL |
-
-> **QUESTION FOR TEAM**: Should the Python API docs be hosted separately from
-> the guidelines site, or integrated into it?  Quarto can render Sphinx output
-> via includes, but it is not seamless.
-
----
-
-## 8. Migration Path
-
-### Phase 0: Foundation (Weeks 1--3)
-
-**Goal**: Restructure the `musicalform` library without changing functionality.
-
-1. Reorganize into the proposed package structure (Section 4.2).
-2. Move enums into `vocabulary/` with one module per enum family.
-3. Move `core.py` domain classes into `standard/label.py` and
-   `standard/parsing.py`.
-4. Create `vocabulary/registry.py` with a basic `VocabularyRegistry`.
-5. Add a `__version__` that matches the grammar's stated version.
-6. Expand test coverage to include end-to-end parsing.
-7. Ensure all existing functionality still works.
-
-### Phase 1: Vocabulary Consolidation (Weeks 3--6)
-
-**Goal**: Establish the Python model as the single source of truth for
-vocabulary.
-
-1. Audit the vocab spreadsheet, the EBNF grammar, and the Python enums:
-   produce a three-way diff showing what is in each but not the others.
-2. With human review, decide the canonical status of each term.
-3. Update the Python enums to reflect the canonical vocabulary.
-4. Implement grammar generation (Option E1) for vocabulary rules.
-5. Replace `Vocabulary.ipynb` with a generated table.
-6. Add CI checks for grammar-vocabulary sync.
-
-### Phase 2: Concept Hierarchy (Weeks 6--12)
-
-**Goal**: Introduce the concept class hierarchy and metaconcept framework.
-
-1. Define the `Metaconcept`, `Concept`, `Feature`, `FeatureSpec` base classes.
-2. Create concept classes for all existing `SpecificFunctionName` members,
-   with structured docstrings and basic `_defining_features`.
-3. Establish the formal_functions hierarchy (Beginning, Middle, End).
-4. Create concept classes for all existing `MainType` members.
-5. Wire the `VocabularyRegistry` to index both enums and classes.
-6. Add tests verifying hierarchy consistency.
-
-### Phase 3: Ontology Bridge (Weeks 10--14, overlapping with Phase 2)
-
-**Goal**: Generate OWL from Python and validate round-trip consistency.
-
-1. Implement `owl_export.py` using rdflib (and optionally owlready2).
-2. Generate a new `form_ontology.owl` from the Python model.
-3. Implement `owl_import.py` for validation.
-4. Add the `check-owl-sync` CI step.
-5. Generate first pyLODE HTML documentation.
-
-### Phase 4: Documentation Integration (Weeks 12--16)
-
-**Goal**: Auto-generated + manually curated documentation pipeline.
-
-1. Implement `vignette_stubs.py`: generate a stub directory for every concept.
-2. Implement `vocab_table.py`: replace the notebook.
-3. Update `_quarto.yml` to include generated content.
-4. Create `CONTRIBUTING.md` with instructions for editing vignettes.
-5. Establish the release workflow that rebuilds the guidelines site.
-6. Decide the future of the wiki submodule.
-
-### Phase 5: Validation Pipeline (Weeks 14--18)
-
-**Goal**: Continuous validation against the annotation pilot corpus.
-
-1. Expand `validate.py` with version-aware parsing.
-2. Implement label migration logic (old abbreviation -> current).
-3. Run validation against the full annotation pilot corpus.
-4. Produce a baseline validation report.
-5. Begin the dialectic process: identify labels that the grammar rejects
-   but should accept (or vice versa); iterate on the model.
-
-### Phase 6: Feature Modelling (Ongoing, from Week 16)
-
-**Goal**: Bottom-up feature definitions meeting top-down metaconcept specs.
-
-This is the long-term research work.  The architecture supports it; the
-content is driven by the musicological research.
-
----
-
-## 9. Open Questions Requiring Human Decision
-
-These are collected from throughout the document.  Each must be resolved before
-the relevant phase can proceed.
-
-### Q1. Terminology (Section 4.1)
-
-> Do `Metaconcept` / `Concept` / `Feature` / `FeatureSpec` work as names?
-> Do they align with how the team thinks about the model?
-
-### Q2. Enum-Class Coupling (Section 4.4)
-
-> How tightly should FancyStrEnum members be coupled to Concept classes?
-> (Options A/B/C)
-
-### Q3. Style-Layer Architecture (Section 4.5)
-
-> Should style-specific concepts be Python subclasses (inheritance) or
-> compositions (base concept + style configuration)?
-
-### Q4. OWL Modularity (Section 5.2)
-
-> Single monolithic OWL file or modular ontologies per metaconcept family?
-
-### Q5. Wiki Submodule Future (Section 5.3)
-
-> Keep the wiki submodule for browser editing, move everything to the repo,
-> or hybrid? (Options D1/D2/D3)
-
-### Q6. Vocabulary Visualization Scope (Section 5.4)
-
-> Is read-only visualization sufficient, or is in-browser model editing
-> required?
-
-### Q7. Spreadsheet Deprecation (Section 5.6)
-
-> Are there active spreadsheet users who need a transition period?
-
-### Q8. owlready2 Risk Mitigation (Section 7.1)
-
-> Use owlready2 behind abstraction, use rdflib-only, or pragmatic adoption?
-> (Options M1/M2/M3)
-
-### Q9. API Documentation Hosting (Section 7.3)
-
-> Integrated into the Quarto guidelines site or separate?
-
-### Q10. Grammar Generation vs. Validation (Section 5.1)
-
-> Generate vocabulary rules from Python, or manually maintain the grammar
-> and validate sync? (Options E1/E2)
-
-### Q11. Concept Definition Content
-
-> This is the big one: the architecture provides the *containers* for concept
-> definitions (docstrings, FeatureSpecs, vignettes), but the *content* must
-> come from the project team.  What is the process for collaboratively writing
-> and reviewing concept definitions?  Should there be a dedicated "definition
-> sprint" for each metaconcept family, or should definitions accrete
-> organically?
-
-### Q12. Relations as First-Class Metaconcept
-
-> The current standard encodes MaterialRelations.  The spec mentions
-> generalizing to a `Relations` superclass.  What other relation types are
-> anticipated?  Temporal relations (overlap, adjacency)?  Similarity relations?
-> This affects the concept hierarchy design.
-
-### Q13. Integration with External Ontologies
-
-> To what extent should CIDOC CRM and IFLA LRM classes appear in the Python
-> model?  Options:
-> - Import their OWL files and reference them via URIs only (loose coupling).
-> - Create Python wrapper classes for the relevant CRM/LRM classes (tight
->   coupling).
-> - Define our own classes that are *mapped to* CRM/LRM via `owl:equivalentClass`
->   or `rdfs:subClassOf` (moderate coupling).
-
----
-
-## Appendix A: Component Dependency Graph
-
-```
-                    +-----------------------+
-                    |   musicalform (Python) |
-                    |   [source of truth]    |
-                    +-----------+-----------+
-                                |
-          +----------+----------+----------+-----------+
-          |          |          |          |           |
-          v          v          v          v           v
-      +-------+  +------+  +------+  +--------+  +--------+
-      | EBNF  |  | OWL  |  | Docs |  | Vocab  |  | Valid. |
-      |grammar|  |ontol.|  | site |  | tables |  |pipeline|
-      +---+---+  +--+---+  +--+---+  +--------+  +----+---+
-          |          |         |                        |
-          v          v         v                        v
-      +-------+  +------+  +------+              +-----------+
-      |DHParser|  |pyLODE|  |Quarto|              |annot_pilot|
-      |parser  |  | HTML |  | HTML |              |  reports  |
-      +-------+  +------+  +------+              +-----------+
-```
-
-## Appendix B: Existing File Mapping to Proposed Structure
-
-| Current location | Proposed location | Action |
-|-----------------|-------------------|--------|
-| `musicalform/src/musicalform/enums.py` | `vocabulary/_base.py`, `vocabulary/functions.py`, `vocabulary/types.py`, etc. | Split by family |
-| `musicalform/src/musicalform/core.py` | `standard/label.py`, `standard/parsing.py`, `concepts/` | Split by concern |
-| `musicalform/src/musicalform/utils.py` | `utils.py` (unchanged) | Keep |
-| `musicalform/src/musicalform/cli/validate.py` | `cli/validate.py` (expanded) | Extend |
-| `grammar/lcma_standard.ebnf` | Remains; also generated/validated from Python | Bridge via `standard/grammar.py` |
-| `grammar/lcma_standardParser.py` | Moves into the musicalform library | Already effectively there via cli/ |
-| `ontology/protege/form_ontology.owl` | Regenerated from Python model | Archive old version |
-| `data/Form vocabulary.csv` | Generated from `VocabularyRegistry` | Archive old version |
-| `Vocabulary.ipynb` | Replaced by generated markdown table | Archive |
-| `wiki/vignettes/*.md` | `docs/vignettes/<concept>/content.md` + generated stubs | Restructure |
-| `wiki/*.md` | Remains or moves to repo root | TBD (Q5) |
-
-## Appendix C: Key Interface Contracts
-
-### C1. VocabularyRegistry API (minimum)
-
-```python
-class ConceptEntry:
-    canonical_name: str
-    abbreviations: tuple[str, ...]
-    aliases: tuple[str, ...]
-    enum_class: type[FancyStrEnum]
-    enum_member: FancyStrEnum
-    concept_class: type[Concept] | None  # None during migration
-    metaconcept: str
-    hierarchical_level: str | None
-    parent: str | None
-    children: tuple[str, ...]
-
 class VocabularyRegistry:
-    def lookup(self, term: str) -> ConceptEntry
-    def all_entries(self) -> list[ConceptEntry]
-    def by_metaconcept(self, name: str) -> list[ConceptEntry]
-    def by_level(self, level: str) -> list[ConceptEntry]
-    def hierarchy_roots(self) -> list[ConceptEntry]
-    def diff(self, other: VocabularyRegistry) -> VocabDiff
-    def to_dataframe(self) -> pd.DataFrame
-    def to_skos(self) -> rdflib.Graph
-    def to_dot(self) -> str  # Graphviz DOT
-    def validate_ebnf(self, ebnf_path: Path) -> list[SyncIssue]
+    """Runtime lookup for the generated vocabulary."""
+
+    def lookup(self, name_or_abbreviation: str) -> ConceptEntry: ...
+
+    def by_level(self, level: str) -> list[ConceptEntry]: ...
+
+    def by_category(self, category: str) -> list[ConceptEntry]: ...
+
+    def all_abbreviations(self) -> dict[str, str]: ...
+
+    def contains_tree(self, concept: str) -> dict: ...
 ```
 
-### C2. OWL Export Contract
+#### B.3 Generator Interface
+
+Each generator follows the same interface:
 
 ```python
-def export_owl(
-    registry: VocabularyRegistry,
-    concept_classes: list[type[Concept]],
-    base_uri: str = "https://musicalform.github.io/ontology/",
-    format: str = "xml",  # or "turtle", "json-ld"
-) -> rdflib.Graph
+def generate(
+        yaml_dir: Path,  # Directory containing YAML control files
+        output_path: Path,  # Output file path
+        check_only: bool = False  # If True, compare but do not write
+) -> bool:  # Returns True if output matches source
+    ...
 ```
 
-### C3. Vignette Stub Contract
+When `check_only=True`, the generator produces output in memory and compares
+it to the existing file at `output_path`. Returns `True` if they match,
+`False` (and prints a diff) if they diverge. This is the mechanism used by
+the `check-sync` CI job.
 
-Each generated stub contains at minimum:
+### Appendix C: File Mapping (Current -> Future)
 
-```markdown
----
-title: "{concept.canonical_name}"
-generated: true
-model_version: "0.2.0"
----
+| Current file                           | Future status                   | Replacement                              |
+|----------------------------------------|---------------------------------|------------------------------------------|
+| `data/Form vocabulary.csv`             | Deprecated                      | `vocabulary/*.yaml`                      |
+| `Vocabulary.ipynb`                     | Deprecated                      | Generated reference pages                |
+| `grammar/lcma_standard.ebnf`           | Generated                       | From `vocabulary/*.yaml` via G3b         |
+| `grammar/lcma_standardParser.py`       | Removed                         | Single copy in musicalform package       |
+| `musicalform/src/musicalform/enums.py` | Generated                       | From `vocabulary/*.yaml` via G3a         |
+| `musicalform/src/musicalform/core.py`  | Manually maintained             | Metaconcept hierarchy stays in Python    |
+| `ontology/protege/form_ontology.owl`   | Deprecated (kept for reference) | `ontology/generated/lcma_ontology.ttl`   |
+| `wiki/vignettes/*.md`                  | Hybrid                          | Headers generated, body manually curated |
+| `wiki/*.md` (non-vignette)             | Manually maintained             | No change                                |
+| `_quarto.yml`                          | Manually maintained             | Updated to include generated content     |
 
-# {concept.canonical_name}
+### Appendix D: Technological Debt Inventory
 
-**Abbreviation(s)**: {concept.abbreviations}
-**Metaconcept**: {concept.metaconcept}
-**Parent**: {concept.parent}
-**Hierarchical level**: {concept.hierarchical_level}
+Every 3rd-party dependency creates potential technological debt. The
+following table assesses the risk for each dependency in the recommended
+architecture.
 
-## Formal Definition
-
-{concept.docstring.formal_section}
-
-## Defining Features
-
-| Feature | Required | Values |
-|---------|----------|--------|
-{concept.feature_table}
-
-## Child Concepts
-
-{concept.children_list}
-
-## Related Concepts
-
-{concept.related_list}
-
----
-
-*This section is auto-generated from the musicalform library v{version}.
-Do not edit above this line.  Curated content follows below.*
-
-{{< include content.md >}}
-```
+| Dependency                 | Role                      | Maintenance status                    | Replacement difficulty                              | Risk       |
+|----------------------------|---------------------------|---------------------------------------|-----------------------------------------------------|------------|
+| **DHParser**               | EBNF -> parser generation | Maintained (small team)               | Medium (Lark is a viable alternative)               | Medium     |
+| **RDFLib**                 | OWL/RDF manipulation      | Well-maintained, large community      | Low (standard Python RDF library)                   | Low        |
+| **pySHACL**                | SHACL validation          | Maintained                            | Medium (could use SPARQL-based checks)              | Low-Medium |
+| **Quarto**                 | Documentation rendering   | Well-maintained (Posit)               | Medium (MkDocs or Sphinx as alternatives)           | Low        |
+| **LinkML** (if adopted)    | YAML schema + generators  | Actively developed, growing community | High (would need custom generators)                 | Medium     |
+| **VocBench** (if deployed) | Ontology browsing         | EU-funded, actively developed         | Low (optional convenience; not the source of truth) | Low        |
+| **pandas**                 | CSV/data processing       | Standard Python library               | Low                                                 | Negligible |
+| **release-please**         | Version management        | Google-maintained                     | Low (conventional-commits alternatives exist)       | Low        |
+| **tox/pytest**             | Testing                   | Standard Python ecosystem             | Low                                                 | Negligible |
