@@ -1,3 +1,6 @@
 [submodule "wiki"]
 	path = wiki
 	url = https://github.com/MusicalForm/guidelines.wiki.git
+[submodule "musicalform"]
+	path = musicalform
+	url = git@github.com:MusicalForm/musicalform.git
