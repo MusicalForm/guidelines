@@ -44,9 +44,6 @@ from musicalform.cli.validate import (  # noqa: F401 — re-exported for backwar
     main,
     parse_args,
     parse_csv_file,
-    parse_expression,
-    parse_expression_as,
-    parse_expression_as_dict,
     parse_expression_as_objects,
     parse_file,
     parse_file_as,
@@ -58,6 +55,7 @@ from musicalform.cli.validate import (  # noqa: F401 — re-exported for backwar
     resolve_output_path,
     run,
 )
+from musicalform.utils import parse_expression, parse_expression_as, parse_expression_as_dict
 
 if __name__ == "__main__":
     run()
