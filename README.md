@@ -14,3 +14,5 @@ When you have [Quarto installed](https://quarto.org/docs/get-started/) you can r
 * Then `quarto render`:
     * Commit the changed homepage in the `docs` folder together with the updated submodule (which is now pointing to to the latest commit).
     * A few seconds (30-60) after you push, the homepage will update.
+
+**Make sure to run the Vocabulary.ipynb notebook!**
