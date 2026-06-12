@@ -11,7 +11,8 @@
 
 <https://musicalform.github.io/music-analysis/> rdf:type owl:Ontology ;
                                                  owl:imports <http://cidoc-crm.org/extensions/lrmoo/owl/1.1.1/> ,
-                                                             <http://www.cidoc-crm.org/cidoc-crm/owl/7.1.3/> .
+                                                             <http://www.cidoc-crm.org/cidoc-crm/owl/7.1.3/> ,
+                                                             <http://www.cidoc-crm.org/extensions/crminf/owl/1.2.1/> .
 
 #################################################################
 #    Annotation properties
