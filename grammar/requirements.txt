@@ -1,3 +1,0 @@
-dhparser
-pandas
-pre-commit

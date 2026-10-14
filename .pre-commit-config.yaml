@@ -1,7 +1,6 @@
 exclude: |
   (?x)^(
-    docs/conf.py|
-    grammar/lcma_standardParser.py
+    docs/conf.py
   )$
 
 repos:
