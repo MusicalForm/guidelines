@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="User Entered Import Resolution" name="http://www.cidoc-crm.org/extensions/crmsci/owl/3.2/" uri="CRMsci_v3.2.owl"/>
+    <uri id="User Entered Import Resolution" name="http://www.cidoc-crm.org/extensions/crminf/owl/1.2.1/" uri="CRMinf_v1.2.1.owl"/>
+    <uri id="User Entered Import Resolution" name="http://www.cidoc-crm.org/cidoc-crm/owl/7.1.3/" uri="CIDOC_CRM_v7.1.3.owl"/>
+    <uri id="User Entered Import Resolution" name="http://cidoc-crm.org/extensions/lrmoo/owl/1.1.1/" uri="LRMoo_v1.1.1.owl"/>
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1786778995699" name="http://iflastandards.info/ns/lrm/lrmoo/" uri="LRMoo_v1.1.1.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1786778995699" name="http://www.cidoc-crm.org/cidoc-crm/" uri="CIDOC_CRM_v7.1.3.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1786778995699" name="http://www.cidoc-crm.org/extensions/crminf/" uri="CRMinf_v1.2.1.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1786778995699" name="http://www.cidoc-crm.org/extensions/crmsci/" uri="CRMsci_v3.2.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1786778995699" name="urn:webprotege:ontology:708b6f4e-7910-4a41-ab14-8769e0b9ab42" uri="form_ontology.owl"/>
+    </group>
+</catalog>
